@@ -167,6 +167,9 @@ func _die() -> void:
 # ─────────────────────────────────────────
 # ВВОД БУКВ (ДИНАМИЧЕСКОЕ ПЕРЕКЛЮЧЕНИЕ ЦЕЛЕЙ)
 # ─────────────────────────────────────────
+# ─────────────────────────────────────────
+# ВВОД БУКВ (ДИНАМИЧЕСКОЕ УТОЧНЕНИЕ ЦЕЛИ)
+# ─────────────────────────────────────────
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_key_pressed(KEY_SHIFT):
 		return
@@ -177,7 +180,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _process_letter(letter: String) -> void:
-	# СЦЕНАРИЙ 1: У нас нет активной цели (начинаем вводить новое слово)
+	# СЦЕНАРИЙ 1: Нет активной цели (начинаем вводить новое слово)
 	if target_enemy == null or not is_instance_valid(target_enemy):
 		var found := _find_and_lock_target(letter)
 		if found:
@@ -192,12 +195,12 @@ func _process_letter(letter: String) -> void:
 	var expected_letter: String = word[current_input.length()]
 
 	if letter == expected_letter:
-		# Буква подошла текущему врагу
+		# Буква идеально подошла текущей цели
 		current_input += letter
 		target_enemy.highlight_progress(current_input.length())
 		emit_signal("letter_correct")
 
-		# Если слово полностью дописано
+		# Если слово полностью допечатано
 		if current_input.length() >= word.length():
 			emit_signal("word_completed")
 			target_enemy._assign_new_word()
@@ -205,27 +208,36 @@ func _process_letter(letter: String) -> void:
 			current_input = ""
 			target_enemy = null
 	else:
-		# ОШИБКА: Набранная буква не подходит текущему врагу.
-		emit_signal("letter_error")
+		# СЦЕНАРИЙ 3: Буква НЕ подошла текущей цели. 
+		# Проверяем, может игрок вводит продолжение слова для ДРУГОГО врага?
+		var combined_string := current_input + letter # Склеиваем старый ввод и новую букву (н-р: "f" + "r" = "fr")
+		var switched := _find_and_lock_target(combined_string)
 		
-		# Снимаем фокус и сбрасываем подсветку со старого врага
-		target_enemy.highlight_progress(0)
-		target_enemy = null
-		current_input = ""
-		
-		# МГНОВЕННОЕ ПЕРЕКЛЮЧЕНИЕ:
-		# Проверяем, может эта "ошибочная" буква является началом слова для другого врага?
-		var found_other := _find_and_lock_target(letter)
-		if found_other:
-			# Если нашли, то для нового врага эта буква сразу засчитывается как правильный старт!
+		if switched:
+			# Ура! Нашелся враг (пусть и далеко), которому этот префикс подходит лучше.
+			# Мы плавно перехватили фокус на него (старый таргет сбросился внутри функции)
 			emit_signal("letter_correct")
+		else:
+			# СЦЕНАРИЙ 4: Абсолютный промах. Такой комбинации букв вообще нет на экране.
+			emit_signal("letter_error")
+			
+			# Полностью сбрасываем старую цель
+			if target_enemy != null and is_instance_valid(target_enemy):
+				target_enemy.highlight_progress(0)
+			
+			target_enemy = null
+			current_input = ""
+			
+			# На всякий случай проверяем: может, эта ошибочная буква — старт для кого-то третьего?
+			var found_new := _find_and_lock_target(letter)
+			if found_new:
+				emit_signal("letter_correct")
 
 	_update_input_display()
 
 
-# Вспомогательный метод: ищет ближайшего врага на указанную букву и захватывает его
-# Возвращает true, если враг найден и захвачен
-func _find_and_lock_target(letter: String) -> bool:
+# Универсальный метод поиска и захвата цели по любому префиксу (одной букве или части слова)
+func _find_and_lock_target(prefix: String) -> bool:
 	var enemies := get_tree().get_nodes_in_group("enemies")
 	var closest_distance := INF
 	var closest_enemy: Node = null
@@ -234,20 +246,23 @@ func _find_and_lock_target(letter: String) -> bool:
 		if not is_instance_valid(enemy):
 			continue
 		var word: String = enemy.get_word()
-		if word.begins_with(letter):
+		if word.begins_with(prefix):
 			var dist := global_position.distance_to(enemy.global_position)
 			if dist < closest_distance:
 				closest_distance = dist
 				closest_enemy    = enemy
 
 	if closest_enemy != null:
+		# Если мы переключаемся на НОВОГО врага, снимаем подсветку со старого
+		if target_enemy != null and is_instance_valid(target_enemy) and target_enemy != closest_enemy:
+			target_enemy.highlight_progress(0)
+			
 		target_enemy = closest_enemy
-		current_input = letter
-		target_enemy.highlight_progress(1)
+		current_input = prefix
+		target_enemy.highlight_progress(prefix.length())
 		return true
 		
 	return false
-	
 func _shoot_projectile(enemy: Node) -> void:
 	if projectile_scene == null:
 		return
