@@ -195,7 +195,7 @@ func _spawn_pickups(player_node: Node) -> void:
 		pickup.set_script(pickup_script)
 		pickup.pickup_type = "score"
 		pickup.score_value = max(1, score_reward / 3)   # треть очков врага
-		get_tree().current_scene.add_child(pickup)
+		get_tree().current_scene.add_child.call_deferred(pickup)
 		# Разлетаются немного в стороны
 		var offset := Vector2(randf_range(-20, 20), randf_range(-20, 20))
 		pickup.global_position = global_position + offset
