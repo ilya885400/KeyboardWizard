@@ -1,0 +1,167 @@
+[gd_scene load_steps=2 format=3 uid="uid://upgrademenu_scene"]
+
+[ext_resource type="Script" path="res://scripts/upgrade_menu.gd" id="1_menu"]
+
+[node name="UpgradeMenu" type="CanvasLayer"]
+script = ExtResource("1_menu")
+layer = 20
+visible = false
+
+[node name="Dimmer" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.0, 0.0, 0.0, 0.65)
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="."]
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -280.0
+offset_right = 210.0
+offset_bottom = 280.0
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 16.0
+offset_right = -20.0
+offset_bottom = -16.0
+theme_override_constants/separation = 10
+
+[node name="LevelLabel" type="Label" parent="Panel/VBox"]
+text = "Уровень 2!\nВыбери улучшение:"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.9, 0.8, 1.0, 1.0)
+autowrap_mode = 3
+
+[node name="HSep" type="HSeparator" parent="Panel/VBox"]
+theme_override_constants/separation = 6
+
+; ── КАРТОЧКА: СКОРОСТЬ ────────────────────────────────────────────────
+[node name="SpeedCard" type="PanelContainer" parent="Panel/VBox"]
+process_mode = 3
+
+[node name="VBox" type="VBoxContainer" parent="Panel/VBox/SpeedCard"]
+theme_override_constants/separation = 4
+
+[node name="HBox" type="HBoxContainer" parent="Panel/VBox/SpeedCard/VBox"]
+theme_override_constants/separation = 12
+
+[node name="Icon" type="Label" parent="Panel/VBox/SpeedCard/VBox/HBox"]
+text = "⚡"
+theme_override_font_sizes/font_size = 28
+vertical_alignment = 1
+
+[node name="TextVBox" type="VBoxContainer" parent="Panel/VBox/SpeedCard/VBox/HBox"]
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="Panel/VBox/SpeedCard/VBox/HBox/TextVBox"]
+text = "Скорость бега"
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1.0, 0.95, 0.6, 1.0)
+
+[node name="Desc" type="Label" parent="Panel/VBox/SpeedCard/VBox/HBox/TextVBox"]
+text = "+40 к скорости перемещения"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1.0)
+
+[node name="WordLabel" type="Label" parent="Panel/VBox/SpeedCard/VBox"]
+text = "fire"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.9, 0.9, 1.0, 1.0)
+
+; ── КАРТОЧКА: КОРОЧЕ СЛОВА ────────────────────────────────────────────
+[node name="WordsCard" type="PanelContainer" parent="Panel/VBox"]
+process_mode = 3
+
+[node name="VBox" type="VBoxContainer" parent="Panel/VBox/WordsCard"]
+theme_override_constants/separation = 4
+
+[node name="HBox" type="HBoxContainer" parent="Panel/VBox/WordsCard/VBox"]
+theme_override_constants/separation = 12
+
+[node name="Icon" type="Label" parent="Panel/VBox/WordsCard/VBox/HBox"]
+text = "📖"
+theme_override_font_sizes/font_size = 28
+vertical_alignment = 1
+
+[node name="TextVBox" type="VBoxContainer" parent="Panel/VBox/WordsCard/VBox/HBox"]
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="Panel/VBox/WordsCard/VBox/HBox/TextVBox"]
+text = "Короче слова"
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.6, 1.0, 0.8, 1.0)
+
+[node name="Desc" type="Label" parent="Panel/VBox/WordsCard/VBox/HBox/TextVBox"]
+text = "−1 буква к длине слов врагов"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1.0)
+
+[node name="WordLabel" type="Label" parent="Panel/VBox/WordsCard/VBox"]
+text = "rune"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.9, 0.9, 1.0, 1.0)
+
+; ── КАРТОЧКА: HP ──────────────────────────────────────────────────────
+[node name="HPCard" type="PanelContainer" parent="Panel/VBox"]
+process_mode = 3
+
+[node name="VBox" type="VBoxContainer" parent="Panel/VBox/HPCard"]
+theme_override_constants/separation = 4
+
+[node name="HBox" type="HBoxContainer" parent="Panel/VBox/HPCard/VBox"]
+theme_override_constants/separation = 12
+
+[node name="Icon" type="Label" parent="Panel/VBox/HPCard/VBox/HBox"]
+text = "❤️"
+theme_override_font_sizes/font_size = 28
+vertical_alignment = 1
+
+[node name="TextVBox" type="VBoxContainer" parent="Panel/VBox/HPCard/VBox/HBox"]
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="Panel/VBox/HPCard/VBox/HBox/TextVBox"]
+text = "Жизненная сила"
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1.0, 0.5, 0.5, 1.0)
+
+[node name="Desc" type="Label" parent="Panel/VBox/HPCard/VBox/HBox/TextVBox"]
+text = "+30 к макс. HP и восстановление"
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1.0)
+
+[node name="WordLabel" type="Label" parent="Panel/VBox/HPCard/VBox"]
+text = "soul"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.9, 0.9, 1.0, 1.0)
+
+; ── ПОЛЕ ВВОДА (внизу) ────────────────────────────────────────────────
+[node name="HSep2" type="HSeparator" parent="Panel/VBox"]
+theme_override_constants/separation = 4
+
+[node name="InputRow" type="HBoxContainer" parent="Panel/VBox"]
+process_mode = 3
+alignment = 1
+
+[node name="Cursor" type="Label" parent="Panel/VBox/InputRow"]
+text = ">"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.5, 1.0, 0.7, 1.0)
+
+[node name="InputLabel" type="Label" parent="Panel/VBox/InputRow"]
+text = ""
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.9, 0.9, 1.0, 1.0)

@@ -1,0 +1,210 @@
+[gd_scene format=3 uid="uid://ccblb78o3lfpn"]
+
+[ext_resource type="Script" uid="uid://oof43imgtk75" path="res://scripts/player.gd" id="1_player"]
+[ext_resource type="Texture2D" uid="uid://cqc885ae3lmt7" path="res://pixel_assets/wizard/pixel/wizard_attack.png" id="2_70d11"]
+[ext_resource type="Script" uid="uid://bmxo00af6cv18" path="res://scripts/spell_manager.gd" id="2_spells"]
+[ext_resource type="Texture2D" uid="uid://week7ake07pe" path="res://assets/wizard_idle.svg" id="3_tex_idle"]
+[ext_resource type="Texture2D" uid="uid://cqcyovs8ejas0" path="res://pixel_assets/wizard/pixel/walk.png" id="4_cw2d6"]
+[ext_resource type="Texture2D" uid="uid://b4nmqldsig835" path="res://assets/wizard_cast.svg" id="4_tex_cast"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_player"]
+radius = 16.0
+height = 60.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khinc"]
+atlas = ExtResource("2_70d11")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bruh7"]
+atlas = ExtResource("2_70d11")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6eyey"]
+atlas = ExtResource("2_70d11")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3wef"]
+atlas = ExtResource("2_70d11")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4126"]
+atlas = ExtResource("2_70d11")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lkdrv"]
+atlas = ExtResource("4_cw2d6")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7iby"]
+atlas = ExtResource("4_cw2d6")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rnld"]
+atlas = ExtResource("4_cw2d6")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_srp4u"]
+atlas = ExtResource("4_cw2d6")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jfpux"]
+atlas = ExtResource("4_cw2d6")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_61ith"]
+atlas = ExtResource("4_cw2d6")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebwui"]
+atlas = ExtResource("4_cw2d6")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wizard"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khinc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bruh7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6eyey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3wef")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4126")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_tex_cast")
+}],
+"loop": false,
+"name": &"cast",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkdrv")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_tex_idle")
+}],
+"loop": true,
+"name": &"idle_old",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7iby")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rnld")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_srp4u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jfpux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_61ith")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ebwui")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D" unique_id=1850020892 groups=["player"]]
+script = ExtResource("1_player")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=109180129]
+position = Vector2(0, 20)
+shape = SubResource("CapsuleShape2D_player")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1001598601]
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_wizard")
+animation = &"attack"
+autoplay = "idle"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1685721350]
+layer = 10
+
+[node name="StatsPanel" type="Panel" parent="CanvasLayer" unique_id=846778541]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 220.0
+offset_bottom = 110.0
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/StatsPanel" unique_id=426967694]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = -10.0
+offset_bottom = -8.0
+theme_override_constants/separation = 6
+
+[node name="LevelLabel" type="Label" parent="CanvasLayer/StatsPanel/VBox" unique_id=1464638207]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Уровень: 1"
+
+[node name="ExpLabel" type="Label" parent="CanvasLayer/StatsPanel/VBox" unique_id=1147046380]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 1, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "XP: 0 / 10"
+
+[node name="HPLabel" type="Label" parent="CanvasLayer/StatsPanel/VBox" unique_id=1460372230]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.45, 0.45, 1)
+theme_override_font_sizes/font_size = 14
+text = "HP: 100 / 100"
+
+[node name="InputPanel" type="Panel" parent="CanvasLayer" unique_id=1027552154]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -64.0
+offset_right = 120.0
+offset_bottom = -12.0
+
+[node name="InputLabel" type="Label" parent="CanvasLayer/InputPanel" unique_id=1652605742]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_colors/font_color = Color(1, 0.9, 0.3, 1)
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InvincibilityTimer" type="Timer" parent="." unique_id=1111111111]
+wait_time = 0.8
+one_shot = true
+
+[node name="FlashTimer" type="Timer" parent="." unique_id=-2072745074]
+wait_time = 0.15
+one_shot = true
+
+[node name="SpellManager" type="Node" parent="." unique_id=698485899]
+script = ExtResource("2_spells")

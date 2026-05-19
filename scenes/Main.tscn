@@ -1,0 +1,293 @@
+[gd_scene format=3 uid="uid://bdmrf34e4ly7w"]
+
+[ext_resource type="Script" uid="uid://bl6bmn3njsfln" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://cwn3f1mckabov" path="res://scripts/enemy_manager.gd" id="2_mgr"]
+[ext_resource type="PackedScene" uid="uid://d4a607q1lr42x" path="res://scenes/Projectile.tscn" id="3_c01mt"]
+[ext_resource type="PackedScene" uid="uid://ccblb78o3lfpn" path="res://scenes/Player.tscn" id="3_player"]
+[ext_resource type="PackedScene" uid="uid://b0535ubcjbrtp" path="res://scenes/Enemy.tscn" id="4_enemy"]
+[ext_resource type="PackedScene" path="res://scenes/UpgradeMenu.tscn" id="5_menu"]
+[ext_resource type="PackedScene" uid="uid://dppnmoa3rs8iw" path="res://scenes/EnemyGoblin.tscn" id="6_q8u5g"]
+[ext_resource type="PackedScene" uid="uid://bxfm1nu8j665e" path="res://scenes/EnemyWraith.tscn" id="7_lhr70"]
+[ext_resource type="PackedScene" uid="uid://ccimgpbhan3mn" path="res://scenes/EnemyTroll.tscn" id="8_wp0k4"]
+
+[sub_resource type="AudioStream" id="AudioStream_c01mt"]
+
+[sub_resource type="AudioStream" id="AudioStream_nxtc6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hud"]
+content_margin_left = 12.0
+content_margin_top = 4.0
+content_margin_right = 12.0
+content_margin_bottom = 4.0
+bg_color = Color(0.06, 0.04, 0.12, 0.78)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.25, 0.65, 0.8)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel_dark"]
+bg_color = Color(0.08, 0.05, 0.14, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45, 0.3, 0.75, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Main" type="Node2D" unique_id=957658741]
+process_mode = 3
+script = ExtResource("1_main")
+
+[node name="Background" type="ColorRect" parent="." unique_id=2067019981]
+z_index = -10
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.1, 0.07, 0.17, 1)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1669527235]
+color = Color(0.18039216, 0.12156863, 0.2784314, 1)
+
+[node name="Player" parent="." unique_id=747682325 instance=ExtResource("3_player")]
+motion_mode = 1
+projectile_scene = ExtResource("3_c01mt")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1314648986]
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
+
+[node name="EnemyManager" type="Node2D" parent="." unique_id=494262959]
+script = ExtResource("2_mgr")
+enemy_scene = ExtResource("4_enemy")
+goblin_scene = ExtResource("6_q8u5g")
+wraith_scene = ExtResource("7_lhr70")
+troll_scene = ExtResource("8_wp0k4")
+
+[node name="SpawnTimer" type="Timer" parent="EnemyManager" unique_id=1405489156]
+wait_time = 2.5
+autostart = true
+
+[node name="UpgradeMenu" parent="." unique_id=12205706 instance=ExtResource("5_menu")]
+
+[node name="AudioManager" type="Node" parent="." unique_id=1963440331]
+
+[node name="SFX_Cast" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=2001048537]
+stream = SubResource("AudioStream_c01mt")
+volume_db = -6.0
+max_distance = 800.0
+
+[node name="SFX_EnemyDeath" type="AudioStreamPlayer2D" parent="AudioManager" unique_id=274914258]
+stream = SubResource("AudioStream_nxtc6")
+volume_db = -4.0
+max_distance = 800.0
+
+[node name="Music" type="AudioStreamPlayer" parent="AudioManager" unique_id=1519412696]
+volume_db = -12.0
+autoplay = true
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1173551988]
+layer = 5
+
+[node name="ScorePanel" type="PanelContainer" parent="HUD" unique_id=1397963924]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -110.0
+offset_top = 12.0
+offset_right = 110.0
+offset_bottom = 48.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud")
+
+[node name="ScoreLabel" type="Label" parent="HUD/ScorePanel" unique_id=1871535754]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.3, 1)
+theme_override_font_sizes/font_size = 20
+text = "Очки: 0"
+horizontal_alignment = 1
+
+[node name="TimerPanel" type="PanelContainer" parent="HUD" unique_id=717497091]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -110.0
+offset_top = 56.0
+offset_right = 110.0
+offset_bottom = 90.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud")
+
+[node name="TimerLabel" type="Label" parent="HUD/TimerPanel" unique_id=1980437608]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Время: 10:00"
+horizontal_alignment = 1
+
+[node name="WinScreen" type="CanvasLayer" parent="." unique_id=2027264469]
+layer = 30
+visible = false
+
+[node name="Dimmer" type="ColorRect" parent="WinScreen" unique_id=1403895856]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.72)
+
+[node name="Panel" type="Panel" parent="WinScreen" unique_id=2011246615]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -310.0
+offset_right = 260.0
+offset_bottom = 310.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel_dark")
+
+[node name="VBox" type="VBoxContainer" parent="WinScreen/Panel" unique_id=1145569641]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = -24.0
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="WinScreen/Panel/VBox" unique_id=1374035024]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.2, 1)
+theme_override_font_sizes/font_size = 42
+text = "🏆 ПОБЕДА!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="WinScreen/Panel/VBox" unique_id=1340532996]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.65, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Ты выжил все 10 минут!"
+horizontal_alignment = 1
+
+[node name="HSep1" type="HSeparator" parent="WinScreen/Panel/VBox" unique_id=867888644]
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="WinScreen/Panel/VBox" unique_id=1924422309]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 1, 0.6, 1)
+theme_override_font_sizes/font_size = 26
+text = "Ваш счёт: 0"
+horizontal_alignment = 1
+
+[node name="HSep2" type="HSeparator" parent="WinScreen/Panel/VBox" unique_id=779981863]
+layout_mode = 2
+
+[node name="LeaderLabel" type="Label" parent="WinScreen/Panel/VBox" unique_id=1376415155]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.85, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "── Таблица рекордов ──"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HSep3" type="HSeparator" parent="WinScreen/Panel/VBox" unique_id=190551945]
+layout_mode = 2
+
+[node name="HintLabel" type="Label" parent="WinScreen/Panel/VBox" unique_id=1617908340]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.55, 0.65, 1)
+theme_override_font_sizes/font_size = 15
+text = "Нажми Enter чтобы сыграть снова"
+horizontal_alignment = 1
+
+[node name="GameOverScreen" type="CanvasLayer" parent="." unique_id=442045867]
+layer = 30
+visible = false
+
+[node name="Dimmer" type="ColorRect" parent="GameOverScreen" unique_id=118215360]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.72)
+
+[node name="Panel" type="Panel" parent="GameOverScreen" unique_id=924828960]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -310.0
+offset_right = 260.0
+offset_bottom = 310.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel_dark")
+
+[node name="VBox" type="VBoxContainer" parent="GameOverScreen/Panel" unique_id=1436079255]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = -24.0
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="GameOverScreen/Panel/VBox" unique_id=687193646]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+theme_override_font_sizes/font_size = 42
+text = "💀 ПОРАЖЕНИЕ"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="GameOverScreen/Panel/VBox" unique_id=1327953719]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.65, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Враги тебя одолели..."
+horizontal_alignment = 1
+
+[node name="HSep1" type="HSeparator" parent="GameOverScreen/Panel/VBox" unique_id=1327563610]
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="GameOverScreen/Panel/VBox" unique_id=68877458]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 1, 0.6, 1)
+theme_override_font_sizes/font_size = 26
+text = "Ваш счёт: 0"
+horizontal_alignment = 1
+
+[node name="HSep2" type="HSeparator" parent="GameOverScreen/Panel/VBox" unique_id=1816946937]
+layout_mode = 2
+
+[node name="LeaderLabel" type="Label" parent="GameOverScreen/Panel/VBox" unique_id=390731104]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.85, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "── Таблица рекордов ──"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HSep3" type="HSeparator" parent="GameOverScreen/Panel/VBox" unique_id=2107335008]
+layout_mode = 2
+
+[node name="HintLabel" type="Label" parent="GameOverScreen/Panel/VBox" unique_id=444840924]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.55, 0.65, 1)
+theme_override_font_sizes/font_size = 15
+text = "Нажми Enter чтобы сыграть снова"
+horizontal_alignment = 1

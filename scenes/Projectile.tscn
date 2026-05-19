@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://d4a607q1lr42x"]
+
+[ext_resource type="Script" uid="uid://d344yin5nfufs" path="res://scripts/projectile.gd" id="1_proj"]
+[ext_resource type="Texture2D" uid="uid://ctgjxbrhwqhgx" path="res://assets/projectile_fire.svg" id="2_tex_fire"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_proj"]
+radius = 8.0
+
+[sub_resource type="Gradient" id="Gradient_fire"]
+colors = PackedColorArray(1, 0.8, 0.2, 1, 1, 0.3, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTex_fire"]
+gradient = SubResource("Gradient_fire")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleMat_fire"]
+direction = Vector3(-1, 0, 0)
+spread = 20.0
+initial_velocity_min = 20.0
+initial_velocity_max = 60.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.3
+scale_max = 0.8
+color = Color(1, 0.5, 0.1, 0.8)
+color_ramp = SubResource("GradientTex_fire")
+
+[sub_resource type="Gradient" id="Gradient_vihyi"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_kdm4f"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vihyi"]
+noise = SubResource("FastNoiseLite_kdm4f")
+color_ramp = SubResource("Gradient_vihyi")
+
+[node name="Projectile" type="Area2D" unique_id=1759336465]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_proj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=198780010]
+shape = SubResource("CircleShape2D_proj")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2085538221]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_tex_fire")
+
+[node name="Trail" type="GPUParticles2D" parent="." unique_id=31474290]
+amount = 16
+lifetime = 0.3
+randomness = 0.3
+fixed_fps = 0
+process_material = SubResource("ParticleMat_fire")
+
+[node name="LifetimeTimer" type="Timer" parent="." unique_id=667767690]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="SpawnLight" type="PointLight2D" parent="." unique_id=319192880]
+color = Color(1, 0.6, 0.2, 1)
+energy = 0.5
+texture = SubResource("NoiseTexture2D_vihyi")
+texture_scale = 25.0

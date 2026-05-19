@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://b0535ubcjbrtp"]
+
+[ext_resource type="Script" uid="uid://cwl7objceljm4" path="res://scripts/enemy.gd" id="1_enemy"]
+[ext_resource type="Texture2D" uid="uid://efrbbsvb56fp" path="res://pixel_assets/pixel_enemies/pixel_skeleton/skeleton.png" id="2_55jtl"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_enemy"]
+radius = 14.0
+height = 52.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mpr68"]
+atlas = ExtResource("2_55jtl")
+region = Rect2(0, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ft8do"]
+atlas = ExtResource("2_55jtl")
+region = Rect2(16, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5wwv6"]
+atlas = ExtResource("2_55jtl")
+region = Rect2(32, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vja8"]
+atlas = ExtResource("2_55jtl")
+region = Rect2(48, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwav8"]
+atlas = ExtResource("2_55jtl")
+region = Rect2(64, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1i2q2"]
+atlas = ExtResource("2_55jtl")
+region = Rect2(80, 0, 16, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_enemy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mpr68")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ft8do")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5wwv6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1vja8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iwav8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1i2q2")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_detect"]
+radius = 600.0
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1788714484 groups=["enemies"]]
+script = ExtResource("1_enemy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1762736849]
+position = Vector2(0, 16)
+shape = SubResource("CapsuleShape2D_enemy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=796963195]
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_enemy")
+animation = &"walk"
+autoplay = "walk"
+
+[node name="WordLabel" type="RichTextLabel" parent="." unique_id=426150381]
+offset_left = -48.0
+offset_top = -110.0
+offset_right = 48.0
+offset_bottom = -78.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "[center][color=#ffffff]WORD[/color][/center]"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="LabelBG" type="Panel" parent="." unique_id=1806616539]
+visible = false
+z_index = -1
+offset_left = -52.0
+offset_top = -114.0
+offset_right = 52.0
+offset_bottom = -78.0
+
+[node name="HPBar" type="ProgressBar" parent="." unique_id=217304927]
+visible = false
+offset_left = -30.0
+offset_top = -102.0
+offset_right = 30.0
+offset_bottom = -75.0
+theme_override_colors/font_color = Color(0, 0, 0, 0)
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=1020472523]
+
+[node name="DetectionShape" type="CollisionShape2D" parent="DetectionArea" unique_id=733252821]
+shape = SubResource("CircleShape2D_detect")
