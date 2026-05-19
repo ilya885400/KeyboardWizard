@@ -2,14 +2,13 @@ extends Node2D
 
 # ==========================================
 # МЕНЕДЖЕР ВРАГОВ
-# Спавнит разные типы врагов в зависимости от сложности.
-# Skeleton → появляется сразу.
-# Goblin   → добавляется с уровня 2 (быстрый, слабый).
-# Wraith   → добавляется с уровня 3 (средний, 2 HP).
-# Troll    → добавляется с уровня 5 (медленный, 4 HP).
+# Поддерживает два режима:
+#   1. Обычная игра (typing_mode = false) — оригинальное поведение.
+#   2. Обучение слепой печати (typing_mode = true) — слова только из
+#      словаря текущего урока, параметры сложности из урока.
 # ==========================================
 
-@export var enemy_scene: PackedScene           # Enemy.tscn (скелет, оригинал)
+@export var enemy_scene: PackedScene           # Enemy.tscn (скелет)
 @export var goblin_scene: PackedScene          # EnemyGoblin.tscn
 @export var wraith_scene: PackedScene          # EnemyWraith.tscn
 @export var troll_scene: PackedScene           # EnemyTroll.tscn
@@ -20,11 +19,16 @@ extends Node2D
 
 @onready var spawn_timer: Timer = $SpawnTimer
 
-# ── НОВОЕ: сигнал для передачи очков в Main ───────────────────────────────────
 signal enemy_killed(points: int)
 
 # ─────────────────────────────────────────
-# СЛОВАРЬ СЛОВ
+# РЕЖИМ ОБУЧЕНИЯ
+# ─────────────────────────────────────────
+var typing_mode: bool = false
+var lesson_index: int = 0
+
+# ─────────────────────────────────────────
+# ОРИГИНАЛЬНЫЙ СЛОВАРЬ (обычный режим)
 # ─────────────────────────────────────────
 const WORDS_SHORT  := ["fire", "bolt", "mana", "ice", "arc", "hex"]
 const WORDS_MEDIUM := ["flame", "storm", "rune", "curse", "spell", "shade"]
@@ -35,6 +39,9 @@ var max_word_length: int = 7
 
 # Текущий уровень сложности (растёт с каждым левел-апом игрока)
 var difficulty_level: int = 1
+
+# Базовая скорость врага (для масштабирования в режиме обучения)
+const BASE_ENEMY_SPEED := 80.0
 
 
 func _ready() -> void:
@@ -47,7 +54,25 @@ func _ready() -> void:
 
 
 # ─────────────────────────────────────────
-# ПЕРЕСБОРКА ПУЛА СЛОВ
+# АКТИВАЦИЯ РЕЖИМА ОБУЧЕНИЯ
+# Вызывается из main.gd перед стартом урока.
+# ─────────────────────────────────────────
+func activate_typing_mode(p_lesson_index: int) -> void:
+	typing_mode  = true
+	lesson_index = p_lesson_index
+
+	var lesson := TypingLessonManager.get_lesson(p_lesson_index)
+
+	# Применяем параметры урока
+	spawn_interval = lesson.get("spawn_interval", 2.5)
+	max_enemies    = lesson.get("max_enemies", 15)
+
+	spawn_timer.wait_time = spawn_interval
+	spawn_timer.start()
+
+
+# ─────────────────────────────────────────
+# ПЕРЕСБОРКА ПУЛА СЛОВ (обычный режим)
 # ─────────────────────────────────────────
 func _rebuild_word_pool() -> void:
 	word_pool.clear()
@@ -59,16 +84,20 @@ func _rebuild_word_pool() -> void:
 
 
 func get_random_word() -> String:
+	if typing_mode:
+		return TypingLessonManager.get_word_for_lesson(lesson_index)
 	return word_pool.pick_random()
 
 
 func reduce_word_length() -> void:
+	if typing_mode:
+		return   # В режиме обучения длина слов задаётся уроком
 	max_word_length = max(3, max_word_length - 1)
 	_rebuild_word_pool()
 
 
 # ─────────────────────────────────────────
-# ОЧКИ — вызывается из enemy.gd при смерти врага
+# ОЧКИ
 # ─────────────────────────────────────────
 func report_kill(points: int) -> void:
 	emit_signal("enemy_killed", points)
@@ -93,6 +122,18 @@ func _spawn_enemy() -> void:
 	var spawn_pos := _get_camera_center() + Vector2(cos(angle), sin(angle)) * spawn_radius
 
 	var enemy = scene.instantiate()
+
+	# ── В режиме обучения масштабируем скорость врага ─────────────────
+	if typing_mode:
+		var lesson := TypingLessonManager.get_lesson(lesson_index)
+		var speed_mult: float = lesson.get("enemy_speed_mult", 0.6)
+		var hp_mult: float    = lesson.get("hp_mult", 1.0)
+		enemy.speed = BASE_ENEMY_SPEED * speed_mult
+		# Масштабируем HP только у врагов с несколькими очками жизни
+		if enemy.hp > 1:
+			enemy.hp    = max(1, int(enemy.hp * hp_mult))
+			enemy.max_hp = enemy.hp
+
 	add_child(enemy)
 	enemy.global_position = spawn_pos
 
@@ -103,6 +144,30 @@ func _spawn_enemy() -> void:
 
 
 func _pick_enemy_scene() -> PackedScene:
+	if typing_mode:
+		# В режиме обучения: только скелеты (простые враги) на первых уроках,
+		# потом добавляем разнообразие
+		var pool: Array[PackedScene] = []
+		if enemy_scene:
+			pool.append(enemy_scene)
+			pool.append(enemy_scene)
+			pool.append(enemy_scene)
+
+		if lesson_index >= 4 and goblin_scene:
+			pool.append(goblin_scene)
+			pool.append(goblin_scene)
+
+		if lesson_index >= 8 and wraith_scene:
+			pool.append(wraith_scene)
+
+		if lesson_index >= 12 and troll_scene:
+			pool.append(troll_scene)
+
+		if pool.is_empty():
+			return enemy_scene
+		return pool.pick_random()
+
+	# ── Обычный режим ─────────────────────────────────────────────────
 	var pool: Array[PackedScene] = []
 
 	if enemy_scene:
@@ -137,9 +202,11 @@ func _get_camera_center() -> Vector2:
 
 
 # ─────────────────────────────────────────
-# СЛОЖНОСТЬ
+# СЛОЖНОСТЬ (обычный режим)
 # ─────────────────────────────────────────
 func increase_difficulty() -> void:
+	if typing_mode:
+		return   # В режиме обучения сложность фиксирована уроком
 	difficulty_level += 1
 	spawn_interval = max(0.5, spawn_interval - 0.2)
 	spawn_timer.wait_time = spawn_interval

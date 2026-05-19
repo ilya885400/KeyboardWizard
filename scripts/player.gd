@@ -1,5 +1,8 @@
 extends CharacterBody2D
-
+# Вставь это в верхнюю часть player.gd
+signal word_completed
+signal letter_error
+signal letter_correct
 # ==========================================
 # ИГРОК — Волшебник
 # ==========================================

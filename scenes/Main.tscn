@@ -70,6 +70,9 @@ enemy_scene = ExtResource("4_enemy")
 goblin_scene = ExtResource("6_q8u5g")
 wraith_scene = ExtResource("7_lhr70")
 troll_scene = ExtResource("8_wp0k4")
+spawn_interval = null
+spawn_radius = null
+max_enemies = null
 
 [node name="SpawnTimer" type="Timer" parent="EnemyManager" unique_id=1405489156]
 wait_time = 2.5
@@ -291,3 +294,116 @@ theme_override_colors/font_color = Color(0.55, 0.55, 0.65, 1)
 theme_override_font_sizes/font_size = 15
 text = "Нажми Enter чтобы сыграть снова"
 horizontal_alignment = 1
+
+[node name="LessonHUD" type="CanvasLayer" parent="." unique_id=1337054168]
+
+[node name="LessonPanel" type="Panel" parent="LessonHUD" unique_id=848440568]
+anchors_preset = -1
+anchor_right = 0.18125
+offset_left = 997.0
+offset_top = 670.0
+offset_right = 1037.0
+offset_bottom = 710.0
+metadata/_edit_use_anchors_ = true
+
+[node name="LessonLabel" type="Label" parent="LessonHUD/LessonPanel" unique_id=967199100]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="KeysPanel" type="Panel" parent="LessonHUD" unique_id=1055280138]
+anchors_preset = -1
+anchor_right = 0.19453125
+offset_left = 981.0
+offset_top = 13.0
+offset_right = 1021.0
+offset_bottom = 53.0
+metadata/_edit_use_anchors_ = true
+
+[node name="KeysLabel" type="Label" parent="LessonHUD/KeysPanel" unique_id=242198947]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="StatsPanel" type="Panel" parent="LessonHUD" unique_id=1584730958]
+anchors_preset = -1
+anchor_right = 0.13046876
+offset_left = 757.0
+offset_top = 10.0
+offset_right = 797.0
+offset_bottom = 50.0
+metadata/_edit_use_anchors_ = true
+
+[node name="AccLabel" type="Label" parent="LessonHUD/StatsPanel" unique_id=687902363]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="WpmLabel" type="Label" parent="LessonHUD/StatsPanel" unique_id=1482746702]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="LessonSelectScreen" type="CanvasLayer" parent="." unique_id=1483345773]
+
+[node name="Panel" type="Panel" parent="LessonSelectScreen" unique_id=1128895380]
+offset_right = 1276.0
+offset_bottom = 721.0
+
+[node name="VBox" type="VBoxContainer" parent="LessonSelectScreen/Panel" unique_id=2024439218]
+layout_mode = 0
+offset_left = 317.0
+offset_top = 159.0
+offset_right = 1001.0
+offset_bottom = 538.0
+alignment = 1
+
+[node name="Label" type="Label" parent="LessonSelectScreen/Panel/VBox" unique_id=1900185418]
+layout_mode = 2
+text = "Выбери урок"
+
+[node name="LessonList" type="VBoxContainer" parent="LessonSelectScreen/Panel/VBox" unique_id=871059143]
+layout_mode = 2
+
+[node name="NormalBtn" type="Button" parent="LessonSelectScreen/Panel/VBox" unique_id=1346012024]
+layout_mode = 2
+text = "Обычная игра"
+
+[node name="HintLabel" type="Label" parent="LessonSelectScreen/Panel/VBox" unique_id=458850474]
+layout_mode = 2
+
+[node name="LessonResultScreen" type="CanvasLayer" parent="." unique_id=1178881705]
+
+[node name="Panel" type="Panel" parent="LessonResultScreen" unique_id=55479668]
+offset_right = 1283.0
+offset_bottom = 717.0
+
+[node name="VBox" type="VBoxContainer" parent="LessonResultScreen/Panel" unique_id=297699515]
+layout_mode = 0
+offset_left = 222.0
+offset_top = 137.0
+offset_right = 1061.0
+offset_bottom = 593.0
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="LessonResultScreen/Panel/VBox" unique_id=286608048]
+layout_mode = 2
+
+[node name="ResultLabel" type="Label" parent="LessonResultScreen/Panel/VBox" unique_id=1443791926]
+layout_mode = 2
+
+[node name="NextBtn" type="Button" parent="LessonResultScreen/Panel/VBox" unique_id=1828105952]
+layout_mode = 2
+text = "Next
+"
+
+[node name="RetryBtn" type="Button" parent="LessonResultScreen/Panel/VBox" unique_id=828589491]
+layout_mode = 2
+text = "Retry
+"
+
+[node name="MenuBtn" type="Button" parent="LessonResultScreen/Panel/VBox" unique_id=1121086394]
+layout_mode = 2
+text = "Menu"
