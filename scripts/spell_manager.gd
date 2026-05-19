@@ -211,6 +211,8 @@ func upgrade_chain() -> void:
 
 # Вызвать после того как убит/поражён первый враг
 func trigger_chain(origin_enemy: Node) -> void:
+	if origin_enemy == null or not is_instance_valid(origin_enemy):
+		return
 	if not has_chain:
 		return
 	var hit_set: Array = [origin_enemy]
@@ -228,11 +230,14 @@ func trigger_chain(origin_enemy: Node) -> void:
 
 
 func _find_chain_target(from: Node, exclude: Array) -> Node:
+	
 	var enemies := get_tree().get_nodes_in_group("enemies")
 	var best: Node = null
 	var best_dist := chain_range
 
 	for enemy in enemies:
+		if enemy == null or not is_instance_valid(enemy):
+			return null
 		if not is_instance_valid(enemy) or enemy in exclude:
 			continue
 		var d : float = from.global_position.distance_to(enemy.global_position)
@@ -257,7 +262,7 @@ func _spawn_chain_visual(from: Vector2, to: Vector2) -> void:
 			p += Vector2(randf_range(-12, 12), randf_range(-12, 12))
 		points.append(p)
 	line.points = points
-	get_tree().current_scene.add_child(line)
+	get_tree().current_scene.add_child.call_deferred(line)
 	get_tree().create_timer(0.25).timeout.connect(line.queue_free)
 
 

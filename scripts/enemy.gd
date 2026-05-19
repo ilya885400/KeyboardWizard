@@ -209,5 +209,5 @@ func _spawn_pickups(player_node: Node) -> void:
 			hp_pickup.set_script(pickup_script)
 			hp_pickup.pickup_type = "health"
 			hp_pickup.heal_value  = 15
-			get_tree().current_scene.add_child(hp_pickup)
+			get_tree().current_scene.add_child.call_deferred(hp_pickup)
 			hp_pickup.global_position = global_position + Vector2(randf_range(-15, 15), randf_range(-15, 15))
