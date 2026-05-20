@@ -83,6 +83,15 @@ animation = &"walk"
 autoplay = "walk"
 frame_progress = 0.53662145
 
+[node name="Shadow" type="AnimatedSprite2D" parent="AnimatedSprite2D" unique_id=1504040816]
+modulate = Color(0, 0, 0, 1)
+z_index = -1
+position = Vector2(0, 0.5)
+sprite_frames = SubResource("SpriteFrames_goblin")
+animation = &"walk"
+autoplay = "walk"
+frame_progress = 0.53662145
+
 [node name="LabelBG" type="Panel" parent="." unique_id=333099203]
 visible = false
 z_index = -1
@@ -94,9 +103,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_word_bg")
 
 [node name="WordLabel" type="RichTextLabel" parent="." unique_id=1450093450]
 offset_left = -50.0
-offset_top = -116.0
+offset_top = -86.0
 offset_right = 50.0
-offset_bottom = -84.0
+offset_bottom = -54.0
 theme_override_colors/default_color = Color(0.72, 1, 0.72, 1)
 theme_override_font_sizes/normal_font_size = 17
 bbcode_enabled = true

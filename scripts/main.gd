@@ -53,6 +53,7 @@ extends Node2D
 @onready var keys_label: Label       = $LessonHUD/KeysPanel/KeysLabel
 @onready var acc_label: Label        = $LessonHUD/StatsPanel/VBox/AccLabel
 @onready var wpm_label: Label        = $LessonHUD/StatsPanel/VBox/WpmLabel
+@onready var music_player: AudioStreamPlayer = $AudioManager/Music
 
 # ── Экран выбора урока ─────────────────────────────────────────────────────────
 @onready var lesson_select_screen: CanvasLayer = $LessonSelectScreen
@@ -274,8 +275,14 @@ func _start_typing_lesson(p_lang: String, p_lesson_index: int) -> void:
 
 # ─────────────────────────────────────────
 # СТАРТ ОБЫЧНОЙ ИГРЫ
-# ─────────────────────────────────────────
+# ────────────────────────────────────────
+func _on_music_finished():
+	music_player.play() # Снова запускаем воспроизведение
+	
 func _start_normal_game() -> void:
+	music_player.finished.connect(_on_music_finished)
+	music_player.play()
+	
 	player.lesson_lang = ""
 
 	$HUD.visible = true

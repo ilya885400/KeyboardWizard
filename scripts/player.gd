@@ -28,14 +28,20 @@ var target_enemy: Node = null
 # Флаг для контроля анимации атаки
 var is_attacking: bool = false
 
+var was_completed: bool = false
+
 signal leveled_up(new_level: int)
 signal died
 
 @onready var anim_player: AnimatedSprite2D = $AnimatedSprite2D
+@onready var anim_player_shadow: AnimatedSprite2D = $AnimatedSprite2D/Shadow
+
 @onready var exp_label: Label   = $CanvasLayer/StatsPanel/VBox/XPRow/XPHeaderRow/ExpLabel
 @onready var level_label: Label = $CanvasLayer/StatsPanel/VBox/LevelRow/LevelLabel
 @onready var hp_label: Label    = $CanvasLayer/StatsPanel/VBox/HPRow/HPHeaderRow/HPLabel
 @onready var input_label: Label = $CanvasLayer/InputPanel/HBox/InputLabel
+@onready var hp_bar: ProgressBar = $CanvasLayer/StatsPanel/VBox/HPRow/HPBar # Укажите верный путь к вашему ProgressBar
+@onready var exp_bar: ProgressBar = $CanvasLayer/StatsPanel/VBox/XPRow/XPBar # Укажите верный путь к вашему ProgressBar
 
 @onready var _invincibility_timer: Timer = $InvincibilityTimer
 @onready var _flash_timer: Timer         = $FlashTimer
@@ -59,6 +65,7 @@ func _ready() -> void:
 	# Подключаем сигнал завершения анимации, чтобы вовремя выключать флаг атаки
 	if anim_player:
 		anim_player.animation_finished.connect(_on_animation_finished)
+		anim_player_shadow.animation_finished.connect(_on_animation_finished)
 
 	# Передаём сцену снаряда в менеджер заклинаний
 	spell_manager.player          = self
@@ -100,14 +107,18 @@ func _update_animations() -> void:
 
 	if velocity.length() > 0:
 		anim_player.play("walk")
+		anim_player_shadow.play("walk")
 		# Разворачиваем спрайт влево или вправо в зависимости от движения
 		if velocity.x < 0:
 			anim_player.flip_h = true  # Смотрит влево
+			anim_player_shadow.flip_h = true
 		elif velocity.x > 0:
 			anim_player.flip_h = false # Смотрит вправо
+			anim_player_shadow.flip_h = false
 	else:
 		# Если анимации покоя (idle) нет, останавливаем анимацию ходьбы на 0-м кадре
 		anim_player.play("idle") 
+		anim_player_shadow.play("idle")
 		# Если позже добавишь анимацию "idle", замени строку выше на: anim_player.play("idle")
 
 
@@ -116,6 +127,7 @@ func _on_animation_finished() -> void:
 	if anim_player.animation == "attack":
 		is_attacking = false
 		anim_player.animation = "idle"
+		anim_player_shadow.animation = "idle"
 
 
 # ─────────────────────────────────────────
@@ -250,6 +262,9 @@ func _process_letter(letter: String) -> void:
 
 		# Если слово полностью допечатано
 		if current_input.length() >= word.length():
+			_update_input_display()
+
+			was_completed = true
 			emit_signal("word_completed")
 			target_enemy._assign_new_word()
 			_shoot_projectile(target_enemy)
@@ -322,11 +337,14 @@ func _shoot_projectile(enemy: Node) -> void:
 	if anim_player:
 		is_attacking = true
 		anim_player.play("attack")
+		anim_player_shadow.play("attack")
 		# Опционально: разворачиваем лицом к врагу при выстреле
 		if enemy.global_position.x < global_position.x:
 			anim_player.flip_h = true
+			anim_player_shadow.flip_h=true
 		else:
 			anim_player.flip_h = false
+			anim_player_shadow.flip_h= false
 
 	# ── Доп. эффекты заклинаний ───────────────────────────────────────────────
 	if spell_manager.has_chain:
@@ -363,15 +381,25 @@ func _level_up() -> void:
 # UI
 # ─────────────────────────────────────────
 func _update_ui() -> void:
+	# Обновление текста
 	if exp_label:   exp_label.text   = "XP: %d / %d" % [experience, exp_to_next_level]
 	if level_label: level_label.text = "Уровень: %d"  % level
 	if hp_label:    hp_label.text    = "HP: %d / %d"  % [current_hp, max_hp]
-
+	
+	# Обновление визуальных полосок
+	if hp_bar:
+		hp_bar.max_value = max_hp
+		hp_bar.value = current_hp
+		
+	if exp_bar:
+		exp_bar.max_value = exp_to_next_level
+		exp_bar.value = experience
 
 func _update_input_display() -> void:
-	if input_label:
+	if input_label and not was_completed:
 		input_label.text = current_input if current_input.length() > 0 else ""
-
+	if was_completed:
+		was_completed= not was_completed
 
 # ─────────────────────────────────────────
 # АПГРЕЙДЫ

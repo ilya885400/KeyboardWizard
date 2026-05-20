@@ -129,6 +129,8 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_70d11"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_stats_panel"]
 content_margin_left = 14.0
 content_margin_top = 12.0
@@ -188,6 +190,16 @@ shape = SubResource("CapsuleShape2D_player")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1001598601]
 scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_wizard")
+animation = &"attack"
+autoplay = "idle"
+
+[node name="Shadow" type="AnimatedSprite2D" parent="AnimatedSprite2D" unique_id=1878573212]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(1, 1, 1, 0.65882355)
+show_behind_parent = true
+material = SubResource("ShaderMaterial_70d11")
+position = Vector2(0, 0.8333334)
 sprite_frames = SubResource("SpriteFrames_wizard")
 animation = &"attack"
 autoplay = "idle"

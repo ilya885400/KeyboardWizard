@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dppnmoa3rs8iw" path="res://scenes/EnemyGoblin.tscn" id="6_q8u5g"]
 [ext_resource type="PackedScene" uid="uid://bxfm1nu8j665e" path="res://scenes/EnemyWraith.tscn" id="7_lhr70"]
 [ext_resource type="PackedScene" uid="uid://ccimgpbhan3mn" path="res://scenes/EnemyTroll.tscn" id="8_wp0k4"]
+[ext_resource type="AudioStream" uid="uid://bf3i582reacki" path="res://2026-05-20T07_05_20.581Z.wav" id="10_lhr70"]
 
 [sub_resource type="AudioStream" id="AudioStream_c01mt"]
 
@@ -150,8 +151,8 @@ volume_db = -4.0
 max_distance = 800.0
 
 [node name="Music" type="AudioStreamPlayer" parent="AudioManager" unique_id=1519412696]
+stream = ExtResource("10_lhr70")
 volume_db = -12.0
-autoplay = true
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1173551988]
 layer = 5
@@ -237,7 +238,6 @@ vertical_alignment = 1
 
 [node name="WinScreen" type="CanvasLayer" parent="." unique_id=2027264469]
 layer = 30
-visible = false
 
 [node name="Dimmer" type="ColorRect" parent="WinScreen" unique_id=1403895856]
 anchors_preset = 15
@@ -281,7 +281,7 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.65, 0.3, 1)
 theme_override_font_sizes/font_size = 16
-text = "Волшебник выжил все 10 минут!"
+text = "Волшебник выжил все 2 минуты!"
 horizontal_alignment = 1
 
 [node name="HSep1" type="HSeparator" parent="WinScreen/Panel/VBox" unique_id=867888644]
@@ -632,6 +632,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LessonResultScreen" type="CanvasLayer" parent="." unique_id=1178881705]
+visible = false
 
 [node name="BGDimmer" type="ColorRect" parent="LessonResultScreen" unique_id=1000000060]
 anchors_preset = 15

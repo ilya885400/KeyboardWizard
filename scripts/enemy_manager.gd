@@ -30,9 +30,23 @@ var lesson_index: int    = 0
 # ─────────────────────────────────────────
 # ОРИГИНАЛЬНЫЙ СЛОВАРЬ (обычный режим)
 # ─────────────────────────────────────────
-const WORDS_SHORT  := ["fire", "bolt", "mana", "ice", "arc", "hex"]
-const WORDS_MEDIUM := ["flame", "storm", "rune", "curse", "spell", "shade"]
-const WORDS_LONG   := ["inferno", "blizzard", "grimoire", "sorcery", "eldritch"]
+const WORDS_SHORT := [
+	"fire", "bolt", "mana", "ice", "arc", "hex", 
+	"soul", "void", "dark", "wind", "dust", "beam", 
+	"orb", "fury", "gaze", "bane", "mist", "glow"
+]
+
+const WORDS_MEDIUM := [
+	"flame", "storm", "rune", "curse", "spell", "shade", 
+	"blaze", "chill", "cloak", "ethos", "glyph", "spark", 
+	"hallow", "wraith", "venom", "spirit", "shadow", "primal"
+]
+
+const WORDS_LONG := [
+	"inferno", "blizzard", "grimoire", "sorcery", "eldritch", 
+	"tempest", "arcane", "channel", "spectral", "shimmer", 
+	"phantom", "eclipse", "conjure", "mystic", "barrier"
+]
 
 var word_pool: Array[String] = []
 var max_word_length: int     = 7

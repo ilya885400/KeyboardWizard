@@ -101,6 +101,14 @@ animation = &"walk"
 autoplay = "walk"
 frame_progress = 0.32094523
 
+[node name="Shadow" type="AnimatedSprite2D" parent="AnimatedSprite2D" unique_id=153876282]
+visible = false
+modulate = Color(0.85, 0.7, 1, 0.9)
+sprite_frames = SubResource("SpriteFrames_wraith")
+animation = &"walk"
+autoplay = "walk"
+frame_progress = 0.32094523
+
 [node name="LabelBG" type="Panel" parent="." unique_id=2036244024]
 visible = false
 z_index = -1
@@ -112,9 +120,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_word_bg")
 
 [node name="WordLabel" type="RichTextLabel" parent="." unique_id=1596112124]
 offset_left = -50.0
-offset_top = -116.0
+offset_top = -86.0
 offset_right = 50.0
-offset_bottom = -84.0
+offset_bottom = -54.0
 theme_override_colors/default_color = Color(0.8, 0.68, 1, 1)
 theme_override_font_sizes/normal_font_size = 17
 bbcode_enabled = true
@@ -126,9 +134,9 @@ horizontal_alignment = 1
 
 [node name="HPBar" type="ProgressBar" parent="." unique_id=1433379475]
 offset_left = -32.0
-offset_top = -130.0
+offset_top = -100.0
 offset_right = 32.0
-offset_bottom = -122.0
+offset_bottom = -92.0
 theme_override_colors/font_color = Color(0, 0, 0, 0)
 theme_override_styles/background = SubResource("StyleBoxFlat_hp_bg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_hp_fill")
@@ -137,6 +145,7 @@ value = 2.0
 show_percentage = false
 
 [node name="DetectionArea" type="Area2D" parent="." unique_id=579247296]
+visible = false
 
 [node name="DetectionShape" type="CollisionShape2D" parent="DetectionArea" unique_id=1067935783]
 shape = SubResource("CircleShape2D_detect")

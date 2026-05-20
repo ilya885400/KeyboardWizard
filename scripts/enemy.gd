@@ -19,6 +19,8 @@ const COLOR_TYPED   := Color(0.2, 1, 0.4)
 
 @onready var label: RichTextLabel = $WordLabel
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var anim_sprite_shadow: AnimatedSprite2D = $AnimatedSprite2D/Shadow
+
 @onready var hp_bar: ProgressBar = $HPBar
 
 var player: Node = null
@@ -48,7 +50,7 @@ func _physics_process(_delta: float) -> void:
 	velocity = direction * speed
 	move_and_slide()
 	anim_sprite.flip_h = direction.x < 0
-
+	anim_sprite_shadow.flip_h = direction.x <0
 
 # ─────────────────────────────────────────
 # СЛОВО
