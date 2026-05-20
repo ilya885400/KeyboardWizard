@@ -234,6 +234,12 @@ func _process_letter(letter: String) -> void:
 
 	# СЦЕНАРИЙ 2: Цель уже захвачена, проверяем её следующую букву
 	var word: String = target_enemy.get_word()
+	
+	# ПРЕДОХРАНИТЕЛЬ: Проверяем, не превысил ли ввод длину слова врага
+	if current_input.length() >= word.length():
+		_reset_target_and_error()
+		return
+
 	var expected_letter: String = word[current_input.length()]
 
 	if letter == expected_letter:
@@ -250,25 +256,16 @@ func _process_letter(letter: String) -> void:
 			current_input = ""
 			target_enemy = null
 	else:
-		# СЦЕНАРИЙ 3: Буква НЕ подошла текущей цели. 
+		# СЦЕНАРИЙ 3: Буква НЕ подошла текущей цели.
 		# Проверяем, может игрок вводит продолжение слова для ДРУГОГО врага?
-		var combined_string := current_input + letter # Склеиваем старый ввод и новую букву (н-р: "f" + "r" = "fr")
+		var combined_string := current_input + letter 
 		var switched := _find_and_lock_target(combined_string)
 		
 		if switched:
-			# Ура! Нашелся враг (пусть и далеко), которому этот префикс подходит лучше.
-			# Мы плавно перехватили фокус на него (старый таргет сбросился внутри функции)
 			emit_signal("letter_correct")
 		else:
-			# СЦЕНАРИЙ 4: Абсолютный промах. Такой комбинации букв вообще нет на экране.
-			emit_signal("letter_error")
-			
-			# Полностью сбрасываем старую цель
-			if target_enemy != null and is_instance_valid(target_enemy):
-				target_enemy.highlight_progress(0)
-			
-			target_enemy = null
-			current_input = ""
+			# СЦЕНАРИЙ 4: Абсолютный промах.
+			_reset_target_and_error()
 			
 			# На всякий случай проверяем: может, эта ошибочная буква — старт для кого-то третьего?
 			var found_new := _find_and_lock_target(letter)
@@ -276,6 +273,14 @@ func _process_letter(letter: String) -> void:
 				emit_signal("letter_correct")
 
 	_update_input_display()
+
+# Вынес сброс в отдельный метод, чтобы не дублировать код
+func _reset_target_and_error() -> void:
+	emit_signal("letter_error")
+	if target_enemy != null and is_instance_valid(target_enemy):
+		target_enemy.highlight_progress(0)
+	target_enemy = null
+	current_input = ""
 
 
 # Универсальный метод поиска и захвата цели по любому префиксу (одной букве или части слова)
