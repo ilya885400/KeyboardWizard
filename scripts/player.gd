@@ -173,6 +173,7 @@ func _on_flash_timer_timeout() -> void:
 
 
 func _die() -> void:
+	MusicPlayer.fade_out()
 	GameEvents.play_sfx.emit("player_death")
 	emit_signal("died")
 	set_physics_process(false)

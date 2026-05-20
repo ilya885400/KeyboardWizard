@@ -53,7 +53,6 @@ extends Node2D
 @onready var keys_label: Label       = $LessonHUD/KeysPanel/KeysLabel
 @onready var acc_label: Label        = $LessonHUD/StatsPanel/VBox/AccLabel
 @onready var wpm_label: Label        = $LessonHUD/StatsPanel/VBox/WpmLabel
-@onready var music_player: AudioStreamPlayer = $AudioManager/Music
 
 # ── Экран выбора урока ─────────────────────────────────────────────────────────
 @onready var lesson_select_screen: CanvasLayer = $LessonSelectScreen
@@ -235,6 +234,7 @@ func _rebuild_lesson_list() -> void:
 # ─────────────────────────────────────────
 func _start_typing_lesson(p_lang: String, p_lesson_index: int) -> void:
 	# 1. ВОСКРЕШЕНИЕ ИГРОКА (Критически важно!)
+	MusicPlayer.play()
 	$HUD.visible = true
 	player.get_node_or_null("CanvasLayer/StatsPanel/VBox/LevelRow").visible = false
 	player.get_node_or_null("CanvasLayer/StatsPanel/VBox/XPRow").visible = false
@@ -298,12 +298,10 @@ func _start_typing_lesson(p_lang: String, p_lesson_index: int) -> void:
 # ─────────────────────────────────────────
 # СТАРТ ОБЫЧНОЙ ИГРЫ
 # ────────────────────────────────────────
-func _on_music_finished():
-	music_player.play() # Снова запускаем воспроизведение
-	
+
 func _start_normal_game() -> void:
 #	music_player.finished.connect(_on_music_finished)
-	music_player.play()
+	MusicPlayer.play()
 	
 	player.lesson_lang = ""
 
@@ -345,6 +343,7 @@ func _process(delta: float) -> void:
 		var remaining = max(0.0, lesson_duration - time_elapsed)
 		_update_timer_label(remaining)
 		if time_elapsed >= lesson_duration:
+			MusicPlayer.fade_out()
 			enemy_manager.spawn_timer.stop()
 			
 			var enemies = get_tree().get_nodes_in_group("enemies")
@@ -362,6 +361,7 @@ func _process(delta: float) -> void:
 		var remaining = max(0.0, GAME_DURATION - time_elapsed)
 		_update_timer_label(remaining)
 		if time_elapsed >= GAME_DURATION:
+			MusicPlayer.fade_out()
 			enemy_manager.spawn_timer.stop()
 			
 			var enemies = get_tree().get_nodes_in_group("enemies")

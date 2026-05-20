@@ -24,6 +24,7 @@ config/icon="res://assets/xp_orb.svg"
 
 TypingLessonManager="*uid://swtwe8jgb1ed"
 GameEvents="*uid://dii3bwgqbr0gr"
+MusicPlayer="*uid://b8p4bwyarsrgb"
 
 [display]
 
