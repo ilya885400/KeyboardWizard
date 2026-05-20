@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://cft347aamo5tt"]
+
+[ext_resource type="FontFile" uid="uid://wjaqvup2dnr4" path="res://assets/ArcadeJeu-Regular.otf" id="1_x238d"]
+
+[resource]
+default_font = ExtResource("1_x238d")

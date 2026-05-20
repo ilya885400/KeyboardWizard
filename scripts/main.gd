@@ -158,7 +158,7 @@ func _rebuild_lesson_list() -> void:
 
 		var star := "★ " if i == current else "  "
 		# Формат: "★ EN 3 · Home row: S D F J K L  [S·D·F·J·K·L]"
-		btn.text = "%s%s · %s  [%s]" % [star, lesson["title"], lesson["subtitle"], lesson["keys"]]
+		btn.text = "%s%s · %s" % [star, lesson["title"], lesson["subtitle"]] #lesson["keys"]]
 		btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		btn.add_theme_color_override("font_color",
 			Color(1.0, 0.9, 0.3) if i == current else Color(0.8, 0.85, 1.0))
