@@ -129,86 +129,55 @@ animations = [{
 "speed": 5.0
 }]
 
-; ── StyleBoxes для панели статов ──────────────────────────────────────
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_stats_panel"]
 content_margin_left = 14.0
 content_margin_top = 12.0
 content_margin_right = 14.0
 content_margin_bottom = 12.0
-bg_color = Color(0.04, 0.02, 0.10, 0.90)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 0
-border_width_bottom = 0
-border_color = Color(0.52, 0.30, 0.82, 0.90)
-corner_radius_top_left = 0
-corner_radius_top_right = 14
-corner_radius_bottom_right = 14
-corner_radius_bottom_left = 0
-shadow_color = Color(0.20, 0.0, 0.50, 0.40)
-shadow_size = 8
-
-; HP bar fill  (красный)
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_fill"]
-bg_color = Color(0.88, 0.18, 0.22, 1.0)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+bg_color = Color(0.05, 0.03, 0.08, 0.94)
+border_width_left = 3
+border_width_top = 3
+border_color = Color(0.8, 0.6, 0.1, 1)
+shadow_color = Color(0, 0, 0, 0.7)
+shadow_size = 6
+shadow_offset = Vector2(3, 3)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_bg"]
-bg_color = Color(0.16, 0.05, 0.08, 0.95)
+bg_color = Color(0.2, 0.04, 0.04, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.42, 0.10, 0.14, 0.80)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+border_color = Color(0.5, 0.08, 0.08, 1)
 
-; XP bar fill  (зелёный)
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xp_fill"]
-bg_color = Color(0.28, 0.82, 0.50, 1.0)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_fill"]
+bg_color = Color(0.85, 0.12, 0.12, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xp_bg"]
-bg_color = Color(0.04, 0.14, 0.08, 0.95)
+bg_color = Color(0.03, 0.14, 0.06, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.10, 0.35, 0.18, 0.80)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+border_color = Color(0.08, 0.35, 0.12, 1)
 
-; Input bar (нижний центр)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xp_fill"]
+bg_color = Color(0.15, 0.72, 0.3, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input_bar"]
 content_margin_left = 22.0
 content_margin_top = 10.0
 content_margin_right = 22.0
 content_margin_bottom = 10.0
-bg_color = Color(0.04, 0.02, 0.12, 0.94)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.42, 0.85, 0.62, 0.72)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_color = Color(0.18, 0.70, 0.40, 0.30)
-shadow_size = 12
-
-; ══════════════════════════════════════════════════════════
+bg_color = Color(0.02, 0.06, 0.04, 0.96)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.25, 0.78, 0.4, 0.95)
+shadow_color = Color(0, 0, 0, 0.7)
+shadow_size = 6
+shadow_offset = Vector2(3, 3)
 
 [node name="Player" type="CharacterBody2D" unique_id=1850020892 groups=["player"]]
 script = ExtResource("1_player")
@@ -225,12 +194,9 @@ autoplay = "idle"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1685721350]
 layer = 10
-
-; ── ПАНЕЛЬ СТАТОВ (верхний левый угол) ───────────────────────────────
+visible = false
 
 [node name="StatsPanel" type="PanelContainer" parent="CanvasLayer" unique_id=846778541]
-offset_left = 0.0
-offset_top = 0.0
 offset_right = 236.0
 offset_bottom = 138.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_stats_panel")
@@ -239,7 +205,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_stats_panel")
 layout_mode = 2
 theme_override_constants/separation = 8
 
-; ── Уровень ──
 [node name="LevelRow" type="HBoxContainer" parent="CanvasLayer/StatsPanel/VBox" unique_id=2000000001]
 layout_mode = 2
 theme_override_constants/separation = 6
@@ -253,12 +218,11 @@ vertical_alignment = 1
 [node name="LevelLabel" type="Label" parent="CanvasLayer/StatsPanel/VBox/LevelRow" unique_id=1464638207]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.95, 0.88, 1, 1)
-theme_override_font_sizes/font_size = 16
-text = "Уровень: 1"
+theme_override_colors/font_color = Color(1, 0.92, 0.6, 1)
+theme_override_font_sizes/font_size = 15
+text = "УРОВЕНЬ: 1"
 vertical_alignment = 1
 
-; ── HP строка ──
 [node name="HPRow" type="VBoxContainer" parent="CanvasLayer/StatsPanel/VBox" unique_id=2000000003]
 layout_mode = 2
 theme_override_constants/separation = 3
@@ -270,27 +234,25 @@ theme_override_constants/separation = 6
 [node name="HPIcon" type="Label" parent="CanvasLayer/StatsPanel/VBox/HPRow/HPHeaderRow" unique_id=2000000005]
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
-text = "❤️"
+text = "❤"
 vertical_alignment = 1
 
 [node name="HPLabel" type="Label" parent="CanvasLayer/StatsPanel/VBox/HPRow/HPHeaderRow" unique_id=1460372230]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 0.45, 0.45, 1)
+theme_override_colors/font_color = Color(1, 0.35, 0.35, 1)
 theme_override_font_sizes/font_size = 13
 text = "100 / 100"
 vertical_alignment = 1
 
 [node name="HPBar" type="ProgressBar" parent="CanvasLayer/StatsPanel/VBox/HPRow" unique_id=2000000006]
-layout_mode = 2
 custom_minimum_size = Vector2(0, 10)
-theme_override_styles/fill = SubResource("StyleBoxFlat_hp_fill")
+layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_hp_bg")
-max_value = 100.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_hp_fill")
 value = 100.0
 show_percentage = false
 
-; ── XP строка ──
 [node name="XPRow" type="VBoxContainer" parent="CanvasLayer/StatsPanel/VBox" unique_id=2000000007]
 layout_mode = 2
 theme_override_constants/separation = 3
@@ -302,27 +264,24 @@ theme_override_constants/separation = 6
 [node name="XPIcon" type="Label" parent="CanvasLayer/StatsPanel/VBox/XPRow/XPHeaderRow" unique_id=2000000009]
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
-text = "✨"
+text = "✦"
 vertical_alignment = 1
 
 [node name="ExpLabel" type="Label" parent="CanvasLayer/StatsPanel/VBox/XPRow/XPHeaderRow" unique_id=1147046380]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.42, 1, 0.55, 1)
+theme_override_colors/font_color = Color(0.3, 0.92, 0.45, 1)
 theme_override_font_sizes/font_size = 13
 text = "XP: 0 / 10"
 vertical_alignment = 1
 
 [node name="XPBar" type="ProgressBar" parent="CanvasLayer/StatsPanel/VBox/XPRow" unique_id=2000000010]
-layout_mode = 2
 custom_minimum_size = Vector2(0, 10)
-theme_override_styles/fill = SubResource("StyleBoxFlat_xp_fill")
+layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_xp_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xp_fill")
 max_value = 10.0
-value = 0.0
 show_percentage = false
-
-; ── ПАНЕЛЬ ВВОДА (нижний центр) ───────────────────────────────────────
 
 [node name="InputPanel" type="PanelContainer" parent="CanvasLayer" unique_id=1027552154]
 anchors_preset = 7
@@ -338,25 +297,23 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_input_bar")
 
 [node name="HBox" type="HBoxContainer" parent="CanvasLayer/InputPanel" unique_id=2000000020]
 layout_mode = 2
-alignment = 1
 theme_override_constants/separation = 8
+alignment = 1
 
 [node name="CursorLabel" type="Label" parent="CanvasLayer/InputPanel/HBox" unique_id=2000000021]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.45, 1, 0.68, 0.90)
+theme_override_colors/font_color = Color(0.35, 0.92, 0.5, 0.95)
 theme_override_font_sizes/font_size = 24
-text = "›"
+text = ">"
 vertical_alignment = 1
 
 [node name="InputLabel" type="Label" parent="CanvasLayer/InputPanel/HBox" unique_id=1652605742]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 0.92, 0.35, 1)
+theme_override_colors/font_color = Color(0.4, 0.95, 0.45, 1)
 theme_override_font_sizes/font_size = 26
 horizontal_alignment = 1
 vertical_alignment = 1
-
-; ── ТАЙМЕРЫ ───────────────────────────────────────────────────────────
 
 [node name="InvincibilityTimer" type="Timer" parent="." unique_id=1111111111]
 wait_time = 0.8

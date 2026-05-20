@@ -7,29 +7,28 @@ extends CanvasLayer
 # ==========================================
 
 @onready var panel: Panel               = $Panel
-@onready var level_label: Label         = $Panel/VBox/LevelLabel
+@onready var level_label: Label         = $Panel/LevelLabel
 
 @onready var card_a: PanelContainer    = $Panel/VBox/SpeedCard
 @onready var card_b: PanelContainer    = $Panel/VBox/WordsCard
 @onready var card_c: PanelContainer    = $Panel/VBox/HPCard
 
-@onready var icon_a:  Label = $Panel/VBox/SpeedCard/VBox/HBox/Icon
+@onready var icon_a:  Label = $Panel/VBox/SpeedCard/VBox/HBox/IconBG/Icon
 @onready var title_a: Label = $Panel/VBox/SpeedCard/VBox/HBox/TextVBox/Title
 @onready var desc_a:  Label = $Panel/VBox/SpeedCard/VBox/HBox/TextVBox/Desc
-@onready var word_a:  Label = $Panel/VBox/SpeedCard/VBox/WordLabel
+@onready var word_a:  Label = $Panel/VBox/SpeedCard/VBox/WordRow/WordLabel
 
-@onready var icon_b:  Label = $Panel/VBox/WordsCard/VBox/HBox/Icon
+@onready var icon_b:  Label = $Panel/VBox/WordsCard/VBox/HBox/IconBG/Icon
 @onready var title_b: Label = $Panel/VBox/WordsCard/VBox/HBox/TextVBox/Title
 @onready var desc_b:  Label = $Panel/VBox/WordsCard/VBox/HBox/TextVBox/Desc
-@onready var word_b:  Label = $Panel/VBox/WordsCard/VBox/WordLabel
+@onready var word_b:  Label = $Panel/VBox/WordsCard/VBox/WordRow/WordLabel
 
-@onready var icon_c:  Label = $Panel/VBox/HPCard/VBox/HBox/Icon
+@onready var icon_c:  Label = $Panel/VBox/HPCard/VBox/HBox/IconBG/Icon
 @onready var title_c: Label = $Panel/VBox/HPCard/VBox/HBox/TextVBox/Title
 @onready var desc_c:  Label = $Panel/VBox/HPCard/VBox/HBox/TextVBox/Desc
-@onready var word_c:  Label = $Panel/VBox/HPCard/VBox/WordLabel
+@onready var word_c:  Label = $Panel/VBox/HPCard/VBox/WordRow/WordLabel
 
-@onready var input_label: Label = $Panel/VBox/InputRow/InputLabel
-
+@onready var input_label: Label = $Panel/VBox/InputContainer/InputRow/InputLabel
 var player: Node = null
 
 # ── Флаг: реликвия подобрана → особый апгрейд доступен ───────────────────────

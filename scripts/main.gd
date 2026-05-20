@@ -44,22 +44,21 @@ extends Node2D
 @onready var camera: Camera2D             = $Player/Camera2D
 
 # ── Стандартный HUD ────────────────────────────────────────────────────────────
-@onready var score_label: Label = $HUD/ScorePanel/ScoreLabel
-@onready var timer_label: Label = $HUD/TimerPanel/TimerLabel
+@onready var score_label: Label = $GameOverScreen/Panel/VBox/ScoreRow/ScoreLabel
+@onready var timer_label: Label = $HUD/TimerPanel/HBox/TimerLabel
 
 # ── HUD урока ──────────────────────────────────────────────────────────────────
 @onready var lesson_hud: CanvasLayer = $LessonHUD
 @onready var lesson_label: Label     = $LessonHUD/LessonPanel/LessonLabel
 @onready var keys_label: Label       = $LessonHUD/KeysPanel/KeysLabel
-@onready var acc_label: Label        = $LessonHUD/StatsPanel/AccLabel
-@onready var wpm_label: Label        = $LessonHUD/StatsPanel/WpmLabel
+@onready var acc_label: Label        = $LessonHUD/StatsPanel/VBox/AccLabel
+@onready var wpm_label: Label        = $LessonHUD/StatsPanel/VBox/WpmLabel
 
 # ── Экран выбора урока ─────────────────────────────────────────────────────────
 @onready var lesson_select_screen: CanvasLayer = $LessonSelectScreen
-@onready var lesson_list_box: VBoxContainer    = $LessonSelectScreen/Panel/VBox/LessonList
-@onready var en_btn: Button  = $LessonSelectScreen/Panel/VBox/EnBtn
-@onready var ru_btn: Button  = $LessonSelectScreen/Panel/VBox/RuBtn
-
+@onready var lesson_list_box: VBoxContainer    = $LessonSelectScreen/Panel/VBox/ScrollContainer/LessonList
+@onready var en_btn: Button  = $LessonSelectScreen/Panel/VBox/LangRow/EnBtn
+@onready var ru_btn: Button  = $LessonSelectScreen/Panel/VBox/LangRow/RuBtn
 # ── Экран результата урока ─────────────────────────────────────────────────────
 @onready var lesson_result_screen: CanvasLayer = $LessonResultScreen
 @onready var result_title: Label               = $LessonResultScreen/Panel/VBox/TitleLabel
@@ -67,10 +66,10 @@ extends Node2D
 
 # ── Обычные экраны победы / поражения ─────────────────────────────────────────
 @onready var win_screen: CanvasLayer       = $WinScreen
-@onready var win_score_label: Label        = $WinScreen/Panel/VBox/ScoreLabel
+@onready var win_score_label: Label        = $WinScreen/Panel/VBox/ScoreRow/ScoreLabel
 @onready var win_leader_label: Label       = $WinScreen/Panel/VBox/LeaderLabel
 @onready var game_over_screen: CanvasLayer = $GameOverScreen
-@onready var go_score_label: Label         = $GameOverScreen/Panel/VBox/ScoreLabel
+@onready var go_score_label: Label         = $GameOverScreen/Panel/VBox/ScoreRow/ScoreLabel
 @onready var go_leader_label: Label        = $GameOverScreen/Panel/VBox/LeaderLabel
 
 # ── Константы ──────────────────────────────────────────────────────────────────
@@ -223,7 +222,7 @@ func _start_typing_lesson(p_lang: String, p_lesson_index: int) -> void:
 func _start_normal_game() -> void:
 	player.lesson_lang = ""
 
-	upgrade_menu.visible      = true
+	upgrade_menu.visible      = false
 	upgrade_menu.process_mode = Node.PROCESS_MODE_INHERIT
 	upgrade_menu.player       = player
 	lesson_hud.visible        = false
@@ -274,7 +273,7 @@ func _update_hud() -> void:
 func _update_timer_label(remaining: float) -> void:
 	var mins := int(remaining) / 60
 	var secs := int(remaining) % 60
-#	timer_label.text = "Время: %02d:%02d" % [mins, secs]
+	timer_label.text = "Время: %02d:%02d" % [mins, secs]
 
 
 # ─────────────────────────────────────────
@@ -364,9 +363,9 @@ func _finish_lesson(survived: bool) -> void:
 # КНОПКИ РЕЗУЛЬТАТА
 # ─────────────────────────────────────────
 func _connect_result_buttons() -> void:
-	var next_btn  := lesson_result_screen.get_node_or_null("Panel/VBox/NextBtn")
-	var retry_btn := lesson_result_screen.get_node_or_null("Panel/VBox/RetryBtn")
-	var menu_btn  := lesson_result_screen.get_node_or_null("Panel/VBox/MenuBtn")
+	var next_btn  := lesson_result_screen.get_node_or_null("Panel/VBox/BtnRow/NextBtn")
+	var retry_btn := lesson_result_screen.get_node_or_null("$Panel/VBox/BtnRow/RetryBtn")
+	var menu_btn  := lesson_result_screen.get_node_or_null("Panel/VBox/BtnRow/MenuBtn")
 
 	if next_btn:
 		next_btn.pressed.connect(func():

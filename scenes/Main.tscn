@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://d4a607q1lr42x" path="res://scenes/Projectile.tscn" id="3_c01mt"]
 [ext_resource type="PackedScene" uid="uid://ccblb78o3lfpn" path="res://scenes/Player.tscn" id="3_player"]
 [ext_resource type="PackedScene" uid="uid://b0535ubcjbrtp" path="res://scenes/Enemy.tscn" id="4_enemy"]
-[ext_resource type="PackedScene" path="res://scenes/UpgradeMenu.tscn" id="5_menu"]
+[ext_resource type="PackedScene" uid="uid://dmnfm8ig8kjqr" path="res://scenes/UpgradeMenu.tscn" id="5_menu"]
 [ext_resource type="PackedScene" uid="uid://dppnmoa3rs8iw" path="res://scenes/EnemyGoblin.tscn" id="6_q8u5g"]
 [ext_resource type="PackedScene" uid="uid://bxfm1nu8j665e" path="res://scenes/EnemyWraith.tscn" id="7_lhr70"]
 [ext_resource type="PackedScene" uid="uid://ccimgpbhan3mn" path="res://scenes/EnemyTroll.tscn" id="8_wp0k4"]
@@ -19,102 +19,86 @@ content_margin_left = 18.0
 content_margin_top = 6.0
 content_margin_right = 18.0
 content_margin_bottom = 6.0
-bg_color = Color(0.05, 0.02, 0.12, 0.82)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.55, 0.3, 0.85, 0.75)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-shadow_color = Color(0.3, 0, 0.6, 0.35)
-shadow_size = 6
+bg_color = Color(0.12, 0.07, 0.02, 0.93)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.92, 0.52, 0.05, 1)
+shadow_color = Color(0, 0, 0, 0.65)
+shadow_size = 4
+shadow_offset = Vector2(3, 3)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wave"]
 content_margin_left = 12.0
 content_margin_top = 4.0
 content_margin_right = 12.0
 content_margin_bottom = 4.0
-bg_color = Color(0.55, 0.22, 0.04, 0.85)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 0.65, 0.15, 0.8)
-corner_radius_top_left = 14
-corner_radius_top_right = 14
-corner_radius_bottom_right = 14
-corner_radius_bottom_left = 14
+bg_color = Color(0.28, 0.1, 0.01, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.98, 0.45, 0.02, 1)
+shadow_size = 5
+shadow_offset = Vector2(3, 3)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel_dark"]
 content_margin_left = 30.0
 content_margin_top = 30.0
 content_margin_right = 30.0
 content_margin_bottom = 30.0
-bg_color = Color(0.06, 0.03, 0.14, 0.97)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.55, 0.32, 0.88, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_color = Color(0.3, 0, 0.7, 0.5)
-shadow_size = 24
+bg_color = Color(0.1, 0.06, 0.02, 0.98)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.92, 0.52, 0.05, 1)
+shadow_color = Color(0, 0, 0, 0.88)
+shadow_size = 12
+shadow_offset = Vector2(6, 6)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
 content_margin_left = 16.0
 content_margin_top = 10.0
 content_margin_right = 16.0
 content_margin_bottom = 10.0
-bg_color = Color(0.1, 0.05, 0.22, 0.95)
+bg_color = Color(0.16, 0.09, 0.02, 0.97)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.45, 0.28, 0.75, 0.8)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+border_color = Color(0.7, 0.38, 0.04, 1)
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 3
+shadow_offset = Vector2(2, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_pressed"]
 content_margin_left = 16.0
 content_margin_top = 10.0
 content_margin_right = 16.0
 content_margin_bottom = 10.0
-bg_color = Color(0.25, 0.1, 0.45, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.85, 0.6, 1, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+bg_color = Color(0.3, 0.15, 0.02, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.98, 0.78, 0.12, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
 content_margin_left = 16.0
 content_margin_top = 10.0
 content_margin_right = 16.0
 content_margin_bottom = 10.0
-bg_color = Color(0.18, 0.08, 0.36, 1)
+bg_color = Color(0.24, 0.13, 0.03, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.7, 0.45, 1, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-shadow_color = Color(0.5, 0.2, 1, 0.4)
-shadow_size = 8
+border_color = Color(0.98, 0.65, 0.08, 1)
+shadow_color = Color(0.9, 0.45, 0, 0.45)
+shadow_size = 7
+shadow_offset = Vector2(2, 2)
 
 [node name="Main" type="Node2D" unique_id=957658741]
 process_mode = 3
@@ -125,11 +109,11 @@ z_index = -10
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0.07, 0.04, 0.14, 1)
+color = Color(0.07, 0.04, 0.01, 1)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1669527235]
 visible = false
-color = Color(0.18, 0.12, 0.28, 1)
+color = Color(0.18, 0.12, 0.04, 1)
 
 [node name="Player" parent="." unique_id=747682325 instance=ExtResource("3_player")]
 motion_mode = 1
@@ -151,6 +135,7 @@ wait_time = 2.5
 autostart = true
 
 [node name="UpgradeMenu" parent="." unique_id=12205706 instance=ExtResource("5_menu")]
+visible = false
 
 [node name="AudioManager" type="Node" parent="." unique_id=1963440331]
 
@@ -170,6 +155,7 @@ autoplay = true
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1173551988]
 layer = 5
+visible = false
 
 [node name="ScorePanel" type="PanelContainer" parent="HUD" unique_id=1397963924]
 anchors_preset = 5
@@ -188,13 +174,14 @@ alignment = 1
 
 [node name="ScoreIcon" type="Label" parent="HUD/ScorePanel/HBox" unique_id=1000000002]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.78, 0.12, 1)
 theme_override_font_sizes/font_size = 18
-text = "⭐"
+text = "★"
 vertical_alignment = 1
 
 [node name="ScoreLabel" type="Label" parent="HUD/ScorePanel/HBox" unique_id=1871535754]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.9, 0.25, 1)
+theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
 theme_override_font_sizes/font_size = 20
 text = "0"
 vertical_alignment = 1
@@ -216,18 +203,20 @@ alignment = 1
 
 [node name="TimerIcon" type="Label" parent="HUD/TimerPanel/HBox" unique_id=1000000004]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.65, 0.15, 1)
 theme_override_font_sizes/font_size = 16
-text = "⏳"
+text = "⧗"
 vertical_alignment = 1
 
 [node name="TimerLabel" type="Label" parent="HUD/TimerPanel/HBox" unique_id=1980437608]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.55, 0.92, 1, 1)
+theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
 theme_override_font_sizes/font_size = 20
 text = "10:00"
 vertical_alignment = 1
 
 [node name="WavePanel" type="PanelContainer" parent="HUD" unique_id=1000000010]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -239,9 +228,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_wave")
 
 [node name="WaveLabel" type="Label" parent="HUD/WavePanel" unique_id=1000000011]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.72, 0.18, 1)
+theme_override_colors/font_color = Color(1, 0.72, 0.1, 1)
 theme_override_font_sizes/font_size = 16
-text = "🌊  Волна 1"
+text = "ВОЛНА 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -254,7 +243,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color(0, 0, 0, 0.75)
+color = Color(0.04, 0.02, 0, 0.85)
 
 [node name="Panel" type="Panel" parent="WinScreen" unique_id=2011246615]
 anchors_preset = 8
@@ -281,15 +270,15 @@ alignment = 1
 
 [node name="TitleLabel" type="Label" parent="WinScreen/Panel/VBox" unique_id=1374035024]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.9, 0.2, 1)
-theme_override_font_sizes/font_size = 46
-text = "🏆  ПОБЕДА!"
+theme_override_colors/font_color = Color(0.98, 0.78, 0.12, 1)
+theme_override_font_sizes/font_size = 44
+text = "ПОБЕДА!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SubtitleLabel" type="Label" parent="WinScreen/Panel/VBox" unique_id=1340532996]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.78, 0.68, 1, 1)
+theme_override_colors/font_color = Color(0.88, 0.65, 0.3, 1)
 theme_override_font_sizes/font_size = 16
 text = "Волшебник выжил все 10 минут!"
 horizontal_alignment = 1
@@ -304,13 +293,14 @@ alignment = 1
 
 [node name="ScoreIcon" type="Label" parent="WinScreen/Panel/VBox/ScoreRow" unique_id=1000000021]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.78, 0.12, 1)
 theme_override_font_sizes/font_size = 28
-text = "⭐"
+text = "★"
 vertical_alignment = 1
 
 [node name="ScoreLabel" type="Label" parent="WinScreen/Panel/VBox/ScoreRow" unique_id=1924422309]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.45, 1, 0.65, 1)
+theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
 theme_override_font_sizes/font_size = 30
 text = "0"
 vertical_alignment = 1
@@ -320,15 +310,15 @@ layout_mode = 2
 
 [node name="LeaderTitle" type="Label" parent="WinScreen/Panel/VBox" unique_id=1000000022]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.7, 0.6, 1, 1)
+theme_override_colors/font_color = Color(0.98, 0.65, 0.15, 1)
 theme_override_font_sizes/font_size = 14
-text = "✦  Таблица рекордов  ✦"
+text = "= ТАБЛИЦА РЕКОРДОВ ="
 horizontal_alignment = 1
 
 [node name="LeaderLabel" type="Label" parent="WinScreen/Panel/VBox" unique_id=1376415155]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0.88, 0.82, 1, 1)
+theme_override_colors/font_color = Color(0.9, 0.75, 0.45, 1)
 theme_override_font_sizes/font_size = 14
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -338,7 +328,7 @@ layout_mode = 2
 
 [node name="HintLabel" type="Label" parent="WinScreen/Panel/VBox" unique_id=1617908340]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.5, 0.5, 0.62, 1)
+theme_override_colors/font_color = Color(0.7, 0.52, 0.22, 1)
 theme_override_font_sizes/font_size = 15
 text = "Нажми  Enter  чтобы сыграть снова"
 horizontal_alignment = 1
@@ -352,7 +342,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color(0, 0, 0, 0.8)
+color = Color(0.04, 0.01, 0, 0.9)
 
 [node name="Panel" type="Panel" parent="GameOverScreen" unique_id=924828960]
 anchors_preset = 8
@@ -379,15 +369,15 @@ alignment = 1
 
 [node name="TitleLabel" type="Label" parent="GameOverScreen/Panel/VBox" unique_id=687193646]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.28, 0.28, 1)
-theme_override_font_sizes/font_size = 46
-text = "💀  ПОРАЖЕНИЕ"
+theme_override_colors/font_color = Color(1, 0.22, 0.06, 1)
+theme_override_font_sizes/font_size = 44
+text = "ПОРАЖЕНИЕ"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SubtitleLabel" type="Label" parent="GameOverScreen/Panel/VBox" unique_id=1327953719]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.78, 0.68, 1, 1)
+theme_override_colors/font_color = Color(0.88, 0.65, 0.3, 1)
 theme_override_font_sizes/font_size = 16
 text = "Враги одолели волшебника..."
 horizontal_alignment = 1
@@ -402,13 +392,14 @@ alignment = 1
 
 [node name="ScoreIcon" type="Label" parent="GameOverScreen/Panel/VBox/ScoreRow" unique_id=1000000031]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.78, 0.12, 1)
 theme_override_font_sizes/font_size = 28
-text = "⭐"
+text = "★"
 vertical_alignment = 1
 
 [node name="ScoreLabel" type="Label" parent="GameOverScreen/Panel/VBox/ScoreRow" unique_id=68877458]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.45, 1, 0.65, 1)
+theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
 theme_override_font_sizes/font_size = 30
 text = "0"
 vertical_alignment = 1
@@ -418,15 +409,15 @@ layout_mode = 2
 
 [node name="LeaderTitle" type="Label" parent="GameOverScreen/Panel/VBox" unique_id=1000000032]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.7, 0.6, 1, 1)
+theme_override_colors/font_color = Color(0.98, 0.65, 0.15, 1)
 theme_override_font_sizes/font_size = 14
-text = "✦  Таблица рекордов  ✦"
+text = "= ТАБЛИЦА РЕКОРДОВ ="
 horizontal_alignment = 1
 
 [node name="LeaderLabel" type="Label" parent="GameOverScreen/Panel/VBox" unique_id=390731104]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0.88, 0.82, 1, 1)
+theme_override_colors/font_color = Color(0.9, 0.75, 0.45, 1)
 theme_override_font_sizes/font_size = 14
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -436,7 +427,7 @@ layout_mode = 2
 
 [node name="HintLabel" type="Label" parent="GameOverScreen/Panel/VBox" unique_id=444840924]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.5, 0.5, 0.62, 1)
+theme_override_colors/font_color = Color(0.7, 0.52, 0.22, 1)
 theme_override_font_sizes/font_size = 15
 text = "Нажми  Enter  чтобы сыграть снова"
 horizontal_alignment = 1
@@ -447,8 +438,10 @@ horizontal_alignment = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-color = Color(0.04, 0.02, 0.1, 0.97)
+color = Color(0.05, 0.03, 0, 0.97)
 
 [node name="Panel" type="Panel" parent="LessonSelectScreen" unique_id=1128895380]
 anchors_preset = 8
@@ -460,6 +453,8 @@ offset_left = -340.0
 offset_top = -300.0
 offset_right = 340.0
 offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel_dark")
 
 [node name="VBox" type="VBoxContainer" parent="LessonSelectScreen/Panel" unique_id=2024439218]
@@ -475,14 +470,14 @@ alignment = 1
 
 [node name="TitleLabel" type="Label" parent="LessonSelectScreen/Panel/VBox" unique_id=1000000041]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.75, 1, 1)
-theme_override_font_sizes/font_size = 32
-text = "✨  Arcane Typing  ✨"
+theme_override_colors/font_color = Color(0.98, 0.78, 0.12, 1)
+theme_override_font_sizes/font_size = 30
+text = "ARCANE TYPING"
 horizontal_alignment = 1
 
 [node name="SubLabel" type="Label" parent="LessonSelectScreen/Panel/VBox" unique_id=1000000042]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 0.55, 0.8, 1)
+theme_override_colors/font_color = Color(0.82, 0.6, 0.28, 1)
 theme_override_font_sizes/font_size = 14
 text = "Выбери раскладку и урок, чтобы начать"
 horizontal_alignment = 1
@@ -492,9 +487,9 @@ layout_mode = 2
 
 [node name="LangLabel" type="Label" parent="LessonSelectScreen/Panel/VBox" unique_id=1000000044]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.7, 0.65, 0.9, 1)
+theme_override_colors/font_color = Color(0.98, 0.65, 0.15, 1)
 theme_override_font_sizes/font_size = 13
-text = "⌨  Язык / Layout"
+text = "ЯЗЫК / LAYOUT"
 horizontal_alignment = 1
 
 [node name="LangRow" type="HBoxContainer" parent="LessonSelectScreen/Panel/VBox" unique_id=1000000045]
@@ -504,36 +499,41 @@ alignment = 1
 
 [node name="EnBtn" type="Button" parent="LessonSelectScreen/Panel/VBox/LangRow" unique_id=1504283142]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.88, 0.8, 1, 1)
+theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "🌍  English (QWERTY)"
+text = "English (QWERTY)"
 
 [node name="RuBtn" type="Button" parent="LessonSelectScreen/Panel/VBox/LangRow" unique_id=2129477112]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.88, 0.8, 1, 1)
+theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "🇷🇺  Русский (ЙЦУКЕН)"
+text = "Русский (ЙЦУКЕН)"
 
 [node name="HSep2" type="HSeparator" parent="LessonSelectScreen/Panel/VBox" unique_id=1000000046]
 layout_mode = 2
 
-[node name="LessonPickLabel" type="Label" parent="LessonSelectScreen/Panel/VBox" unique_id=1900185418]
+[node name="LessonPickLabel" type="Label" parent="LessonSelectScreen/Panel/VBox" unique_id=1000000048]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.7, 0.65, 0.9, 1)
+theme_override_colors/font_color = Color(0.98, 0.65, 0.15, 1)
 theme_override_font_sizes/font_size = 13
-text = "📚  Выбери урок"
+text = "ВЫБЕРИ УРОК"
 horizontal_alignment = 1
 
-[node name="LessonList" type="VBoxContainer" parent="LessonSelectScreen/Panel/VBox" unique_id=871059143]
+[node name="ScrollContainer" type="ScrollContainer" parent="LessonSelectScreen/Panel/VBox" unique_id=1486151323]
 layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LessonList" type="VBoxContainer" parent="LessonSelectScreen/Panel/VBox/ScrollContainer" unique_id=871059143]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 8
 
 [node name="HSep3" type="HSeparator" parent="LessonSelectScreen/Panel/VBox" unique_id=1000000047]
@@ -542,17 +542,17 @@ layout_mode = 2
 [node name="NormalBtn" type="Button" parent="LessonSelectScreen/Panel/VBox" unique_id=1346012024]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(1, 0.9, 0.3, 1)
+theme_override_colors/font_color = Color(0.98, 0.78, 0.12, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 17
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "⚔️  Обычная игра (все слова)"
+text = "ОБЫЧНАЯ ИГРА (ВСЕ СЛОВА)"
 
 [node name="HintLabel" type="Label" parent="LessonSelectScreen/Panel/VBox" unique_id=458850474]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.45, 0.42, 0.6, 1)
+theme_override_colors/font_color = Color(0.62, 0.44, 0.18, 1)
 theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1
 
@@ -574,15 +574,15 @@ theme_override_constants/separation = 4
 
 [node name="AccLabel" type="Label" parent="LessonHUD/StatsPanel/VBox" unique_id=687902363]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.45, 1, 0.65, 1)
+theme_override_colors/font_color = Color(0.98, 0.78, 0.22, 1)
 theme_override_font_sizes/font_size = 14
-text = "🎯 Точность: --%"
+text = "ТОЧНОСТЬ: --%"
 
 [node name="WpmLabel" type="Label" parent="LessonHUD/StatsPanel/VBox" unique_id=1482746702]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.55, 0.88, 1, 1)
+theme_override_colors/font_color = Color(1, 0.6, 0.12, 1)
 theme_override_font_sizes/font_size = 14
-text = "⚡ WPM: 0"
+text = "WPM: 0"
 
 [node name="LessonPanel" type="PanelContainer" parent="LessonHUD" unique_id=848440568]
 anchors_preset = 7
@@ -598,7 +598,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_hud_pill")
 
 [node name="LessonLabel" type="Label" parent="LessonHUD/LessonPanel" unique_id=967199100]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.75, 1, 1)
+theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
 theme_override_font_sizes/font_size = 15
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -615,19 +615,20 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_hud_pill")
 
 [node name="KeysLabel" type="Label" parent="LessonHUD/KeysPanel" unique_id=242198947]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.88, 0.4, 1)
+theme_override_colors/font_color = Color(0.98, 0.65, 0.15, 1)
 theme_override_font_sizes/font_size = 13
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LessonResultScreen" type="CanvasLayer" parent="." unique_id=1178881705]
+visible = false
 
 [node name="BGDimmer" type="ColorRect" parent="LessonResultScreen" unique_id=1000000060]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color(0.04, 0.02, 0.1, 0.95)
+color = Color(0.05, 0.02, 0, 0.96)
 
 [node name="Panel" type="Panel" parent="LessonResultScreen" unique_id=55479668]
 anchors_preset = 8
@@ -654,13 +655,13 @@ alignment = 1
 
 [node name="TitleLabel" type="Label" parent="LessonResultScreen/Panel/VBox" unique_id=286608048]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.9, 0.25, 1)
+theme_override_colors/font_color = Color(0.98, 0.78, 0.12, 1)
 theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 
 [node name="ResultLabel" type="Label" parent="LessonResultScreen/Panel/VBox" unique_id=1443791926]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.8, 0.72, 1, 1)
+theme_override_colors/font_color = Color(0.9, 0.72, 0.38, 1)
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -675,30 +676,30 @@ alignment = 1
 
 [node name="RetryBtn" type="Button" parent="LessonResultScreen/Panel/VBox/BtnRow" unique_id=828589491]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.88, 0.8, 1, 1)
+theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "🔄  Повторить"
+text = "ПОВТОРИТЬ"
 
 [node name="NextBtn" type="Button" parent="LessonResultScreen/Panel/VBox/BtnRow" unique_id=1828105952]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.45, 1, 0.65, 1)
+theme_override_colors/font_color = Color(0.98, 0.78, 0.12, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "➡️  Следующий"
+text = "СЛЕДУЮЩИЙ"
 
 [node name="MenuBtn" type="Button" parent="LessonResultScreen/Panel/VBox/BtnRow" unique_id=1121086394]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.65, 0.3, 1)
+theme_override_colors/font_color = Color(1, 0.6, 0.12, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "🏠  Меню"
+text = "МЕНЮ"
