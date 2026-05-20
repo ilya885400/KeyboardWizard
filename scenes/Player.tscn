@@ -142,17 +142,6 @@ shadow_color = Color(0, 0, 0, 0.7)
 shadow_size = 6
 shadow_offset = Vector2(3, 3)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_bg"]
-bg_color = Color(0.2, 0.04, 0.04, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.5, 0.08, 0.08, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_fill"]
-bg_color = Color(0.85, 0.12, 0.12, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xp_bg"]
 bg_color = Color(0.03, 0.14, 0.06, 1)
 border_width_left = 1
@@ -163,6 +152,17 @@ border_color = Color(0.08, 0.35, 0.12, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xp_fill"]
 bg_color = Color(0.15, 0.72, 0.3, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_bg"]
+bg_color = Color(0.2, 0.04, 0.04, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5, 0.08, 0.08, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_fill"]
+bg_color = Color(0.85, 0.12, 0.12, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input_bar"]
 content_margin_left = 22.0
@@ -197,8 +197,8 @@ layer = 10
 visible = false
 
 [node name="StatsPanel" type="PanelContainer" parent="CanvasLayer" unique_id=846778541]
-offset_right = 236.0
-offset_bottom = 138.0
+offset_right = 146.0
+offset_bottom = 54.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_stats_panel")
 
 [node name="VBox" type="VBoxContainer" parent="CanvasLayer/StatsPanel" unique_id=426967694]
@@ -206,6 +206,7 @@ layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="LevelRow" type="HBoxContainer" parent="CanvasLayer/StatsPanel/VBox" unique_id=2000000001]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 6
 
@@ -222,6 +223,37 @@ theme_override_colors/font_color = Color(1, 0.92, 0.6, 1)
 theme_override_font_sizes/font_size = 15
 text = "УРОВЕНЬ: 1"
 vertical_alignment = 1
+
+[node name="XPRow" type="VBoxContainer" parent="CanvasLayer/StatsPanel/VBox" unique_id=2000000007]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="XPHeaderRow" type="HBoxContainer" parent="CanvasLayer/StatsPanel/VBox/XPRow" unique_id=2000000008]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="XPIcon" type="Label" parent="CanvasLayer/StatsPanel/VBox/XPRow/XPHeaderRow" unique_id=2000000009]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "✦"
+vertical_alignment = 1
+
+[node name="ExpLabel" type="Label" parent="CanvasLayer/StatsPanel/VBox/XPRow/XPHeaderRow" unique_id=1147046380]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.3, 0.92, 0.45, 1)
+theme_override_font_sizes/font_size = 13
+text = "XP: 0 / 10"
+vertical_alignment = 1
+
+[node name="XPBar" type="ProgressBar" parent="CanvasLayer/StatsPanel/VBox/XPRow" unique_id=2000000010]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_xp_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xp_fill")
+max_value = 10.0
+show_percentage = false
 
 [node name="HPRow" type="VBoxContainer" parent="CanvasLayer/StatsPanel/VBox" unique_id=2000000003]
 layout_mode = 2
@@ -251,36 +283,6 @@ layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_hp_bg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_hp_fill")
 value = 100.0
-show_percentage = false
-
-[node name="XPRow" type="VBoxContainer" parent="CanvasLayer/StatsPanel/VBox" unique_id=2000000007]
-layout_mode = 2
-theme_override_constants/separation = 3
-
-[node name="XPHeaderRow" type="HBoxContainer" parent="CanvasLayer/StatsPanel/VBox/XPRow" unique_id=2000000008]
-layout_mode = 2
-theme_override_constants/separation = 6
-
-[node name="XPIcon" type="Label" parent="CanvasLayer/StatsPanel/VBox/XPRow/XPHeaderRow" unique_id=2000000009]
-layout_mode = 2
-theme_override_font_sizes/font_size = 13
-text = "✦"
-vertical_alignment = 1
-
-[node name="ExpLabel" type="Label" parent="CanvasLayer/StatsPanel/VBox/XPRow/XPHeaderRow" unique_id=1147046380]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.3, 0.92, 0.45, 1)
-theme_override_font_sizes/font_size = 13
-text = "XP: 0 / 10"
-vertical_alignment = 1
-
-[node name="XPBar" type="ProgressBar" parent="CanvasLayer/StatsPanel/VBox/XPRow" unique_id=2000000010]
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_xp_bg")
-theme_override_styles/fill = SubResource("StyleBoxFlat_xp_fill")
-max_value = 10.0
 show_percentage = false
 
 [node name="InputPanel" type="PanelContainer" parent="CanvasLayer" unique_id=1027552154]

@@ -130,7 +130,36 @@ func _ready() -> void:
 	lesson_select_screen.visible = true
 	get_tree().paused = true
 
-
+func _show_lesson_info(lang: String, index: int) -> void:
+	var lesson = TypingLessonManager.get_lesson(lang, index)
+	
+	# Используем lesson_result_screen как окно предпросмотра
+	result_title.text = "%s · %s" % [lesson["title"], lesson["subtitle"]]
+	result_title.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0))
+	
+	result_label.text = (
+		"Описание:\n%s\n\n" % lesson["description"] +
+		"Клавиши: %s\n" % lesson["keys"]
+	)
+	# Принудительно устанавливаем параметры для переноса текста
+	result_label.autowrap_mode = TextServer.AUTOWRAP_WORD
+	
+	# Если вы используете VBoxContainer, убедитесь, что у Label стоит:
+	result_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	result_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	
+	# Настраиваем кнопки: меняем "Повторить/Next" на "Начать"
+	$LessonResultScreen/Panel/VBox/BtnRow/NextBtn.visible = false
+	$LessonResultScreen/Panel/VBox/BtnRow/RetryBtn.text = "Начать урок"
+	
+	# Переподключаем кнопку "Начать" на запуск урока
+	
+	$LessonResultScreen/Panel/VBox/BtnRow/RetryBtn.pressed.connect(func():
+		lesson_result_screen.visible = false
+		_start_typing_lesson(lang, index)
+	, CONNECT_ONE_SHOT)
+	
+	lesson_result_screen.visible = true
 # ─────────────────────────────────────────
 # ВЫБОР ЯЗЫКА
 # ─────────────────────────────────────────
@@ -155,16 +184,26 @@ func _rebuild_lesson_list() -> void:
 	for i in range(count):
 		var lesson = TypingLessonManager.get_lesson(lesson_lang, i)
 		var btn    := Button.new()
-
+		
+		# Логика блокировки: урок доступен, если он <= текущего пройденного
+		var is_locked = i > current
+		
 		var star := "★ " if i == current else "  "
-		# Формат: "★ EN 3 · Home row: S D F J K L  [S·D·F·J·K·L]"
-		btn.text = "%s%s · %s" % [star, lesson["title"], lesson["subtitle"]] #lesson["keys"]]
+		var lock_icon := "" if is_locked else ""
+		
+		btn.text = "%s%s%s · %s" % [lock_icon, star, lesson["title"], lesson["subtitle"]]
 		btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		btn.add_theme_color_override("font_color",
-			Color(1.0, 0.9, 0.3) if i == current else Color(0.8, 0.85, 1.0))
-
-		var idx := i
-		btn.pressed.connect(func(): _start_typing_lesson(lesson_lang, idx))
+		
+		# Цвет текста зависит от того, заблокирован ли урок
+		if is_locked:
+			btn.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5))
+			btn.disabled = true # Блокируем нажатие
+		else:
+			btn.add_theme_color_override("font_color", 
+				Color(1.0, 0.9, 0.3) if i == current else Color(0.8, 0.85, 1.0))
+			
+			var idx := i
+			btn.pressed.connect(func(): _show_lesson_info(lesson_lang, idx))			
 		lesson_list_box.add_child(btn)
 
 
@@ -174,6 +213,9 @@ func _rebuild_lesson_list() -> void:
 func _start_typing_lesson(p_lang: String, p_lesson_index: int) -> void:
 	# 1. ВОСКРЕШЕНИЕ ИГРОКА (Критически важно!)
 	$HUD.visible = true
+	player.get_node_or_null("CanvasLayer/StatsPanel/VBox/LevelRow").visible = false
+	player.get_node_or_null("CanvasLayer/StatsPanel/VBox/XPRow").visible = false
+	
 	player.get_node_or_null("CanvasLayer").visible = true
 	
 	player.current_hp = player.max_hp
@@ -237,6 +279,10 @@ func _start_normal_game() -> void:
 	player.lesson_lang = ""
 
 	$HUD.visible = true
+	player.get_node_or_null("CanvasLayer").visible = true
+	player.get_node_or_null("CanvasLayer/StatsPanel/VBox/LevelRow").visible = true
+	player.get_node_or_null("CanvasLayer/StatsPanel/VBox/XPRow").visible = true
+	
 	upgrade_menu.visible      = false
 	upgrade_menu.process_mode = Node.PROCESS_MODE_INHERIT
 	upgrade_menu.player       = player

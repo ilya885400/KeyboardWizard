@@ -434,7 +434,6 @@ text = "Нажми  Enter  чтобы сыграть снова"
 horizontal_alignment = 1
 
 [node name="LessonSelectScreen" type="CanvasLayer" parent="." unique_id=1483345773]
-visible = false
 
 [node name="BGDimmer" type="ColorRect" parent="LessonSelectScreen" unique_id=1000000040]
 anchors_preset = 15
@@ -471,18 +470,22 @@ theme_override_constants/separation = 14
 alignment = 1
 
 [node name="TitleLabel" type="Label" parent="LessonSelectScreen/Panel/VBox" unique_id=1000000041]
+clip_contents = true
 layout_mode = 2
+size_flags_vertical = 6
 theme_override_colors/font_color = Color(0.98, 0.78, 0.12, 1)
 theme_override_font_sizes/font_size = 30
-text = "ARCANE TYPING"
+text = "KEYBOARD WIZARD"
 horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="SubLabel" type="Label" parent="LessonSelectScreen/Panel/VBox" unique_id=1000000042]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.82, 0.6, 0.28, 1)
 theme_override_font_sizes/font_size = 14
-text = "Выбери раскладку и урок, чтобы начать"
+text = "Выбери раскладку и уровень, чтобы начать"
 horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="HSep" type="HSeparator" parent="LessonSelectScreen/Panel/VBox" unique_id=1000000043]
 layout_mode = 2
@@ -491,8 +494,9 @@ layout_mode = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0.98, 0.65, 0.15, 1)
 theme_override_font_sizes/font_size = 13
-text = "ЯЗЫК / LAYOUT"
+text = "РАСКЛАДКА / LAYOUT"
 horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="LangRow" type="HBoxContainer" parent="LessonSelectScreen/Panel/VBox" unique_id=1000000045]
 layout_mode = 2
@@ -526,8 +530,9 @@ layout_mode = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0.98, 0.65, 0.15, 1)
 theme_override_font_sizes/font_size = 13
-text = "ВЫБЕРИ УРОК"
+text = "ВЫБЕРИ УРОВЕНЬ"
 horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="LessonSelectScreen/Panel/VBox" unique_id=1486151323]
 layout_mode = 2
@@ -557,6 +562,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.44, 0.18, 1)
 theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="LessonHUD" type="CanvasLayer" parent="." unique_id=1337054168]
 
@@ -646,6 +652,10 @@ offset_left = -300.0
 offset_top = -250.0
 offset_right = 300.0
 offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel_dark")
 
 [node name="VBox" type="VBoxContainer" parent="LessonResultScreen/Panel" unique_id=297699515]
@@ -667,10 +677,12 @@ horizontal_alignment = 1
 
 [node name="ResultLabel" type="Label" parent="LessonResultScreen/Panel/VBox" unique_id=1443791926]
 layout_mode = 2
+size_flags_vertical = 6
 theme_override_colors/font_color = Color(0.9, 0.72, 0.38, 1)
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 autowrap_mode = 3
+clip_text = true
 
 [node name="HSep" type="HSeparator" parent="LessonResultScreen/Panel/VBox" unique_id=1000000061]
 layout_mode = 2

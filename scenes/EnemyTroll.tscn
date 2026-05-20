@@ -36,11 +36,6 @@ animations = [{
 "speed": 4.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_detect"]
-radius = 600.0
-
-; ── StyleBoxes (оранжево-коричневая тема для тролля) ──────────────────
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_word_bg"]
 content_margin_left = 6.0
 content_margin_top = 2.0
@@ -51,32 +46,33 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.80, 0.45, 0.12, 0.70)
+border_color = Color(0.8, 0.45, 0.12, 0.7)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_fill"]
-bg_color = Color(0.88, 0.42, 0.10, 1.0)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_bg"]
-bg_color = Color(0.12, 0.06, 0.02, 0.90)
+bg_color = Color(0.12, 0.06, 0.02, 0.9)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.40, 0.18, 0.04, 0.70)
+border_color = Color(0.4, 0.18, 0.04, 0.7)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-; ══════════════════════════════════════════════
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_fill"]
+bg_color = Color(0.88, 0.42, 0.1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_detect"]
+radius = 600.0
 
 [node name="EnemyTroll" type="CharacterBody2D" unique_id=1087866235 groups=["enemies"]]
 script = ExtResource("1_enemy")
@@ -108,12 +104,13 @@ offset_left = -62.0
 offset_top = -138.0
 offset_right = 62.0
 offset_bottom = -102.0
-theme_override_colors/default_color = Color(1, 0.80, 0.50, 1)
+theme_override_colors/default_color = Color(1, 0.8, 0.5, 1)
 theme_override_font_sizes/normal_font_size = 18
 bbcode_enabled = true
 text = "[center][color=#ffcc88]WORD[/color][/center]"
 fit_content = true
 scroll_active = false
+autowrap_mode = 0
 horizontal_alignment = 1
 
 [node name="HPBar" type="ProgressBar" parent="." unique_id=984149269]
@@ -121,9 +118,9 @@ offset_left = -40.0
 offset_top = -152.0
 offset_right = 40.0
 offset_bottom = -142.0
-theme_override_styles/fill = SubResource("StyleBoxFlat_hp_fill")
-theme_override_styles/background = SubResource("StyleBoxFlat_hp_bg")
 theme_override_colors/font_color = Color(0, 0, 0, 0)
+theme_override_styles/background = SubResource("StyleBoxFlat_hp_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hp_fill")
 max_value = 4.0
 value = 4.0
 show_percentage = false
