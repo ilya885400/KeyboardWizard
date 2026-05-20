@@ -32,10 +32,10 @@ signal leveled_up(new_level: int)
 signal died
 
 @onready var anim_player: AnimatedSprite2D = $AnimatedSprite2D
-@onready var exp_label: Label   = $CanvasLayer/StatsPanel/VBox/ExpLabel
-@onready var level_label: Label = $CanvasLayer/StatsPanel/VBox/LevelLabel
-@onready var hp_label: Label    = $CanvasLayer/StatsPanel/VBox/HPLabel
-@onready var input_label: Label = $CanvasLayer/InputPanel/InputLabel
+@onready var exp_label: Label   = $CanvasLayer/StatsPanel/VBox/XPRow/XPHeaderRow/ExpLabel
+@onready var level_label: Label = $CanvasLayer/StatsPanel/VBox/LevelRow/LevelLabel
+@onready var hp_label: Label    = $CanvasLayer/StatsPanel/VBox/HPRow/HPHeaderRow/HPLabel
+@onready var input_label: Label = $CanvasLayer/InputPanel/HBox/InputLabel
 
 @onready var _invincibility_timer: Timer = $InvincibilityTimer
 @onready var _flash_timer: Timer         = $FlashTimer

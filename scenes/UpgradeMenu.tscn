@@ -2,18 +2,98 @@
 
 [ext_resource type="Script" path="res://scripts/upgrade_menu.gd" id="1_menu"]
 
+; ── StyleBoxes ─────────────────────────────────────────────────────────
+
+; Фоновый оверлей панели
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_main_panel"]
+content_margin_left = 28.0
+content_margin_top = 24.0
+content_margin_right = 28.0
+content_margin_bottom = 24.0
+bg_color = Color(0.05, 0.03, 0.13, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.58, 0.34, 0.90, 1.0)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0.35, 0.05, 0.75, 0.55)
+shadow_size = 28
+
+; Карточка обычная
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card_normal"]
+content_margin_left = 14.0
+content_margin_top = 12.0
+content_margin_right = 14.0
+content_margin_bottom = 12.0
+bg_color = Color(0.09, 0.05, 0.20, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.40, 0.24, 0.68, 0.70)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+; Карточка подсветка (активная / hover)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card_active"]
+content_margin_left = 14.0
+content_margin_top = 12.0
+content_margin_right = 14.0
+content_margin_bottom = 12.0
+bg_color = Color(0.16, 0.08, 0.34, 1.0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.72, 0.48, 1.0, 1.0)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0.50, 0.20, 1.0, 0.40)
+shadow_size = 10
+
+; Поле ввода
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input_row"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.04, 0.02, 0.12, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.42, 0.85, 0.62, 0.65)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+; ══════════════════════════════════════════════
+;  SCENE
+; ══════════════════════════════════════════════
+
 [node name="UpgradeMenu" type="CanvasLayer"]
 script = ExtResource("1_menu")
 layer = 20
 visible = false
 
+; Тёмный оверлей
 [node name="Dimmer" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0.0, 0.0, 0.0, 0.65)
+color = Color(0.0, 0.0, 0.0, 0.72)
 mouse_filter = 2
 
+; Главная панель
 [node name="Panel" type="Panel" parent="."]
 process_mode = 3
 anchors_preset = 8
@@ -21,147 +101,283 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -210.0
-offset_top = -280.0
-offset_right = 210.0
-offset_bottom = 280.0
+offset_left = -230.0
+offset_top = -310.0
+offset_right = 230.0
+offset_bottom = 310.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_main_panel")
 
 [node name="VBox" type="VBoxContainer" parent="Panel"]
-anchors_preset = 15
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 20.0
-offset_top = 16.0
-offset_right = -20.0
-offset_bottom = -16.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 theme_override_constants/separation = 10
 
-[node name="LevelLabel" type="Label" parent="Panel/VBox"]
-text = "Уровень 2!\nВыбери улучшение:"
-horizontal_alignment = 1
+; ── Заголовок ──────────────────────────────────────────────────────────
+
+[node name="TitleRow" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 10
+
+[node name="StarLeft" type="Label" parent="Panel/VBox/TitleRow"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 22
-theme_override_colors/font_color = Color(0.9, 0.8, 1.0, 1.0)
+text = "✦"
+theme_override_colors/font_color = Color(0.80, 0.60, 1, 0.8)
+vertical_alignment = 1
+
+[node name="LevelLabel" type="Label" parent="Panel/VBox/TitleRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.82, 1.0, 1.0)
+theme_override_font_sizes/font_size = 22
+text = "Уровень 2!  Выбери улучшение:"
+horizontal_alignment = 1
 autowrap_mode = 3
 
+[node name="StarRight" type="Label" parent="Panel/VBox/TitleRow"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "✦"
+theme_override_colors/font_color = Color(0.80, 0.60, 1, 0.8)
+vertical_alignment = 1
+
 [node name="HSep" type="HSeparator" parent="Panel/VBox"]
-theme_override_constants/separation = 6
-
-; ── КАРТОЧКА: СКОРОСТЬ ────────────────────────────────────────────────
-[node name="SpeedCard" type="PanelContainer" parent="Panel/VBox"]
-process_mode = 3
-
-[node name="VBox" type="VBoxContainer" parent="Panel/VBox/SpeedCard"]
 theme_override_constants/separation = 4
 
-[node name="HBox" type="HBoxContainer" parent="Panel/VBox/SpeedCard/VBox"]
-theme_override_constants/separation = 12
+; ══════════════════════════════════════════════
+;  КАРТОЧКА: СКОРОСТЬ
+; ══════════════════════════════════════════════
 
-[node name="Icon" type="Label" parent="Panel/VBox/SpeedCard/VBox/HBox"]
+[node name="SpeedCard" type="PanelContainer" parent="Panel/VBox"]
+process_mode = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_card_normal")
+
+[node name="VBox" type="VBoxContainer" parent="Panel/VBox/SpeedCard"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="HBox" type="HBoxContainer" parent="Panel/VBox/SpeedCard/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+; Иконка с цветным фоном
+[node name="IconBG" type="Panel" parent="Panel/VBox/SpeedCard/VBox/HBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(48, 48)
+
+[node name="Icon" type="Label" parent="Panel/VBox/SpeedCard/VBox/HBox/IconBG"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_font_sizes/font_size = 30
 text = "⚡"
-theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextVBox" type="VBoxContainer" parent="Panel/VBox/SpeedCard/VBox/HBox"]
+layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 3
 
 [node name="Title" type="Label" parent="Panel/VBox/SpeedCard/VBox/HBox/TextVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(1.0, 0.95, 0.55, 1.0)
 text = "Скорость бега"
-theme_override_font_sizes/font_size = 15
-theme_override_colors/font_color = Color(1.0, 0.95, 0.6, 1.0)
 
 [node name="Desc" type="Label" parent="Panel/VBox/SpeedCard/VBox/HBox/TextVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.60, 0.58, 0.78, 1.0)
 text = "+40 к скорости перемещения"
-theme_override_font_sizes/font_size = 11
-theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1.0)
+autowrap_mode = 3
 
-[node name="WordLabel" type="Label" parent="Panel/VBox/SpeedCard/VBox"]
+; Слово-ключ (вводить для выбора)
+[node name="WordRow" type="HBoxContainer" parent="Panel/VBox/SpeedCard/VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 8
+
+[node name="KeyHint" type="Label" parent="Panel/VBox/SpeedCard/VBox/WordRow"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.50, 0.48, 0.65, 1)
+text = "введи:"
+vertical_alignment = 1
+
+[node name="WordLabel" type="Label" parent="Panel/VBox/SpeedCard/VBox/WordRow"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1.0, 0.92, 0.35, 1.0)
 text = "fire"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 18
-theme_override_colors/font_color = Color(0.9, 0.9, 1.0, 1.0)
 
-; ── КАРТОЧКА: КОРОЧЕ СЛОВА ────────────────────────────────────────────
+; ══════════════════════════════════════════════
+;  КАРТОЧКА: КОРОЧЕ СЛОВА
+; ══════════════════════════════════════════════
+
 [node name="WordsCard" type="PanelContainer" parent="Panel/VBox"]
 process_mode = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_card_normal")
 
 [node name="VBox" type="VBoxContainer" parent="Panel/VBox/WordsCard"]
-theme_override_constants/separation = 4
+layout_mode = 2
+theme_override_constants/separation = 6
 
 [node name="HBox" type="HBoxContainer" parent="Panel/VBox/WordsCard/VBox"]
-theme_override_constants/separation = 12
+layout_mode = 2
+theme_override_constants/separation = 14
 
-[node name="Icon" type="Label" parent="Panel/VBox/WordsCard/VBox/HBox"]
+[node name="IconBG" type="Panel" parent="Panel/VBox/WordsCard/VBox/HBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(48, 48)
+
+[node name="Icon" type="Label" parent="Panel/VBox/WordsCard/VBox/HBox/IconBG"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_font_sizes/font_size = 30
 text = "📖"
-theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextVBox" type="VBoxContainer" parent="Panel/VBox/WordsCard/VBox/HBox"]
+layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 3
 
 [node name="Title" type="Label" parent="Panel/VBox/WordsCard/VBox/HBox/TextVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.55, 1.0, 0.80, 1.0)
 text = "Короче слова"
-theme_override_font_sizes/font_size = 15
-theme_override_colors/font_color = Color(0.6, 1.0, 0.8, 1.0)
 
 [node name="Desc" type="Label" parent="Panel/VBox/WordsCard/VBox/HBox/TextVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.60, 0.58, 0.78, 1.0)
 text = "−1 буква к длине слов врагов"
-theme_override_font_sizes/font_size = 11
-theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1.0)
+autowrap_mode = 3
 
-[node name="WordLabel" type="Label" parent="Panel/VBox/WordsCard/VBox"]
+[node name="WordRow" type="HBoxContainer" parent="Panel/VBox/WordsCard/VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 8
+
+[node name="KeyHint" type="Label" parent="Panel/VBox/WordsCard/VBox/WordRow"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.50, 0.48, 0.65, 1)
+text = "введи:"
+vertical_alignment = 1
+
+[node name="WordLabel" type="Label" parent="Panel/VBox/WordsCard/VBox/WordRow"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1.0, 0.92, 0.35, 1.0)
 text = "rune"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 18
-theme_override_colors/font_color = Color(0.9, 0.9, 1.0, 1.0)
 
-; ── КАРТОЧКА: HP ──────────────────────────────────────────────────────
+; ══════════════════════════════════════════════
+;  КАРТОЧКА: HP
+; ══════════════════════════════════════════════
+
 [node name="HPCard" type="PanelContainer" parent="Panel/VBox"]
 process_mode = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_card_normal")
 
 [node name="VBox" type="VBoxContainer" parent="Panel/VBox/HPCard"]
-theme_override_constants/separation = 4
+layout_mode = 2
+theme_override_constants/separation = 6
 
 [node name="HBox" type="HBoxContainer" parent="Panel/VBox/HPCard/VBox"]
-theme_override_constants/separation = 12
+layout_mode = 2
+theme_override_constants/separation = 14
 
-[node name="Icon" type="Label" parent="Panel/VBox/HPCard/VBox/HBox"]
+[node name="IconBG" type="Panel" parent="Panel/VBox/HPCard/VBox/HBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(48, 48)
+
+[node name="Icon" type="Label" parent="Panel/VBox/HPCard/VBox/HBox/IconBG"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_font_sizes/font_size = 30
 text = "❤️"
-theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextVBox" type="VBoxContainer" parent="Panel/VBox/HPCard/VBox/HBox"]
+layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 3
 
 [node name="Title" type="Label" parent="Panel/VBox/HPCard/VBox/HBox/TextVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(1.0, 0.48, 0.48, 1.0)
 text = "Жизненная сила"
-theme_override_font_sizes/font_size = 15
-theme_override_colors/font_color = Color(1.0, 0.5, 0.5, 1.0)
 
 [node name="Desc" type="Label" parent="Panel/VBox/HPCard/VBox/HBox/TextVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.60, 0.58, 0.78, 1.0)
 text = "+30 к макс. HP и восстановление"
-theme_override_font_sizes/font_size = 11
-theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1.0)
+autowrap_mode = 3
 
-[node name="WordLabel" type="Label" parent="Panel/VBox/HPCard/VBox"]
+[node name="WordRow" type="HBoxContainer" parent="Panel/VBox/HPCard/VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 8
+
+[node name="KeyHint" type="Label" parent="Panel/VBox/HPCard/VBox/WordRow"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.50, 0.48, 0.65, 1)
+text = "введи:"
+vertical_alignment = 1
+
+[node name="WordLabel" type="Label" parent="Panel/VBox/HPCard/VBox/WordRow"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1.0, 0.92, 0.35, 1.0)
 text = "soul"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 18
-theme_override_colors/font_color = Color(0.9, 0.9, 1.0, 1.0)
 
-; ── ПОЛЕ ВВОДА (внизу) ────────────────────────────────────────────────
+; ══════════════════════════════════════════════
+;  ПОЛЕ ВВОДА
+; ══════════════════════════════════════════════
+
 [node name="HSep2" type="HSeparator" parent="Panel/VBox"]
 theme_override_constants/separation = 4
 
-[node name="InputRow" type="HBoxContainer" parent="Panel/VBox"]
+[node name="InputContainer" type="PanelContainer" parent="Panel/VBox"]
+process_mode = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_input_row")
+
+[node name="InputRow" type="HBoxContainer" parent="Panel/VBox/InputContainer"]
+layout_mode = 2
 process_mode = 3
 alignment = 1
+theme_override_constants/separation = 10
 
-[node name="Cursor" type="Label" parent="Panel/VBox/InputRow"]
-text = ">"
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.5, 1.0, 0.7, 1.0)
+[node name="Cursor" type="Label" parent="Panel/VBox/InputContainer/InputRow"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.45, 1.0, 0.68, 1.0)
+text = "›"
+vertical_alignment = 1
 
-[node name="InputLabel" type="Label" parent="Panel/VBox/InputRow"]
+[node name="InputLabel" type="Label" parent="Panel/VBox/InputContainer/InputRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(1.0, 0.92, 0.35, 1.0)
 text = ""
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.9, 0.9, 1.0, 1.0)
+horizontal_alignment = 1
+vertical_alignment = 1

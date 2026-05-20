@@ -150,11 +150,11 @@ func _rebuild_lesson_list() -> void:
 	for child in lesson_list_box.get_children():
 		child.queue_free()
 
-	var count   := TypingLessonManager.get_lesson_count(lesson_lang)
-	var current := TypingLessonManager.get_current_index(lesson_lang)
+	var count   = TypingLessonManager.get_lesson_count(lesson_lang)
+	var current = TypingLessonManager.get_current_index(lesson_lang)
 
 	for i in range(count):
-		var lesson := TypingLessonManager.get_lesson(lesson_lang, i)
+		var lesson = TypingLessonManager.get_lesson(lesson_lang, i)
 		var btn    := Button.new()
 
 		var star := "★ " if i == current else "  "
@@ -177,7 +177,7 @@ func _start_typing_lesson(p_lang: String, p_lesson_index: int) -> void:
 	lesson_index = p_lesson_index
 	TypingLessonManager.set_lesson(p_lang, p_lesson_index)
 
-	var lesson     := TypingLessonManager.get_current_lesson(p_lang)
+	var lesson     = TypingLessonManager.get_current_lesson(p_lang)
 	lesson_duration = lesson.get("duration", 90.0)
 
 	# Сброс статистики
@@ -274,7 +274,7 @@ func _update_hud() -> void:
 func _update_timer_label(remaining: float) -> void:
 	var mins := int(remaining) / 60
 	var secs := int(remaining) % 60
-	timer_label.text = "Время: %02d:%02d" % [mins, secs]
+#	timer_label.text = "Время: %02d:%02d" % [mins, secs]
 
 
 # ─────────────────────────────────────────
