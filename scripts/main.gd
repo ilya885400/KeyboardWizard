@@ -150,7 +150,7 @@ func _show_lesson_info(lang: String, index: int) -> void:
 	
 	# Настраиваем кнопки: меняем "Повторить/Next" на "Начать"
 	$LessonResultScreen/Panel/VBox/BtnRow/NextBtn.visible = false
-	$LessonResultScreen/Panel/VBox/BtnRow/RetryBtn.text = "Начать урок"
+	$LessonResultScreen/Panel/VBox/BtnRow/RetryBtn.text = "НАЧАТЬ УРОВЕНЬ"
 	
 	# Переподключаем кнопку "Начать" на запуск урока
 	
