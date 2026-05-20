@@ -47,7 +47,7 @@ func _ready() -> void:
 
 	spawn_timer.wait_time = spawn_interval
 	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
-	spawn_timer.start()
+	#spawn_timer.start()
 
 
 # ─────────────────────────────────────────
@@ -63,8 +63,7 @@ func activate_typing_mode(p_lang: String, p_lesson_index: int) -> void:
 
 	spawn_timer.wait_time = spawn_interval
 	spawn_timer.start()
-
-
+#
 # ─────────────────────────────────────────
 # СЛОВАРЬ
 # ─────────────────────────────────────────

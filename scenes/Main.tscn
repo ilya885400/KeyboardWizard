@@ -120,7 +120,7 @@ motion_mode = 1
 projectile_scene = ExtResource("3_c01mt")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1314648986]
-zoom = Vector2(0.8, 0.8)
+zoom = Vector2(0.9, 0.9)
 position_smoothing_enabled = true
 position_smoothing_speed = 6.0
 
@@ -133,7 +133,6 @@ troll_scene = ExtResource("8_wp0k4")
 
 [node name="SpawnTimer" type="Timer" parent="EnemyManager" unique_id=1405489156]
 wait_time = 2.5
-autostart = true
 
 [node name="UpgradeMenu" parent="." unique_id=12205706 instance=ExtResource("5_menu")]
 visible = false
@@ -159,6 +158,7 @@ layer = 5
 visible = false
 
 [node name="ScorePanel" type="PanelContainer" parent="HUD" unique_id=1397963924]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -192,9 +192,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -95.0
-offset_top = 62.0
 offset_right = 95.0
-offset_bottom = 100.0
+offset_bottom = 38.0
+grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hud_pill")
 
 [node name="HBox" type="HBoxContainer" parent="HUD/TimerPanel" unique_id=1000000003]
@@ -434,6 +434,7 @@ text = "Нажми  Enter  чтобы сыграть снова"
 horizontal_alignment = 1
 
 [node name="LessonSelectScreen" type="CanvasLayer" parent="." unique_id=1483345773]
+visible = false
 
 [node name="BGDimmer" type="ColorRect" parent="LessonSelectScreen" unique_id=1000000040]
 anchors_preset = 15
@@ -560,6 +561,7 @@ horizontal_alignment = 1
 [node name="LessonHUD" type="CanvasLayer" parent="." unique_id=1337054168]
 
 [node name="StatsPanel" type="PanelContainer" parent="LessonHUD" unique_id=1584730958]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -609,15 +611,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="KeysPanel" type="PanelContainer" parent="LessonHUD" unique_id=1055280138]
-anchors_preset = 3
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
 offset_left = -206.0
-offset_top = -50.0
+offset_bottom = 50.0
 grow_horizontal = 0
-grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_hud_pill")
 
 [node name="KeysLabel" type="Label" parent="LessonHUD/KeysPanel" unique_id=242198947]

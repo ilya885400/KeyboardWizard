@@ -172,6 +172,20 @@ func _rebuild_lesson_list() -> void:
 # СТАРТ УРОКА
 # ─────────────────────────────────────────
 func _start_typing_lesson(p_lang: String, p_lesson_index: int) -> void:
+	# 1. ВОСКРЕШЕНИЕ ИГРОКА (Критически важно!)
+	$HUD.visible = true
+	player.get_node_or_null("CanvasLayer").visible = true
+	
+	player.current_hp = player.max_hp
+	player.visible = true
+	player.set_physics_process(true)
+	player.set_process_unhandled_input(true)
+	player.modulate = Color(1, 1, 1) # Сброс цвета урона
+	
+	# 2. ОЧИСТКА ПОЛЯ
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		enemy.queue_free()
+	
 	lesson_lang  = p_lang
 	lesson_index = p_lesson_index
 	TypingLessonManager.set_lesson(p_lang, p_lesson_index)
@@ -222,6 +236,7 @@ func _start_typing_lesson(p_lang: String, p_lesson_index: int) -> void:
 func _start_normal_game() -> void:
 	player.lesson_lang = ""
 
+	$HUD.visible = true
 	upgrade_menu.visible      = false
 	upgrade_menu.process_mode = Node.PROCESS_MODE_INHERIT
 	upgrade_menu.player       = player
@@ -236,6 +251,7 @@ func _start_normal_game() -> void:
 
 	game_active = true
 	_update_hud()
+	enemy_manager.spawn_timer.start()
 
 
 # ─────────────────────────────────────────
@@ -254,12 +270,38 @@ func _process(delta: float) -> void:
 		var remaining = max(0.0, lesson_duration - time_elapsed)
 		_update_timer_label(remaining)
 		if time_elapsed >= lesson_duration:
-			_finish_lesson(true)
+			enemy_manager.spawn_timer.stop()
+			
+			var enemies = get_tree().get_nodes_in_group("enemies")
+			if enemies.size() == 0:
+				_finish_lesson(true)
+				$HUD.visible = false
+				player.get_node_or_null("CanvasLayer").visible = false
+
+			else:
+		# Можно добавить визуализацию, например, мигающий текст 
+		# или просто оставить игру в режиме "добивания"
+				pass
+			
 	else:
 		var remaining = max(0.0, GAME_DURATION - time_elapsed)
 		_update_timer_label(remaining)
 		if time_elapsed >= GAME_DURATION:
-			_win()
+			enemy_manager.spawn_timer.stop()
+			
+			var enemies = get_tree().get_nodes_in_group("enemies")
+			if enemies.size() == 0:
+				_win()
+				$HUD.visible = false
+				player.get_node_or_null("CanvasLayer").visible = false
+
+
+
+			else:
+		# Можно добавить визуализацию, например, мигающий текст 
+		# или просто оставить игру в режиме "добивания"
+				pass
+
 
 
 # ─────────────────────────────────────────
@@ -325,8 +367,12 @@ func _on_letter_correct() -> void:
 # ЗАВЕРШЕНИЕ УРОКА
 # ─────────────────────────────────────────
 func _finish_lesson(survived: bool) -> void:
+	
 	if not game_active:
 		return
+	$HUD.visible = false
+	player.get_node_or_null("CanvasLayer").visible = true
+
 	game_active = false
 	get_tree().paused = true
 
@@ -340,10 +386,12 @@ func _finish_lesson(survived: bool) -> void:
 		result_title.text = "✓ УРОК ПРОЙДЕН!"
 		result_title.add_theme_color_override("font_color", Color(0.3, 1.0, 0.5))
 		TypingLessonManager.advance_lesson(lesson_lang)
+		$LessonResultScreen/Panel/VBox/BtnRow/NextBtn.visible = true
 	else:
 		result_title.text = "✗ ПОПРОБУЙ ЕЩЁ"
 		result_title.add_theme_color_override("font_color", Color(1.0, 0.4, 0.3))
-
+		$LessonResultScreen/Panel/VBox/BtnRow/NextBtn.visible = false
+		
 	var lang_name := "English (QWERTY)" if lesson_lang == "en" else "Русский (ЙЦУКЕН)"
 	var next_lesson := TypingLessonManager.get_current_lesson(lesson_lang)
 
@@ -364,7 +412,7 @@ func _finish_lesson(survived: bool) -> void:
 # ─────────────────────────────────────────
 func _connect_result_buttons() -> void:
 	var next_btn  := lesson_result_screen.get_node_or_null("Panel/VBox/BtnRow/NextBtn")
-	var retry_btn := lesson_result_screen.get_node_or_null("$Panel/VBox/BtnRow/RetryBtn")
+	var retry_btn := lesson_result_screen.get_node_or_null("Panel/VBox/BtnRow/RetryBtn")
 	var menu_btn  := lesson_result_screen.get_node_or_null("Panel/VBox/BtnRow/MenuBtn")
 
 	if next_btn:
@@ -378,7 +426,7 @@ func _connect_result_buttons() -> void:
 	if retry_btn:
 		retry_btn.pressed.connect(func():
 			get_tree().paused = false
-			lesson_result_screen.visible = false
+			$LessonResultScreen.visible = false
 			_start_typing_lesson(lesson_lang, lesson_index)
 		)
 	if menu_btn:
@@ -407,17 +455,19 @@ func _win() -> void:
 func _on_player_died() -> void:
 	if not game_active:
 		return
-	game_active = false
+	
 	get_tree().paused = true
 
 	if lesson_lang != "":
 		_finish_lesson(false)
 	else:
+		game_active = false
 		_save_score(score, false)
 		go_score_label.text   = "Ваш счёт: %d" % score
 		go_leader_label.text  = _build_leaderboard_text()
 		game_over_screen.visible = true
-
+	$HUD.visible = false
+	player.get_node_or_null("CanvasLayer").visible = false
 
 # ─────────────────────────────────────────
 # ПОВЫШЕНИЕ УРОВНЯ
