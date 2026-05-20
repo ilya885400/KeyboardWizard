@@ -54,6 +54,7 @@ anchor_bottom = 1.0
 color = Color(0.1, 0.07, 0.17, 1)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1669527235]
+visible = false
 color = Color(0.18039216, 0.12156863, 0.2784314, 1)
 
 [node name="Player" parent="." unique_id=747682325 instance=ExtResource("3_player")]
@@ -70,9 +71,6 @@ enemy_scene = ExtResource("4_enemy")
 goblin_scene = ExtResource("6_q8u5g")
 wraith_scene = ExtResource("7_lhr70")
 troll_scene = ExtResource("8_wp0k4")
-spawn_interval = null
-spawn_radius = null
-max_enemies = null
 
 [node name="SpawnTimer" type="Timer" parent="EnemyManager" unique_id=1405489156]
 wait_time = 2.5
@@ -335,13 +333,11 @@ offset_bottom = 50.0
 metadata/_edit_use_anchors_ = true
 
 [node name="AccLabel" type="Label" parent="LessonHUD/StatsPanel" unique_id=687902363]
-visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="WpmLabel" type="Label" parent="LessonHUD/StatsPanel" unique_id=1482746702]
-visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
@@ -359,6 +355,14 @@ offset_top = 159.0
 offset_right = 1001.0
 offset_bottom = 538.0
 alignment = 1
+
+[node name="EnBtn" type="Button" parent="LessonSelectScreen/Panel/VBox" unique_id=1504283142]
+layout_mode = 2
+text = "English (QWERTY)"
+
+[node name="RuBtn" type="Button" parent="LessonSelectScreen/Panel/VBox" unique_id=2129477112]
+layout_mode = 2
+text = "Русский (ЙЦУКЕН)"
 
 [node name="Label" type="Label" parent="LessonSelectScreen/Panel/VBox" unique_id=1900185418]
 layout_mode = 2

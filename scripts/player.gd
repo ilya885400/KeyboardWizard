@@ -10,6 +10,8 @@ signal letter_correct
 @export var speed: float = 200.0
 @export var projectile_scene: PackedScene
 
+var lesson_lang: String = ""
+
 var max_hp: float = 100
 var current_hp: float = 100
 var invincible: bool = false
@@ -61,7 +63,6 @@ func _ready() -> void:
 	# Передаём сцену снаряда в менеджер заклинаний
 	spell_manager.player          = self
 	spell_manager.projectile_scene = projectile_scene
-	$".".position = Vector2(2.0,0)
 
 func _physics_process(delta: float) -> void:
 	_handle_movement()
@@ -171,13 +172,54 @@ func _die() -> void:
 # ВВОД БУКВ (ДИНАМИЧЕСКОЕ УТОЧНЕНИЕ ЦЕЛИ)
 # ─────────────────────────────────────────
 func _unhandled_input(event: InputEvent) -> void:
+	# Игнорируем, если нажат Shift
 	if Input.is_key_pressed(KEY_SHIFT):
 		return
+		
+	# Проверяем, что событие — нажатие клавиши
 	if event is InputEventKey and event.pressed and not event.echo:
-		var key_char := String.chr(event.unicode).to_lower()
-		if key_char.length() == 1 and key_char >= "a" and key_char <= "z":
+		# Получаем обработанный символ через вашу функцию
+		var key_char := _extract_char(event)
+		
+		# Если символ валиден (функция вернула не пустую строку), обрабатываем его
+		if key_char != "":
 			_process_letter(key_char)
 
+func _extract_char(event: InputEventKey) -> String:
+	var uni: int = event.unicode
+	if uni <= 0:
+		return ""
+ 
+	var ch := String.chr(uni)
+ 
+	if lesson_lang == "ru":
+		var low := ch.to_lower()
+		var cp := low.unicode_at(0)
+		# Кириллица: а-я (0x430–0x44F) и ё (0x451)
+		if (cp >= 0x430 and cp <= 0x44F) or cp == 0x451:
+			return low
+		return ""
+	else:
+		# Латиница a-z
+		var low := ch.to_lower()
+		if low.length() == 1 and low >= "a" and low <= "z":
+			return low
+		return ""
+ 
+	if lesson_lang == "ru":
+		# Принимаем кириллицу (строчную после to_lower)
+		var low := ch.to_lower()
+		# Диапазон кириллицы: а-я (0x430–0x44F), ё (0x451)
+		var cp := low.unicode_at(0)
+		if (cp >= 0x430 and cp <= 0x44F) or cp == 0x451:
+			return low
+		return ""
+	else:
+		# Латиница a-z
+		var low := ch.to_lower()
+		if low.length() == 1 and low >= "a" and low <= "z":
+			return low
+		return ""
 
 func _process_letter(letter: String) -> void:
 	# СЦЕНАРИЙ 1: Нет активной цели (начинаем вводить новое слово)
