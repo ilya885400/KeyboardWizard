@@ -84,7 +84,6 @@ radius = 600.0
 [node name="EnemyWraith" type="CharacterBody2D" unique_id=562745709 groups=["enemies"]]
 script = ExtResource("1_enemy")
 speed = 90.0
-hp = 2
 exp_reward = 8
 score_reward = 25
 enemy_type = "wraith"

@@ -23,6 +23,7 @@ config/icon="res://assets/xp_orb.svg"
 [autoload]
 
 TypingLessonManager="*uid://swtwe8jgb1ed"
+GameEvents="*uid://dii3bwgqbr0gr"
 
 [display]
 

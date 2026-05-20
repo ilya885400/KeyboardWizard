@@ -73,6 +73,13 @@ extends Node2D
 @onready var go_score_label: Label         = $GameOverScreen/Panel/VBox/ScoreRow/ScoreLabel
 @onready var go_leader_label: Label        = $GameOverScreen/Panel/VBox/LeaderLabel
 
+@onready var sfx_attack = $AudioManager/SFX_Cast
+@onready var sfx_player_death = $AudioManager/SFX_PlayerDeath
+@onready var sfx_enemy_death = $AudioManager/SFX_PlayerDeath
+@onready var sfx_enemy_take_damage = $AudioManager/EnemyTakeDamage
+@onready var sfx_player_take_damage = $AudioManager/PlayerTakeDamage
+
+
 # ── Константы ──────────────────────────────────────────────────────────────────
 const GAME_DURATION    := 120.0
 const LEADERBOARD_PATH := "user://leaderboard.json"
@@ -111,7 +118,9 @@ func _ready() -> void:
 	lesson_hud.visible           = false
 	lesson_result_screen.visible = false
 	upgrade_menu.visible         = false
-
+	
+	GameEvents.play_sfx.connect(_on_play_sfx)
+	
 	# Подключаем кнопки языка
 	if en_btn:
 		en_btn.pressed.connect(func(): _select_lang("en"))
@@ -130,7 +139,20 @@ func _ready() -> void:
 	_rebuild_lesson_list()
 	lesson_select_screen.visible = true
 	get_tree().paused = true
-
+	
+func _on_play_sfx(sfx_name: String):
+	match sfx_name:
+		"enemy_death":
+			sfx_enemy_death.play()
+		"enemy_take_damage":
+			sfx_enemy_take_damage.play()
+		"player_take_damage":
+			sfx_player_take_damage.play()
+		"player_attack":
+			sfx_attack.play()
+		"player_death":
+			sfx_player_death.play()
+			
 func _show_lesson_info(lang: String, index: int) -> void:
 	var lesson = TypingLessonManager.get_lesson(lang, index)
 	
@@ -280,7 +302,7 @@ func _on_music_finished():
 	music_player.play() # Снова запускаем воспроизведение
 	
 func _start_normal_game() -> void:
-	music_player.finished.connect(_on_music_finished)
+#	music_player.finished.connect(_on_music_finished)
 	music_player.play()
 	
 	player.lesson_lang = ""

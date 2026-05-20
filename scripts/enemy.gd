@@ -31,6 +31,8 @@ var _base_speed: float = 0.0
 var _slowed: bool = false
 
 
+
+
 func _ready() -> void:
 	add_to_group("enemies")
 	max_hp      = hp
@@ -104,14 +106,18 @@ func take_damage(amount: int) -> void:
 	hp -= amount
 	_update_hp_bar()
 	if hp <= 0:
+		GameEvents.play_sfx.emit("enemy_death")
 		_die()
+		
 	else:
+		GameEvents.play_sfx.emit("enemy_take_damage")
 		_flash_hit()
+		
 
 
 func _flash_hit() -> void:
 	modulate = Color(1, 0.4, 0.4)
-	get_tree().create_timer(0.12).timeout.connect(
+	get_tree().create_timer(0.24).timeout.connect(
 		func():
 			if is_instance_valid(self) and not _dying:
 				modulate = _default_modulate()
@@ -161,6 +167,7 @@ func _remove_slow() -> void:
 func _die() -> void:
 	if _dying:
 		return
+
 	_dying = true
 	# Немедленно убираем из группы чтобы другие системы не трогали врага
 	remove_from_group("enemies")

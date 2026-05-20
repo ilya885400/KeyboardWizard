@@ -149,6 +149,8 @@ func take_damage(amount: int) -> void:
 		return
 	current_hp -= amount
 	_flash_damage()
+	GameEvents.play_sfx.emit("player_take_damage")
+
 	invincible = true
 	_invincibility_timer.start()
 	_update_ui()
@@ -171,6 +173,7 @@ func _on_flash_timer_timeout() -> void:
 
 
 func _die() -> void:
+	GameEvents.play_sfx.emit("player_death")
 	emit_signal("died")
 	set_physics_process(false)
 	set_process_unhandled_input(false)
@@ -335,6 +338,7 @@ func _shoot_projectile(enemy: Node) -> void:
 
 	# ── Запуск анимации атаки ───────────────────────────────────────────────
 	if anim_player:
+		GameEvents.play_sfx.emit("player_attack")
 		is_attacking = true
 		anim_player.play("attack")
 		anim_player_shadow.play("attack")
