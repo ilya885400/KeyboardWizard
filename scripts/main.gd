@@ -137,6 +137,7 @@ func _ready() -> void:
 
 	# Показываем экран выбора с последним языком
 	_rebuild_lesson_list()
+	_select_lang(lesson_lang)
 	lesson_select_screen.visible = true
 	get_tree().paused = true
 	
@@ -506,7 +507,6 @@ func _connect_result_buttons() -> void:
 
 	if next_btn:
 		next_btn.pressed.connect(func():
-			# Запускаем следующий урок того же языка
 			var next_idx := TypingLessonManager.get_current_index(lesson_lang)
 			get_tree().paused = false
 			lesson_result_screen.visible = false
@@ -520,7 +520,17 @@ func _connect_result_buttons() -> void:
 		)
 	if menu_btn:
 		menu_btn.pressed.connect(func():
-			get_tree().reload_current_scene()
+			# Скрываем экраны результатов и HUD уроков
+			lesson_result_screen.visible = false
+			lesson_hud.visible = false
+			$HUD.visible = false
+			
+			# Обновляем список уроков и восстанавливаем подсветку выбранного языка
+			_select_lang(lesson_lang)
+			
+			# Показываем главное меню уроков
+			lesson_select_screen.visible = true
+			get_tree().paused = true
 		)
 
 
