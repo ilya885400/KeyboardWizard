@@ -155,6 +155,8 @@ func _on_play_sfx(sfx_name: String):
 			
 func _show_lesson_info(lang: String, index: int) -> void:
 	var lesson = TypingLessonManager.get_lesson(lang, index)
+	$LessonResultScreen/Panel/VBox/KeyboardDiagram.visible = true
+
  
 	# ── Заголовок ──────────────────────────────────────────────
 	result_title.text = "%s · %s" % [lesson["title"], lesson["subtitle"]]
@@ -454,6 +456,7 @@ func _finish_lesson(survived: bool) -> void:
 	if not game_active:
 		return
 	$HUD.visible = false
+	$LessonResultScreen/Panel/VBox/KeyboardDiagram.visible = false
 	player.get_node_or_null("CanvasLayer").visible = true
 
 	game_active = false

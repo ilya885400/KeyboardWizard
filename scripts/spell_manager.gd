@@ -21,12 +21,14 @@ var has_multishot:      bool = false
 var fire_aura_radius:   float = 90.0
 var fire_aura_damage:   int   = 1
 var fire_aura_interval: float = 1.5   # было 0.6 — пассивный урон значительно замедлен
-
 var orbital_count:      int   = 3
 var orbital_speed:      float = 2.5   # рад/с
 var orbital_radius:     float = 70.0
 var orbital_damage:     int   = 1
-var orbital_interval:   float = 1.2   # урон каждые N секунд (было 0.4)
+var orbital_respawn_cooldown: float = 3.0 # Время восстановления одного шара в секундах
+
+# Переменная таймера регенерации (замени ей старый _orbital_timer)
+var _orbital_respawn_timer: float = 0.02   # урон каждые N секунд (было 0.4)
 
 var chain_jumps:        int   = 2     # сколько доп. врагов поражает цепь
 var chain_range:        float = 200.0
@@ -112,9 +114,8 @@ func _tick_fire_aura(delta: float) -> void:
 			if enemy.has_method("take_damage"):
 				enemy.take_damage(fire_aura_damage)
 
-
 # ══════════════════════════════════════════════════════════════════════════════
-# ОРБИТАЛЬ (снаряды вращаются вокруг игрока и дамажат врагов при касании)
+# ОРБИТАЛЬ (шары лопаются при контакте и восстанавливаются со временем)
 # ══════════════════════════════════════════════════════════════════════════════
 func activate_orbitals() -> void:
 	has_orbitals = true
@@ -122,17 +123,16 @@ func activate_orbitals() -> void:
 
 
 func upgrade_orbitals() -> void:
-	orbital_count  += 1
-	# orbital_damage не растёт при апгрейде — только количество орбиталей
+	orbital_count += 1
 	_rebuild_orbitals()
 
 
 func _rebuild_orbitals() -> void:
-	# Удаляем старые
 	for n in _orbital_nodes:
 		if is_instance_valid(n):
 			n.queue_free()
 	_orbital_nodes.clear()
+	_orbital_respawn_timer = 0.0
 
 	for i in range(orbital_count):
 		var orb := _make_orbital_node()
@@ -142,60 +142,72 @@ func _rebuild_orbitals() -> void:
 
 func _make_orbital_node() -> Node2D:
 	var orb := Node2D.new()
+	
 	# Визуал — маленький светящийся шар
 	var sprite := ColorRect.new()
 	sprite.size = Vector2(14, 14)
 	sprite.position = Vector2(-7, -7)
 	sprite.color = Color(0.3, 0.6, 1.0, 0.9)
 	orb.add_child(sprite)
+	
 	# Хитбокс
 	var area := Area2D.new()
 	var col  := CollisionShape2D.new()
 	var shape := CircleShape2D.new()
-	shape.radius = 10.0
+	shape.radius = 12.0 # Чуть увеличили хитбокс для надежности
 	col.shape = shape
+	
+	# Твои настроенные маски
 	area.collision_layer = 4
-	area.collision_mask  = 2
+	area.collision_mask = 1 # Твой рабочий слой врагов
+	
 	area.add_child(col)
+	
+	# Передаем сам узел orb внутрь функции через .bind()
 	area.body_entered.connect(_on_orbital_hit.bind(orb))
+	area.area_entered.connect(_on_orbital_hit.bind(orb))
+	
 	orb.add_child(area)
 	return orb
 
 
 func _tick_orbitals(delta: float) -> void:
+	# На всякий случай фильтруем массив от удаленных объектов
+	_orbital_nodes = _orbital_nodes.filter(func(node): return is_instance_valid(node))
+
+	# Логика вращения вокруг игрока
 	_orbital_angle += orbital_speed * delta
-	var step: float = TAU / max(1, _orbital_nodes.size())
-	for i in range(_orbital_nodes.size()):
-		var orb = _orbital_nodes[i]
-		if not is_instance_valid(orb):
-			continue
-		var angle := _orbital_angle + step * i
-		orb.global_position = player.global_position + Vector2(cos(angle), sin(angle)) * orbital_radius
+	var current_count := _orbital_nodes.size()
+	
+	if current_count > 0:
+		var step: float = TAU / current_count
+		for i in range(current_count):
+			var orb = _orbital_nodes[i]
+			var angle := _orbital_angle + step * i
+			orb.global_position = player.global_position + Vector2(cos(angle), sin(angle)) * orbital_radius
 
-	# Урон через таймер
-	_orbital_timer += delta
-	if _orbital_timer >= orbital_interval:
-		_orbital_timer = 0.0
-		_orbital_damage_check()
-
-
-func _orbital_damage_check() -> void:
-	var enemies := get_tree().get_nodes_in_group("enemies")
-	for orb in _orbital_nodes:
-		if not is_instance_valid(orb):
-			continue
-		for enemy in enemies:
-			if not is_instance_valid(enemy):
-				continue
-			if orb.global_position.distance_to(enemy.global_position) < 22.0:
-				if enemy.has_method("take_damage"):
-					enemy.take_damage(orbital_damage)
+	# Логика регенерации: если шаров меньше, чем должно быть по апгрейдам
+	if current_count < orbital_count:
+		_orbital_respawn_timer += delta
+		if _orbital_respawn_timer >= orbital_respawn_cooldown:
+			_orbital_respawn_timer = 0.0
+			var new_orb := _make_orbital_node()
+			get_tree().current_scene.add_child(new_orb)
+			_orbital_nodes.append(new_orb)
 
 
-func _on_orbital_hit(body: Node, _orb: Node2D) -> void:
-	if body.is_in_group("enemies") and body.has_method("take_damage"):
-		body.take_damage(orbital_damage)
-
+func _on_orbital_hit(node: Node, orb: Node2D) -> void:
+	# Проверяем, что шар еще существует и не удаляется прямо сейчас
+	if not is_instance_valid(orb) or orb.is_queued_for_deletion():
+		return
+		
+	if node.is_in_group("enemies") and node.has_method("take_damage"):
+		node.take_damage(orbital_damage)
+		
+		# Удаляем шар из расчетов и со сцены
+		if orb in _orbital_nodes:
+			_orbital_nodes.erase(orb)
+		orb.queue_free()
 
 # ══════════════════════════════════════════════════════════════════════════════
 # ЦЕПНАЯ МОЛНИЯ (вызывается из player._shoot_projectile)
