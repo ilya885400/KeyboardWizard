@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://oof43imgtk75" path="res://scripts/player.gd" id="1_player"]
 [ext_resource type="Texture2D" uid="uid://cqc885ae3lmt7" path="res://pixel_assets/wizard/pixel/wizard_attack.png" id="2_70d11"]
+[ext_resource type="PackedScene" uid="uid://d4a607q1lr42x" path="res://scenes/Projectile.tscn" id="2_cw2d6"]
 [ext_resource type="Script" uid="uid://bmxo00af6cv18" path="res://scripts/spell_manager.gd" id="2_spells"]
 [ext_resource type="Texture2D" uid="uid://week7ake07pe" path="res://assets/wizard_idle.svg" id="3_tex_idle"]
 [ext_resource type="Texture2D" uid="uid://cqcyovs8ejas0" path="res://pixel_assets/wizard/pixel/walk.png" id="4_cw2d6"]
@@ -183,6 +184,7 @@ shadow_offset = Vector2(3, 3)
 
 [node name="Player" type="CharacterBody2D" unique_id=1850020892 groups=["player"]]
 script = ExtResource("1_player")
+projectile_scene = ExtResource("2_cw2d6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=109180129]
 position = Vector2(0, 20)

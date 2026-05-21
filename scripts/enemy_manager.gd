@@ -52,7 +52,7 @@ var word_pool: Array[String] = []
 var max_word_length: int     = 7
 var difficulty_level: int    = 1
 
-const BASE_ENEMY_SPEED := 80.0
+#const BASE_ENEMY_SPEED := 80.0
 
 
 func _ready() -> void:
@@ -134,7 +134,7 @@ func _spawn_enemy() -> void:
 		var lesson    := TypingLessonManager.get_lesson(lesson_lang, lesson_index)
 		var sp_mult   : float = lesson.get("enemy_speed_mult", 0.6)
 		var hp_mult_v : float = lesson.get("hp_mult", 1.0)
-		enemy.speed = BASE_ENEMY_SPEED * sp_mult
+		enemy.speed *= sp_mult
 		if enemy.hp > 1:
 			enemy.hp     = max(1, int(enemy.hp * hp_mult_v))
 			enemy.max_hp = enemy.hp

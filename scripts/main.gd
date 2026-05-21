@@ -157,14 +157,14 @@ func _show_lesson_info(lang: String, index: int) -> void:
 	
 	# Используем lesson_result_screen как окно предпросмотра
 	result_title.text = "%s · %s" % [lesson["title"], lesson["subtitle"]]
+	result_title.text.replace(":", ":/n")
 	result_title.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0))
 	
 	result_label.text = (
-		"Описание:\n%s\n\n" % lesson["description"] +
-		"Клавиши: %s\n" % lesson["keys"]
+		#"Описание:
+		"\n%s\n\n" % lesson["description"] #+
+		#"Клавиши: %s\n" % lesson["keys"]
 	)
-	# Принудительно устанавливаем параметры для переноса текста
-	result_label.autowrap_mode = TextServer.AUTOWRAP_WORD
 	
 	# Если вы используете VBoxContainer, убедитесь, что у Label стоит:
 	result_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -235,6 +235,7 @@ func _rebuild_lesson_list() -> void:
 func _start_typing_lesson(p_lang: String, p_lesson_index: int) -> void:
 	# 1. ВОСКРЕШЕНИЕ ИГРОКА (Критически важно!)
 	MusicPlayer.play()
+	print("Пусть музыка играет")
 	$HUD.visible = true
 	player.get_node_or_null("CanvasLayer/StatsPanel/VBox/LevelRow").visible = false
 	player.get_node_or_null("CanvasLayer/StatsPanel/VBox/XPRow").visible = false
@@ -343,11 +344,11 @@ func _process(delta: float) -> void:
 		var remaining = max(0.0, lesson_duration - time_elapsed)
 		_update_timer_label(remaining)
 		if time_elapsed >= lesson_duration:
-			MusicPlayer.fade_out()
 			enemy_manager.spawn_timer.stop()
 			
 			var enemies = get_tree().get_nodes_in_group("enemies")
 			if enemies.size() == 0:
+				MusicPlayer.fade_out()
 				_finish_lesson(true)
 				$HUD.visible = false
 				player.get_node_or_null("CanvasLayer").visible = false
@@ -469,6 +470,9 @@ func _finish_lesson(survived: bool) -> void:
 		
 	var lang_name := "English (QWERTY)" if lesson_lang == "en" else "Русский (ЙЦУКЕН)"
 	var next_lesson := TypingLessonManager.get_current_lesson(lesson_lang)
+	$LessonResultScreen/Panel/VBox/BtnRow/RetryBtn.text = "ПОВТОРИТЬ"
+	$LessonResultScreen/Panel/VBox/BtnRow/RetryBtn.add_theme_color_override("font_color", Color(1.0, 0.4, 0.3))
+
 
 	result_label.text = (
 		"%s — %s\n\n" % [lesson["title"], lesson["subtitle"]] +

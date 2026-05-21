@@ -251,6 +251,7 @@ vertical_alignment = 1
 
 [node name="WinScreen" type="CanvasLayer" parent="." unique_id=2027264469]
 layer = 30
+visible = false
 
 [node name="Dimmer" type="ColorRect" parent="WinScreen" unique_id=1403895856]
 anchors_preset = 15
@@ -629,6 +630,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="KeysPanel" type="PanelContainer" parent="LessonHUD" unique_id=1055280138]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -645,7 +647,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LessonResultScreen" type="CanvasLayer" parent="." unique_id=1178881705]
-visible = false
 
 [node name="BGDimmer" type="ColorRect" parent="LessonResultScreen" unique_id=1000000060]
 anchors_preset = 15
@@ -673,21 +674,33 @@ size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel_dark")
 
 [node name="VBox" type="VBoxContainer" parent="LessonResultScreen/Panel" unique_id=297699515]
-layout_mode = 0
+clip_children = 1
+custom_minimum_size = Vector2(560, 460)
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 20.0
 offset_top = 20.0
 offset_right = -20.0
 offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 16
 alignment = 1
 
 [node name="TitleLabel" type="Label" parent="LessonResultScreen/Panel/VBox" unique_id=286608048]
+clip_contents = true
+custom_minimum_size = Vector2(560, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.98, 0.78, 0.12, 1)
 theme_override_font_sizes/font_size = 30
+text = "олодджоjjjjjjjjhjjjjjjjjjjjjjj"
 horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HSep2" type="HSeparator" parent="LessonResultScreen/Panel/VBox" unique_id=2000914996]
+layout_mode = 2
 
 [node name="ResultLabel" type="Label" parent="LessonResultScreen/Panel/VBox" unique_id=1443791926]
 layout_mode = 2
@@ -695,6 +708,7 @@ size_flags_vertical = 6
 theme_override_colors/font_color = Color(0.9, 0.72, 0.38, 1)
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 3
 clip_text = true
 
