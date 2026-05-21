@@ -234,7 +234,7 @@ func _rebuild_lesson_list() -> void:
 # ─────────────────────────────────────────
 func _start_typing_lesson(p_lang: String, p_lesson_index: int) -> void:
 	# 1. ВОСКРЕШЕНИЕ ИГРОКА (Критически важно!)
-	MusicPlayer.play()
+	MusicPlayer.play_music()
 	print("Пусть музыка играет")
 	$HUD.visible = true
 	player.get_node_or_null("CanvasLayer/StatsPanel/VBox/LevelRow").visible = false
@@ -302,7 +302,7 @@ func _start_typing_lesson(p_lang: String, p_lesson_index: int) -> void:
 
 func _start_normal_game() -> void:
 #	music_player.finished.connect(_on_music_finished)
-	MusicPlayer.play()
+	MusicPlayer.play_music()
 	
 	player.lesson_lang = ""
 
