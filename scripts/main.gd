@@ -78,6 +78,7 @@ extends Node2D
 @onready var sfx_enemy_take_damage = $AudioManager/EnemyTakeDamage
 @onready var sfx_player_take_damage = $AudioManager/PlayerTakeDamage
 
+@onready var keyboard_diagram: Control = $LessonResultScreen/Panel/VBox/KeyboardDiagram
 
 # ── Константы ──────────────────────────────────────────────────────────────────
 const GAME_DURATION    := 120.0
@@ -154,34 +155,40 @@ func _on_play_sfx(sfx_name: String):
 			
 func _show_lesson_info(lang: String, index: int) -> void:
 	var lesson = TypingLessonManager.get_lesson(lang, index)
-	
-	# Используем lesson_result_screen как окно предпросмотра
+ 
+	# ── Заголовок ──────────────────────────────────────────────
 	result_title.text = "%s · %s" % [lesson["title"], lesson["subtitle"]]
-	result_title.text.replace(":", ":/n")
 	result_title.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0))
-	
-	result_label.text = (
-		#"Описание:
-		"\n%s\n\n" % lesson["description"] #+
-		#"Клавиши: %s\n" % lesson["keys"]
-	)
-	
-	# Если вы используете VBoxContainer, убедитесь, что у Label стоит:
-	result_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
+ 
+	# ── Описание ───────────────────────────────────────────────
+	result_label.text = "\n%s\n\nКлавиши: %s\n" % [lesson["description"], lesson["keys"]]
+	result_label.size_flags_vertical   = Control.SIZE_EXPAND_FILL
 	result_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	
-	# Настраиваем кнопки: меняем "Повторить/Next" на "Начать"
+ 
+	# ── Клавиатура ─────────────────────────────────────────────
+	# "new_keys" — клавиши, впервые появляющиеся в этом уроке.
+	# Если ваш TypingLessonManager не хранит "new_keys" отдельно,
+	# используйте lesson["keys"] для обоих аргументов:
+	#   keyboard_diagram.setup(lang, lesson["keys"], lesson["keys"])
+	var all_keys_str: String = " ".join(lesson.get("allowed", "")).to_upper()
+	var new_keys_str: String = " ".join(lesson.get("new_letters", all_keys_str)).to_upper()
+ 
+	if keyboard_diagram:
+
+		keyboard_diagram.setup(lang, (new_keys_str), all_keys_str)
+		keyboard_diagram.visible = true
+ 
+	# ── Кнопки ─────────────────────────────────────────────────
 	$LessonResultScreen/Panel/VBox/BtnRow/NextBtn.visible = false
 	$LessonResultScreen/Panel/VBox/BtnRow/RetryBtn.text = "НАЧАТЬ УРОВЕНЬ"
-	
-	# Переподключаем кнопку "Начать" на запуск урока
-	
+ 
 	$LessonResultScreen/Panel/VBox/BtnRow/RetryBtn.pressed.connect(func():
 		lesson_result_screen.visible = false
 		_start_typing_lesson(lang, index)
 	, CONNECT_ONE_SHOT)
-	
+ 
 	lesson_result_screen.visible = true
+
 # ─────────────────────────────────────────
 # ВЫБОР ЯЗЫКА
 # ─────────────────────────────────────────
