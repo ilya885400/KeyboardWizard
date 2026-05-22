@@ -112,17 +112,25 @@ frame_progress = 0.32094523
 [node name="LabelBG" type="Panel" parent="." unique_id=2036244024]
 visible = false
 z_index = -1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
 offset_left = -54.0
-offset_top = -118.0
 offset_right = 54.0
-offset_bottom = -82.0
+offset_bottom = 36.0
+grow_horizontal = 2
+size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_word_bg")
 
 [node name="WordLabel" type="RichTextLabel" parent="." unique_id=1596112124]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
 offset_left = -50.0
 offset_top = -86.0
 offset_right = 50.0
 offset_bottom = -54.0
+grow_horizontal = 2
 theme_override_colors/default_color = Color(0.8, 0.68, 1, 1)
 theme_override_font_sizes/normal_font_size = 17
 bbcode_enabled = true

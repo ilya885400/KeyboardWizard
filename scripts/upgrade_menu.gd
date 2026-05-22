@@ -13,17 +13,17 @@ extends CanvasLayer
 @onready var card_b: PanelContainer    = $Panel/VBox/WordsCard
 @onready var card_c: PanelContainer    = $Panel/VBox/HPCard
 
-@onready var icon_a:  Label = $Panel/VBox/SpeedCard/VBox/HBox/IconBG/Icon
+@onready var icon_a:  TextureRect = $Panel/VBox/SpeedCard/VBox/HBox/IconBG/Icon
 @onready var title_a: Label = $Panel/VBox/SpeedCard/VBox/HBox/TextVBox/Title
 @onready var desc_a:  Label = $Panel/VBox/SpeedCard/VBox/HBox/TextVBox/Desc
 @onready var word_a:  Label = $Panel/VBox/SpeedCard/VBox/WordRow/WordLabel
 
-@onready var icon_b:  Label = $Panel/VBox/WordsCard/VBox/HBox/IconBG/Icon
+@onready var icon_b:  TextureRect = $Panel/VBox/WordsCard/VBox/HBox/IconBG/Icon
 @onready var title_b: Label = $Panel/VBox/WordsCard/VBox/HBox/TextVBox/Title
 @onready var desc_b:  Label = $Panel/VBox/WordsCard/VBox/HBox/TextVBox/Desc
 @onready var word_b:  Label = $Panel/VBox/WordsCard/VBox/WordRow/WordLabel
 
-@onready var icon_c:  Label = $Panel/VBox/HPCard/VBox/HBox/IconBG/Icon
+@onready var icon_c:  TextureRect = $Panel/VBox/HPCard/VBox/HBox/IconBG/Icon
 @onready var title_c: Label = $Panel/VBox/HPCard/VBox/HBox/TextVBox/Title
 @onready var desc_c:  Label = $Panel/VBox/HPCard/VBox/HBox/TextVBox/Desc
 @onready var word_c:  Label = $Panel/VBox/HPCard/VBox/WordRow/WordLabel
@@ -128,11 +128,28 @@ const COLOR_TYPED  := Color(0.4, 1.0, 0.6)
 const COLOR_NORMAL := Color(0.9, 0.9, 1.0)
 const COLOR_ERROR  := Color(1.0, 0.35, 0.35)
 
-
+const ICON_PATHS: Dictionary = {
+	"speed":           "res://assets/icons/icon_speed.png",
+	"words":           "res://assets/icons/icon_words.png",
+	"hp":              "res://assets/icons/icon_hp.png",
+	"fire_aura":       "res://assets/icons/icon_fire_aura.png",
+	"orbitals":        "res://assets/icons/icon_orbitals.png",
+	"chain":           "res://assets/icons/icon_chain.png",
+	"freeze":          "res://assets/icons/icon_freeze.png",
+	"multishot":       "res://assets/icons/icon_multishot.png",
+	"thunder_strike":  "res://assets/icons/icon_thunder_strike.png",
+}
+ 
+var _icon_cache: Dictionary = {}
+ 
 func _ready() -> void:
+	# Предзагрузка текстур
+	for id in ICON_PATHS:
+		_icon_cache[id] = load(ICON_PATHS[id])
 	panel.visible = false
 	process_mode  = Node.PROCESS_MODE_ALWAYS
 	set_process_unhandled_input(false)
+ 
 
 
 func show_upgrade_menu(new_level: int) -> void:
@@ -201,9 +218,9 @@ func _refresh_all_cards() -> void:
 	_fill_card(2, icon_c, title_c, desc_c, word_c)
 
 
-func _fill_card(idx: int, icon_lbl: Label, title_lbl: Label, desc_lbl: Label, word_lbl: Label) -> void:
+func _fill_card(idx: int, icon_lbl: TextureRect, title_lbl: Label, desc_lbl: Label, word_lbl: Label) -> void:
 	var upg: Dictionary = chosen_upgrades[idx]
-	icon_lbl.text  = upg["icon"]
+	icon_lbl.texture = _icon_cache.get(upg["id"])
 	title_lbl.text = upg["title"]
 	desc_lbl.text  = upg["desc"]
 

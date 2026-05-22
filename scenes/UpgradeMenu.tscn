@@ -122,14 +122,10 @@ theme_override_constants/separation = 14
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 
-[node name="Icon" type="Label" parent="Panel/VBox/SpeedCard/VBox/HBox/IconBG" unique_id=45072883]
+[node name="Icon" type="TextureRect" parent="Panel/VBox/SpeedCard/VBox/HBox/IconBG" unique_id=1589610064]
 layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme_override_font_sizes/font_size = 28
-text = "⚡"
-horizontal_alignment = 1
-vertical_alignment = 1
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="TextVBox" type="VBoxContainer" parent="Panel/VBox/SpeedCard/VBox/HBox" unique_id=215798044]
 layout_mode = 2
@@ -185,14 +181,10 @@ theme_override_constants/separation = 14
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 
-[node name="Icon" type="Label" parent="Panel/VBox/WordsCard/VBox/HBox/IconBG" unique_id=1219796775]
+[node name="Icon" type="TextureRect" parent="Panel/VBox/WordsCard/VBox/HBox/IconBG" unique_id=1717579731]
 layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme_override_font_sizes/font_size = 28
-text = "📖"
-horizontal_alignment = 1
-vertical_alignment = 1
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="TextVBox" type="VBoxContainer" parent="Panel/VBox/WordsCard/VBox/HBox" unique_id=1884872703]
 layout_mode = 2
@@ -248,14 +240,10 @@ theme_override_constants/separation = 14
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 
-[node name="Icon" type="Label" parent="Panel/VBox/HPCard/VBox/HBox/IconBG" unique_id=1450561227]
+[node name="Icon" type="TextureRect" parent="Panel/VBox/HPCard/VBox/HBox/IconBG" unique_id=1956737754]
 layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme_override_font_sizes/font_size = 28
-text = "❤️"
-horizontal_alignment = 1
-vertical_alignment = 1
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="TextVBox" type="VBoxContainer" parent="Panel/VBox/HPCard/VBox/HBox" unique_id=1875481478]
 layout_mode = 2

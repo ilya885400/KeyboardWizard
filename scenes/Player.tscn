@@ -227,7 +227,6 @@ theme_override_constants/separation = 6
 [node name="LevelIcon" type="Label" parent="CanvasLayer/StatsPanel/VBox/LevelRow" unique_id=2000000002]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
-text = "🧙"
 vertical_alignment = 1
 
 [node name="LevelLabel" type="Label" parent="CanvasLayer/StatsPanel/VBox/LevelRow" unique_id=1464638207]
@@ -250,7 +249,6 @@ theme_override_constants/separation = 6
 [node name="XPIcon" type="Label" parent="CanvasLayer/StatsPanel/VBox/XPRow/XPHeaderRow" unique_id=2000000009]
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
-text = "✦"
 vertical_alignment = 1
 
 [node name="ExpLabel" type="Label" parent="CanvasLayer/StatsPanel/VBox/XPRow/XPHeaderRow" unique_id=1147046380]
@@ -280,7 +278,6 @@ theme_override_constants/separation = 6
 [node name="HPIcon" type="Label" parent="CanvasLayer/StatsPanel/VBox/HPRow/HPHeaderRow" unique_id=2000000005]
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
-text = "❤"
 vertical_alignment = 1
 
 [node name="HPLabel" type="Label" parent="CanvasLayer/StatsPanel/VBox/HPRow/HPHeaderRow" unique_id=1460372230]

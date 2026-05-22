@@ -101,17 +101,25 @@ autoplay = "walk"
 [node name="LabelBG" type="Panel" parent="." unique_id=1794779275]
 visible = false
 z_index = -1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
 offset_left = -66.0
-offset_top = -140.0
 offset_right = 66.0
-offset_bottom = -100.0
+offset_bottom = 40.0
+grow_horizontal = 2
+size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_word_bg")
 
 [node name="WordLabel" type="RichTextLabel" parent="." unique_id=994714958]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
 offset_left = -62.0
 offset_top = -73.0
 offset_right = 62.0
 offset_bottom = -37.0
+grow_horizontal = 2
 theme_override_colors/default_color = Color(1, 0.8, 0.5, 1)
 theme_override_font_sizes/normal_font_size = 18
 bbcode_enabled = true
