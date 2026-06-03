@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bdmrf34e4ly7w"]
 
-[ext_resource type="Script" uid="uid://bl6bmn3njsfln" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://c18x605e5w4a5" path="res://scripts/main.gd" id="1_main"]
 [ext_resource type="Script" uid="uid://cwn3f1mckabov" path="res://scripts/enemy_manager.gd" id="2_mgr"]
 [ext_resource type="PackedScene" uid="uid://ccblb78o3lfpn" path="res://scenes/Player.tscn" id="3_player"]
 [ext_resource type="PackedScene" uid="uid://b0535ubcjbrtp" path="res://scenes/Enemy.tscn" id="4_enemy"]
@@ -380,7 +380,6 @@ vertical_alignment = 1
 
 [node name="WinScreen" type="CanvasLayer" parent="." unique_id=2027264469]
 layer = 30
-visible = false
 
 [node name="Dimmer" type="ColorRect" parent="WinScreen" unique_id=1403895856]
 anchors_preset = 15
@@ -390,6 +389,8 @@ mouse_filter = 2
 color = Color(0.04, 0.02, 0, 0.85)
 
 [node name="Panel" type="Panel" parent="WinScreen" unique_id=2011246615]
+clip_contents = true
+custom_minimum_size = Vector2(200, 200)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -399,16 +400,21 @@ offset_left = -280.0
 offset_top = -340.0
 offset_right = 280.0
 offset_bottom = 340.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel_dark")
 
 [node name="VBox" type="VBoxContainer" parent="WinScreen/Panel" unique_id=1145569641]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = -10.0
+offset_left = -258.5
+offset_top = 20.0
+offset_right = 258.5
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 14
 alignment = 1
 
@@ -439,14 +445,13 @@ alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.98, 0.78, 0.12, 1)
 theme_override_font_sizes/font_size = 28
-text = "💰"
 vertical_alignment = 1
 
 [node name="ScoreLabel" type="Label" parent="WinScreen/Panel/VBox/ScoreRow" unique_id=1924422309]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
 theme_override_font_sizes/font_size = 30
-text = "0"
+text = "0оождлодлжодлжождлоджодлождождождлдоджло"
 vertical_alignment = 1
 
 [node name="HSep2" type="HSeparator" parent="WinScreen/Panel/VBox" unique_id=779981863]
@@ -483,7 +488,7 @@ theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxFlat_shop_btn_normal")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_shop_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_shop_btn_hover")
-text = "🏪 МАГАЗИН"
+text = "МАГАЗИН"
 
 [node name="HintLabel" type="Label" parent="WinScreen/Panel/VBox" unique_id=1617908340]
 layout_mode = 2
@@ -494,7 +499,6 @@ horizontal_alignment = 1
 
 [node name="GameOverScreen" type="CanvasLayer" parent="." unique_id=442045867]
 layer = 30
-visible = false
 
 [node name="Dimmer" type="ColorRect" parent="GameOverScreen" unique_id=118215360]
 anchors_preset = 15
@@ -504,6 +508,7 @@ mouse_filter = 2
 color = Color(0.04, 0.01, 0, 0.9)
 
 [node name="Panel" type="Panel" parent="GameOverScreen" unique_id=924828960]
+clip_contents = true
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -516,13 +521,16 @@ offset_bottom = 340.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel_dark")
 
 [node name="VBox" type="VBoxContainer" parent="GameOverScreen/Panel" unique_id=1436079255]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = -10.0
+offset_left = -338.5
+offset_top = 20.0
+offset_right = 338.5
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 14
 alignment = 1
 
@@ -553,14 +561,13 @@ alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.98, 0.78, 0.12, 1)
 theme_override_font_sizes/font_size = 28
-text = "💰"
 vertical_alignment = 1
 
 [node name="ScoreLabel" type="Label" parent="GameOverScreen/Panel/VBox/ScoreRow" unique_id=68877458]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
 theme_override_font_sizes/font_size = 30
-text = "0"
+text = "0оождложлождоллоджлолдоджлодлжодлжождодлоджолл"
 vertical_alignment = 1
 
 [node name="HSep2" type="HSeparator" parent="GameOverScreen/Panel/VBox" unique_id=1816946937]
@@ -597,7 +604,7 @@ theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxFlat_shop_btn_normal")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_shop_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_shop_btn_hover")
-text = "🏪 МАГАЗИН"
+text = "МАГАЗИН"
 
 [node name="HintLabel" type="Label" parent="GameOverScreen/Panel/VBox" unique_id=444840924]
 layout_mode = 2
@@ -607,6 +614,7 @@ text = "Нажми  Enter  чтобы сыграть снова"
 horizontal_alignment = 1
 
 [node name="LessonSelectScreen" type="CanvasLayer" parent="." unique_id=1483345773]
+visible = false
 
 [node name="BGDimmer" type="ColorRect" parent="LessonSelectScreen" unique_id=1000000040]
 anchors_preset = 15
@@ -821,6 +829,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LessonResultScreen" type="CanvasLayer" parent="." unique_id=1178881705]
+visible = false
 
 [node name="BGDimmer" type="ColorRect" parent="LessonResultScreen" unique_id=1000000060]
 anchors_preset = 15
@@ -930,6 +939,7 @@ text = "МЕНЮ"
 
 [node name="MetaShop" type="CanvasLayer" parent="." unique_id=1000000080]
 layer = 35
+visible = false
 script = ExtResource("16_shop")
 
 [node name="Dimmer" type="ColorRect" parent="MetaShop" unique_id=1000000081]
