@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://b31ujw5pwimd"]
+
+[ext_resource type="Script" uid="uid://bx6fa0f817ptu" path="res://scripts/letter_bullet.gd" id="1_bullet"]
+[ext_resource type="Texture2D" uid="uid://rylr1lk2krsp" path="res://pixel_assets/fx/letter_bullet/letter_bullet.png" id="2_wu8uc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1fyk"]
+atlas = ExtResource("2_wu8uc")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5sne2"]
+atlas = ExtResource("2_wu8uc")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hybun"]
+atlas = ExtResource("2_wu8uc")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygvp7"]
+atlas = ExtResource("2_wu8uc")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bullet"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1fyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5sne2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hybun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ygvp7")
+}],
+"loop": true,
+"name": &"spin",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bullet"]
+radius = 8.0
+
+[node name="LetterBullet" type="Area2D" unique_id=1861191034]
+collision_layer = 4
+script = ExtResource("1_bullet")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=549617102]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_bullet")
+animation = &"spin"
+autoplay = "spin"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1627452736]
+shape = SubResource("CircleShape2D_bullet")
+
+[node name="LetterLabel" type="RichTextLabel" parent="." unique_id=1585256368]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+horizontal_alignment = 1
+vertical_alignment = 1

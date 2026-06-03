@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://36teo06s4h55"]
+
+[ext_resource type="Script" uid="uid://cowq2k3kdekri" path="res://scripts/lich_boss.gd" id="1_a8e4l"]
+[ext_resource type="Texture2D" uid="uid://dy063m210xwkn" path="res://pixel_assets/pixel_enemies/lich_spritesheet.png" id="2_8ul6f"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tgdop"]
+atlas = ExtResource("2_8ul6f")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u10i8"]
+atlas = ExtResource("2_8ul6f")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ypuy"]
+atlas = ExtResource("2_8ul6f")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ytgfo"]
+atlas = ExtResource("2_8ul6f")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jrgxf"]
+atlas = ExtResource("2_8ul6f")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5um4"]
+atlas = ExtResource("2_8ul6f")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lich"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tgdop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u10i8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ypuy")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ytgfo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jrgxf")
+}],
+"loop": true,
+"name": &"heal",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5um4")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+
+[node name="Lich" type="Node2D" unique_id=1225744790]
+script = ExtResource("1_a8e4l")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1448544496]
+modulate = Color(0, 0, 0, 0)
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_lich")
+animation = &"attack"
+autoplay = "idle"

@@ -1,0 +1,160 @@
+[gd_scene format=3 uid="uid://bxfm1nu8j665e"]
+
+[ext_resource type="Script" uid="uid://cwl7objceljm4" path="res://scripts/enemy.gd" id="1_enemy"]
+[ext_resource type="Texture2D" uid="uid://d1b4bd245rnrj" path="res://pixel_assets/pixel_enemies/wraith/wraith.png" id="2_ug3bn"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wraith"]
+radius = 14.0
+height = 50.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4d8ww"]
+atlas = ExtResource("2_ug3bn")
+region = Rect2(0, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5l1n8"]
+atlas = ExtResource("2_ug3bn")
+region = Rect2(16, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4adk7"]
+atlas = ExtResource("2_ug3bn")
+region = Rect2(32, 0, 16, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pb86i"]
+atlas = ExtResource("2_ug3bn")
+region = Rect2(48, 0, 16, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wraith"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4d8ww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5l1n8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4adk7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pb86i")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_word_bg"]
+content_margin_left = 6.0
+content_margin_top = 2.0
+content_margin_right = 6.0
+content_margin_bottom = 2.0
+bg_color = Color(0.06, 0.02, 0.16, 0.75)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.55, 0.35, 0.95, 0.6)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_bg"]
+bg_color = Color(0.06, 0.03, 0.14, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.25, 0.12, 0.5, 0.7)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_fill"]
+bg_color = Color(0.55, 0.3, 0.95, 0.95)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_detect"]
+radius = 600.0
+
+[node name="EnemyWraith" type="CharacterBody2D" unique_id=562745709 groups=["enemies"]]
+position = Vector2(0, 200)
+script = ExtResource("1_enemy")
+speed = 90.0
+hp = 2.0
+exp_reward = 8
+score_reward = 20
+enemy_type = "wraith"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1970950297]
+position = Vector2(0, 16)
+shape = SubResource("CapsuleShape2D_wraith")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=913445524]
+modulate = Color(0.85, 0.7, 1, 0.9)
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_wraith")
+animation = &"walk"
+autoplay = "walk"
+frame_progress = 0.32094523
+
+[node name="Shadow" type="AnimatedSprite2D" parent="AnimatedSprite2D" unique_id=153876282]
+visible = false
+modulate = Color(0.85, 0.7, 1, 0.9)
+sprite_frames = SubResource("SpriteFrames_wraith")
+animation = &"walk"
+autoplay = "walk"
+frame_progress = 0.32094523
+
+[node name="LabelBG" type="Panel" parent="." unique_id=2036244024]
+visible = false
+z_index = -1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -54.0
+offset_right = 54.0
+offset_bottom = 36.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_word_bg")
+
+[node name="WordLabel" type="RichTextLabel" parent="." unique_id=1596112124]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -50.0
+offset_top = -86.0
+offset_right = 50.0
+offset_bottom = -54.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.8, 0.68, 1, 1)
+theme_override_font_sizes/normal_font_size = 17
+bbcode_enabled = true
+text = "[center][color=#ccb8ff]WORD[/color][/center]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="HPBar" type="ProgressBar" parent="." unique_id=1433379475]
+offset_left = -32.0
+offset_top = -100.0
+offset_right = 32.0
+offset_bottom = -92.0
+theme_override_colors/font_color = Color(0, 0, 0, 0)
+theme_override_styles/background = SubResource("StyleBoxFlat_hp_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hp_fill")
+max_value = 2.0
+value = 2.0
+show_percentage = false
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=579247296]
+visible = false
+
+[node name="DetectionShape" type="CollisionShape2D" parent="DetectionArea" unique_id=1067935783]
+shape = SubResource("CircleShape2D_detect")

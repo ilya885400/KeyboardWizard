@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://ccnealjihvuar"]
+
+[ext_resource type="Script" uid="uid://cvwaf534r0vnb" path="res://scripts/snake_egg.gd" id="1_egg"]
+[ext_resource type="PackedScene" uid="uid://dhggbfek8y465" path="res://scenes/SmallSnake.tscn" id="2_gimbg"]
+[ext_resource type="Texture2D" uid="uid://cfu1f2b3opdil" path="res://pixel_assets/pixel_enemies/snake_boss/snake_egg.png" id="2_ynp3q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_egg_whole"]
+atlas = ExtResource("2_ynp3q")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_egg_cracked"]
+atlas = ExtResource("2_ynp3q")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gimbg"]
+atlas = ExtResource("2_ynp3q")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ucv5"]
+atlas = ExtResource("2_ynp3q")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0s1c"]
+atlas = ExtResource("2_ynp3q")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_egg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_egg_whole")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_egg_cracked")
+}],
+"loop": true,
+"name": &"cracked",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gimbg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ucv5")
+}],
+"loop": true,
+"name": &"hatching",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0s1c")
+}],
+"loop": true,
+"name": &"whole",
+"speed": 2.0
+}]
+
+[node name="SnakeEgg" type="Node2D" unique_id=494040873]
+script = ExtResource("1_egg")
+small_snake_scene = ExtResource("2_gimbg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1299447983]
+scale = Vector2(2.5, 2.5)
+sprite_frames = SubResource("SpriteFrames_egg")
+animation = &"hatching"
+autoplay = "whole"

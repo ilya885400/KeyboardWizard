@@ -1,0 +1,150 @@
+[gd_scene format=3 uid="uid://ccimgpbhan3mn"]
+
+[ext_resource type="Script" uid="uid://cwl7objceljm4" path="res://scripts/enemy.gd" id="1_enemy"]
+[ext_resource type="Texture2D" uid="uid://b0htcylweg52i" path="res://pixel_assets/pixel_enemies/troll/troll_move.png" id="2_d46ul"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_troll"]
+radius = 20.0
+height = 68.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_impa1"]
+atlas = ExtResource("2_d46ul")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xqmk5"]
+atlas = ExtResource("2_d46ul")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ufmix"]
+atlas = ExtResource("2_d46ul")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_troll"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_impa1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xqmk5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ufmix")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 4.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_word_bg"]
+content_margin_left = 6.0
+content_margin_top = 2.0
+content_margin_right = 6.0
+content_margin_bottom = 2.0
+bg_color = Color(0.12, 0.06, 0.02, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0.45, 0.12, 0.7)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_bg"]
+bg_color = Color(0.12, 0.06, 0.02, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.18, 0.04, 0.7)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_fill"]
+bg_color = Color(0.88, 0.42, 0.1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_detect"]
+radius = 600.0
+
+[node name="EnemyTroll" type="CharacterBody2D" unique_id=1087866235 groups=["enemies"]]
+position = Vector2(0, 200)
+script = ExtResource("1_enemy")
+speed = 45.0
+hp = 3.0
+exp_reward = 15
+score_reward = 30
+enemy_type = "troll"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=275952098]
+shape = SubResource("CapsuleShape2D_troll")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=487303567]
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_troll")
+animation = &"walk"
+autoplay = "walk"
+
+[node name="Shadow" type="AnimatedSprite2D" parent="AnimatedSprite2D" unique_id=1456103522]
+modulate = Color(0, 0, 0, 1)
+z_index = -1
+position = Vector2(0, 0.6)
+sprite_frames = SubResource("SpriteFrames_troll")
+animation = &"walk"
+autoplay = "walk"
+
+[node name="LabelBG" type="Panel" parent="." unique_id=1794779275]
+visible = false
+z_index = -1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -66.0
+offset_right = 66.0
+offset_bottom = 40.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_word_bg")
+
+[node name="WordLabel" type="RichTextLabel" parent="." unique_id=994714958]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -62.0
+offset_top = -73.0
+offset_right = 62.0
+offset_bottom = -37.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(1, 0.8, 0.5, 1)
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "[center][color=#ffcc88]WORD[/color][/center]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="HPBar" type="ProgressBar" parent="." unique_id=984149269]
+offset_left = -40.0
+offset_top = -87.0
+offset_right = 40.0
+offset_bottom = -77.0
+theme_override_colors/font_color = Color(0, 0, 0, 0)
+theme_override_styles/background = SubResource("StyleBoxFlat_hp_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hp_fill")
+max_value = 4.0
+value = 4.0
+show_percentage = false
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=2000753908]
+
+[node name="DetectionShape" type="CollisionShape2D" parent="DetectionArea" unique_id=71576312]
+visible = false
+shape = SubResource("CircleShape2D_detect")

@@ -1,0 +1,174 @@
+[gd_scene format=3 uid="uid://dcp3k8vlgft1v"]
+
+[ext_resource type="Script" uid="uid://ddxayu1jea431" path="res://scripts/pause_menu.gd" id="1_jvnd5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+content_margin_left = 40.0
+content_margin_top = 36.0
+content_margin_right = 40.0
+content_margin_bottom = 36.0
+bg_color = Color(0.1, 0.06, 0.02, 0.98)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.92, 0.52, 0.05, 1)
+shadow_color = Color(0, 0, 0, 0.88)
+shadow_size = 14
+shadow_offset = Vector2(6, 6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.16, 0.09, 0.02, 0.97)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7, 0.38, 0.04, 1)
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 3
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_pressed"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.38, 0.22, 0.04, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.85, 0.3, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.28, 0.16, 0.03, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.65, 0.1, 1)
+shadow_color = Color(0.9, 0.5, 0.05, 0.45)
+shadow_size = 7
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_exit_normal"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.18, 0.04, 0.04, 0.97)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7, 0.15, 0.1, 1)
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 3
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_exit_hover"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.35, 0.08, 0.06, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.3, 0.2, 1)
+shadow_color = Color(0.9, 0.1, 0.05, 0.45)
+shadow_size = 7
+shadow_offset = Vector2(2, 2)
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=1658408917]
+layer = 20
+script = ExtResource("1_jvnd5")
+
+[node name="Backdrop" type="ColorRect" parent="." unique_id=1167433985]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.6)
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=1945208392]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -200.0
+offset_right = 210.0
+offset_bottom = 200.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=1269311451]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TitleLabel" type="Label" parent="Panel/VBox" unique_id=550532452]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.75, 0.2, 1)
+theme_override_font_sizes/font_size = 24
+text = "⏸  ПАУЗА"
+horizontal_alignment = 1
+
+[node name="Sep" type="HSeparator" parent="Panel/VBox" unique_id=2130817723]
+layout_mode = 2
+
+[node name="ResumeBtn" type="Button" parent="Panel/VBox" unique_id=805476692]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 1, 0.5, 1)
+theme_override_colors/font_pressed_color = Color(0.7, 1, 0.7, 1)
+theme_override_colors/font_hover_color = Color(0.6, 1, 0.6, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_btn_normal")
+text = "▶  ПРОДОЛЖИТЬ"
+
+[node name="SettingsBtn" type="Button" parent="Panel/VBox" unique_id=918674036]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 0.7, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.9, 0.3, 1)
+theme_override_colors/font_hover_color = Color(1, 0.75, 0.2, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_btn_normal")
+text = "⚙  НАСТРОЙКИ"
+
+[node name="MainMenuBtn" type="Button" parent="Panel/VBox" unique_id=1244564538]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.5, 0.3, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.7, 0.5, 1)
+theme_override_colors/font_hover_color = Color(1, 0.6, 0.4, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_exit_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_exit_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_exit_normal")
+text = "⌂  В ГЛАВНОЕ МЕНЮ"
+
+[node name="QuitBtn" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.35, 0.25, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.55, 0.45, 1)
+theme_override_colors/font_hover_color = Color(1, 0.45, 0.35, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_exit_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_exit_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_exit_normal")
+text = "✕  ВЫЙТИ ИЗ ИГРЫ"

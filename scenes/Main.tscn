@@ -1,0 +1,1012 @@
+[gd_scene format=3 uid="uid://bdmrf34e4ly7w"]
+
+[ext_resource type="Script" uid="uid://bl6bmn3njsfln" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://cwn3f1mckabov" path="res://scripts/enemy_manager.gd" id="2_mgr"]
+[ext_resource type="PackedScene" uid="uid://ccblb78o3lfpn" path="res://scenes/Player.tscn" id="3_player"]
+[ext_resource type="PackedScene" uid="uid://b0535ubcjbrtp" path="res://scenes/Enemy.tscn" id="4_enemy"]
+[ext_resource type="PackedScene" uid="uid://dmnfm8ig8kjqr" path="res://scenes/UpgradeMenu.tscn" id="5_menu"]
+[ext_resource type="PackedScene" uid="uid://dppnmoa3rs8iw" path="res://scenes/EnemyGoblin.tscn" id="6_q8u5g"]
+[ext_resource type="PackedScene" uid="uid://bxfm1nu8j665e" path="res://scenes/EnemyWraith.tscn" id="7_lhr70"]
+[ext_resource type="PackedScene" uid="uid://cifox427vtaa5" path="res://scenes/EnemyBookBoss.tscn" id="8_bb450"]
+[ext_resource type="PackedScene" uid="uid://ccimgpbhan3mn" path="res://scenes/EnemyTroll.tscn" id="8_wp0k4"]
+[ext_resource type="PackedScene" uid="uid://cli2oxpshd1p5" path="res://scenes/SnakeBoss.tscn" id="9_nfivy"]
+[ext_resource type="PackedScene" uid="uid://36teo06s4h55" path="res://scenes/Lich.tscn" id="10_1nqs0"]
+[ext_resource type="AudioStream" uid="uid://jw55nxfcmffv" path="res://sounds/sfx/10_human_special_atk_2.wav" id="10_bjd11"]
+[ext_resource type="AudioStream" uid="uid://hv3dq3l8j4t3" path="res://sounds/sfx/21_orc_damage_1.wav" id="11_cvmbd"]
+[ext_resource type="AudioStream" uid="uid://d3n3le4wxf8hk" path="res://sounds/sfx/14_human_death_spin.wav" id="11_qmy6f"]
+[ext_resource type="AudioStream" uid="uid://bhkdy0awco0v4" path="res://sounds/sfx/21_orc_damage_2.wav" id="13_ft6cd"]
+[ext_resource type="AudioStream" uid="uid://bcr24e1mnrh50" path="res://sounds/sfx/21_orc_damage_3.wav" id="14_bb450"]
+[ext_resource type="AudioStream" uid="uid://c2411cbvs1it8" path="res://sounds/sfx/24_orc_death_spin.wav" id="14_ft6cd"]
+[ext_resource type="Script" uid="uid://b3kiepw5ge3jh" path="res://scripts/KeyboardDiagram.gd" id="15_3p2gp"]
+[ext_resource type="Texture2D" uid="uid://clnn11bnsb5up" path="res://assets/icons/icon_currency.png" id="15_ft6cd"]
+[ext_resource type="Script" uid="uid://cf6ojwwa1yx1d" path="res://scripts/meta_shop.gd" id="16_shop"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bb450"]
+streams_count = 3
+stream_0/stream = ExtResource("11_cvmbd")
+stream_1/stream = ExtResource("13_ft6cd")
+stream_2/stream = ExtResource("14_bb450")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hud_pill"]
+content_margin_left = 18.0
+content_margin_top = 6.0
+content_margin_right = 18.0
+content_margin_bottom = 6.0
+bg_color = Color(0.12, 0.07, 0.02, 0.93)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.92, 0.52, 0.05, 1)
+shadow_color = Color(0, 0, 0, 0.65)
+shadow_size = 4
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_currency_pill"]
+content_margin_left = 14.0
+content_margin_top = 5.0
+content_margin_right = 14.0
+content_margin_bottom = 5.0
+bg_color = Color(0.08, 0.1, 0.02, 0.93)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.82, 0.72, 0.05, 1)
+shadow_color = Color(0, 0, 0, 0.65)
+shadow_size = 4
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wave"]
+content_margin_left = 12.0
+content_margin_top = 4.0
+content_margin_right = 12.0
+content_margin_bottom = 4.0
+bg_color = Color(0.28, 0.1, 0.01, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.98, 0.45, 0.02, 1)
+shadow_size = 5
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel_dark"]
+content_margin_left = 30.0
+content_margin_top = 30.0
+content_margin_right = 30.0
+content_margin_bottom = 30.0
+bg_color = Color(0.1, 0.06, 0.02, 0.98)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.92, 0.52, 0.05, 1)
+shadow_color = Color(0, 0, 0, 0.88)
+shadow_size = 12
+shadow_offset = Vector2(6, 6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shop_btn_normal"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.12, 0.07, 0.28, 0.97)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.55, 0.35, 0.95, 1)
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 3
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shop_btn_pressed"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.3, 0.18, 0.6, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.88, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shop_btn_hover"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.22, 0.12, 0.45, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.65, 1, 1)
+shadow_color = Color(0.5, 0.2, 0.9, 0.45)
+shadow_size = 7
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.16, 0.09, 0.02, 0.97)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7, 0.38, 0.04, 1)
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 3
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_pressed"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.3, 0.15, 0.02, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.98, 0.78, 0.12, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.24, 0.13, 0.03, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.98, 0.65, 0.08, 1)
+shadow_color = Color(0.9, 0.45, 0, 0.45)
+shadow_size = 7
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shop_panel"]
+content_margin_left = 24.0
+content_margin_top = 20.0
+content_margin_right = 24.0
+content_margin_bottom = 20.0
+bg_color = Color(0.06, 0.04, 0.14, 0.99)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.55, 0.35, 0.95, 1)
+shadow_color = Color(0, 0, 0, 0.9)
+shadow_size = 14
+shadow_offset = Vector2(6, 6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_close_btn_normal"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0.22, 0.06, 0.06, 0.97)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.2, 0.15, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_close_btn_hover"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0.4, 0.08, 0.06, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.35, 0.3, 1)
+
+[node name="Main" type="Node2D" unique_id=957658741]
+process_mode = 3
+script = ExtResource("1_main")
+
+[node name="Background" type="ColorRect" parent="." unique_id=2067019981]
+z_index = -10
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.07, 0.04, 0.01, 1)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1669527235]
+visible = false
+color = Color(0.18, 0.12, 0.04, 1)
+
+[node name="Player" parent="." unique_id=747682325 instance=ExtResource("3_player")]
+motion_mode = 1
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1314648986]
+zoom = Vector2(0.9, 0.9)
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
+
+[node name="EnemyManager" type="Node2D" parent="." unique_id=494262959]
+script = ExtResource("2_mgr")
+enemy_scene = ExtResource("4_enemy")
+goblin_scene = ExtResource("6_q8u5g")
+wraith_scene = ExtResource("7_lhr70")
+troll_scene = ExtResource("8_wp0k4")
+book_boss_scene = ExtResource("8_bb450")
+snake_boss_scene = ExtResource("9_nfivy")
+lich_boss_scene = ExtResource("10_1nqs0")
+
+[node name="SpawnTimer" type="Timer" parent="EnemyManager" unique_id=1405489156]
+wait_time = 2.5
+
+[node name="UpgradeMenu" parent="." unique_id=12205706 instance=ExtResource("5_menu")]
+visible = false
+
+[node name="AudioManager" type="Node" parent="." unique_id=1963440331]
+
+[node name="PlayerTakeDamage" type="AudioStreamPlayer" parent="AudioManager" unique_id=1450067697]
+stream = SubResource("AudioStreamRandomizer_bb450")
+volume_db = -10.0
+
+[node name="EnemyTakeDamage" type="AudioStreamPlayer" parent="AudioManager" unique_id=616629021]
+stream = SubResource("AudioStreamRandomizer_bb450")
+volume_db = -14.0
+
+[node name="SFX_TrollDeath" type="AudioStreamPlayer" parent="AudioManager" unique_id=2122174972]
+stream = ExtResource("14_ft6cd")
+volume_db = -5.0
+
+[node name="SFX_Cast" type="AudioStreamPlayer" parent="AudioManager" unique_id=1704640093]
+stream = ExtResource("10_bjd11")
+volume_db = -12.0
+
+[node name="SFX_PlayerDeath" type="AudioStreamPlayer" parent="AudioManager" unique_id=511840303]
+stream = ExtResource("11_qmy6f")
+volume_db = -5.0
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1173551988]
+layer = 5
+visible = false
+
+[node name="ScorePanel" type="PanelContainer" parent="HUD" unique_id=1397963924]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -115.0
+offset_top = 14.0
+offset_right = 115.0
+offset_bottom = 54.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud_pill")
+
+[node name="HBox" type="HBoxContainer" parent="HUD/ScorePanel" unique_id=1000000001]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="ScoreIcon" type="Label" parent="HUD/ScorePanel/HBox" unique_id=1000000002]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.78, 0.12, 1)
+theme_override_font_sizes/font_size = 18
+text = "★"
+vertical_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="HUD/ScorePanel/HBox" unique_id=1871535754]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
+theme_override_font_sizes/font_size = 20
+text = "0"
+vertical_alignment = 1
+
+[node name="CurrencyPanel" type="PanelContainer" parent="HUD" unique_id=1000000090]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -180.0
+offset_top = 14.0
+offset_right = -14.0
+offset_bottom = 50.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_currency_pill")
+
+[node name="HBox" type="HBoxContainer" parent="HUD/CurrencyPanel" unique_id=1000000091]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="CurrrencyIcon" type="TextureRect" parent="HUD/CurrencyPanel/HBox" unique_id=864300940]
+layout_mode = 2
+texture = ExtResource("15_ft6cd")
+
+[node name="CurrencyLabel" type="Label" parent="HUD/CurrencyPanel/HBox" unique_id=1000000093]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.94, 0.5, 1)
+theme_override_font_sizes/font_size = 18
+text = "0"
+vertical_alignment = 1
+
+[node name="TimerPanel" type="PanelContainer" parent="HUD" unique_id=717497091]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -95.0
+offset_right = 95.0
+offset_bottom = 38.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud_pill")
+
+[node name="HBox" type="HBoxContainer" parent="HUD/TimerPanel" unique_id=1000000003]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="TimerIcon" type="Label" parent="HUD/TimerPanel/HBox" unique_id=1000000004]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.65, 0.15, 1)
+theme_override_font_sizes/font_size = 16
+vertical_alignment = 1
+
+[node name="TimerLabel" type="Label" parent="HUD/TimerPanel/HBox" unique_id=1980437608]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
+theme_override_font_sizes/font_size = 20
+text = "10:00"
+vertical_alignment = 1
+
+[node name="WavePanel" type="PanelContainer" parent="HUD" unique_id=1000000010]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -150.0
+offset_top = 14.0
+offset_right = -14.0
+offset_bottom = 48.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wave")
+
+[node name="WaveLabel" type="Label" parent="HUD/WavePanel" unique_id=1000000011]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.72, 0.1, 1)
+theme_override_font_sizes/font_size = 16
+text = "ВОЛНА 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WinScreen" type="CanvasLayer" parent="." unique_id=2027264469]
+layer = 30
+visible = false
+
+[node name="Dimmer" type="ColorRect" parent="WinScreen" unique_id=1403895856]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.04, 0.02, 0, 0.85)
+
+[node name="Panel" type="Panel" parent="WinScreen" unique_id=2011246615]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -340.0
+offset_right = 280.0
+offset_bottom = 340.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel_dark")
+
+[node name="VBox" type="VBoxContainer" parent="WinScreen/Panel" unique_id=1145569641]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="WinScreen/Panel/VBox" unique_id=1374035024]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.78, 0.12, 1)
+theme_override_font_sizes/font_size = 44
+text = "ПОБЕДА!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="WinScreen/Panel/VBox" unique_id=1340532996]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.65, 0.3, 1)
+theme_override_font_sizes/font_size = 16
+text = "Волшебник выжил все 2 минуты!"
+horizontal_alignment = 1
+
+[node name="HSep1" type="HSeparator" parent="WinScreen/Panel/VBox" unique_id=867888644]
+layout_mode = 2
+
+[node name="ScoreRow" type="HBoxContainer" parent="WinScreen/Panel/VBox" unique_id=1000000020]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="ScoreIcon" type="Label" parent="WinScreen/Panel/VBox/ScoreRow" unique_id=1000000021]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.78, 0.12, 1)
+theme_override_font_sizes/font_size = 28
+text = "💰"
+vertical_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="WinScreen/Panel/VBox/ScoreRow" unique_id=1924422309]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
+theme_override_font_sizes/font_size = 30
+text = "0"
+vertical_alignment = 1
+
+[node name="HSep2" type="HSeparator" parent="WinScreen/Panel/VBox" unique_id=779981863]
+layout_mode = 2
+
+[node name="LeaderTitle" type="Label" parent="WinScreen/Panel/VBox" unique_id=1000000022]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.65, 0.15, 1)
+theme_override_font_sizes/font_size = 14
+text = "= ТАБЛИЦА РЕКОРДОВ ="
+horizontal_alignment = 1
+
+[node name="LeaderLabel" type="Label" parent="WinScreen/Panel/VBox" unique_id=1376415155]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.9, 0.75, 0.45, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HSep3" type="HSeparator" parent="WinScreen/Panel/VBox" unique_id=190551945]
+layout_mode = 2
+
+[node name="BtnRow" type="HBoxContainer" parent="WinScreen/Panel/VBox" unique_id=1000000095]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="ShopBtn" type="Button" parent="WinScreen/Panel/VBox/BtnRow" unique_id=1000000096]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.65, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_shop_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_shop_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_shop_btn_hover")
+text = "🏪 МАГАЗИН"
+
+[node name="HintLabel" type="Label" parent="WinScreen/Panel/VBox" unique_id=1617908340]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.52, 0.22, 1)
+theme_override_font_sizes/font_size = 15
+text = "Нажми  Enter  чтобы сыграть снова"
+horizontal_alignment = 1
+
+[node name="GameOverScreen" type="CanvasLayer" parent="." unique_id=442045867]
+layer = 30
+visible = false
+
+[node name="Dimmer" type="ColorRect" parent="GameOverScreen" unique_id=118215360]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.04, 0.01, 0, 0.9)
+
+[node name="Panel" type="Panel" parent="GameOverScreen" unique_id=924828960]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -340.0
+offset_right = 280.0
+offset_bottom = 340.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel_dark")
+
+[node name="VBox" type="VBoxContainer" parent="GameOverScreen/Panel" unique_id=1436079255]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="GameOverScreen/Panel/VBox" unique_id=687193646]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.22, 0.06, 1)
+theme_override_font_sizes/font_size = 44
+text = "ПОРАЖЕНИЕ"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="GameOverScreen/Panel/VBox" unique_id=1327953719]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.65, 0.3, 1)
+theme_override_font_sizes/font_size = 16
+text = "Враги одолели волшебника..."
+horizontal_alignment = 1
+
+[node name="HSep1" type="HSeparator" parent="GameOverScreen/Panel/VBox" unique_id=1327563610]
+layout_mode = 2
+
+[node name="ScoreRow" type="HBoxContainer" parent="GameOverScreen/Panel/VBox" unique_id=1000000030]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="ScoreIcon" type="Label" parent="GameOverScreen/Panel/VBox/ScoreRow" unique_id=1000000031]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.78, 0.12, 1)
+theme_override_font_sizes/font_size = 28
+text = "💰"
+vertical_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="GameOverScreen/Panel/VBox/ScoreRow" unique_id=68877458]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
+theme_override_font_sizes/font_size = 30
+text = "0"
+vertical_alignment = 1
+
+[node name="HSep2" type="HSeparator" parent="GameOverScreen/Panel/VBox" unique_id=1816946937]
+layout_mode = 2
+
+[node name="LeaderTitle" type="Label" parent="GameOverScreen/Panel/VBox" unique_id=1000000032]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.65, 0.15, 1)
+theme_override_font_sizes/font_size = 14
+text = "= ТАБЛИЦА РЕКОРДОВ ="
+horizontal_alignment = 1
+
+[node name="LeaderLabel" type="Label" parent="GameOverScreen/Panel/VBox" unique_id=390731104]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.9, 0.75, 0.45, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HSep3" type="HSeparator" parent="GameOverScreen/Panel/VBox" unique_id=2107335008]
+layout_mode = 2
+
+[node name="BtnRow" type="HBoxContainer" parent="GameOverScreen/Panel/VBox" unique_id=1000000097]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="ShopBtn" type="Button" parent="GameOverScreen/Panel/VBox/BtnRow" unique_id=1000000098]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.65, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_shop_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_shop_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_shop_btn_hover")
+text = "🏪 МАГАЗИН"
+
+[node name="HintLabel" type="Label" parent="GameOverScreen/Panel/VBox" unique_id=444840924]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.52, 0.22, 1)
+theme_override_font_sizes/font_size = 15
+text = "Нажми  Enter  чтобы сыграть снова"
+horizontal_alignment = 1
+
+[node name="LessonSelectScreen" type="CanvasLayer" parent="." unique_id=1483345773]
+
+[node name="BGDimmer" type="ColorRect" parent="LessonSelectScreen" unique_id=1000000040]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.05, 0.03, 0, 0.97)
+
+[node name="Panel" type="Panel" parent="LessonSelectScreen" unique_id=1128895380]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -340.0
+offset_top = -320.0
+offset_right = 340.0
+offset_bottom = 320.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel_dark")
+
+[node name="VBox" type="VBoxContainer" parent="LessonSelectScreen/Panel" unique_id=2024439218]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="LessonSelectScreen/Panel/VBox" unique_id=1000000041]
+clip_contents = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.78, 0.12, 1)
+theme_override_font_sizes/font_size = 30
+text = "KEYBOARD WIZARD"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="SubLabel" type="Label" parent="LessonSelectScreen/Panel/VBox" unique_id=1000000042]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.6, 0.28, 1)
+theme_override_font_sizes/font_size = 14
+text = "Выбери раскладку и уровень, чтобы начать"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HSep" type="HSeparator" parent="LessonSelectScreen/Panel/VBox" unique_id=1000000043]
+layout_mode = 2
+
+[node name="LangLabel" type="Label" parent="LessonSelectScreen/Panel/VBox" unique_id=1000000044]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.65, 0.15, 1)
+theme_override_font_sizes/font_size = 13
+text = "РАСКЛАДКА / LAYOUT"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="LangRow" type="HBoxContainer" parent="LessonSelectScreen/Panel/VBox" unique_id=1000000045]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="EnBtn" type="Button" parent="LessonSelectScreen/Panel/VBox/LangRow" unique_id=1504283142]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "English (QWERTY)"
+
+[node name="RuBtn" type="Button" parent="LessonSelectScreen/Panel/VBox/LangRow" unique_id=2129477112]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "Русский (ЙЦУКЕН)"
+
+[node name="HSep2" type="HSeparator" parent="LessonSelectScreen/Panel/VBox" unique_id=1000000046]
+layout_mode = 2
+
+[node name="LessonPickLabel" type="Label" parent="LessonSelectScreen/Panel/VBox" unique_id=1000000048]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.65, 0.15, 1)
+theme_override_font_sizes/font_size = 13
+text = "ВЫБЕРИ УРОВЕНЬ"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LessonSelectScreen/Panel/VBox" unique_id=1486151323]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LessonList" type="VBoxContainer" parent="LessonSelectScreen/Panel/VBox/ScrollContainer" unique_id=871059143]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="HSep3" type="HSeparator" parent="LessonSelectScreen/Panel/VBox" unique_id=1000000047]
+layout_mode = 2
+
+[node name="BottomRow" type="HBoxContainer" parent="LessonSelectScreen/Panel/VBox" unique_id=1000000099]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="NormalBtn" type="Button" parent="LessonSelectScreen/Panel/VBox/BottomRow" unique_id=1346012024]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.98, 0.78, 0.12, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "ОБЫЧНАЯ ИГРА"
+
+[node name="ShopBtn" type="Button" parent="LessonSelectScreen/Panel/VBox/BottomRow" unique_id=1000000100]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.65, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = SubResource("StyleBoxFlat_shop_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_shop_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_shop_btn_hover")
+text = "МАГАЗИН"
+
+[node name="HintLabel" type="Label" parent="LessonSelectScreen/Panel/VBox" unique_id=458850474]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.62, 0.44, 0.18, 1)
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="LessonHUD" type="CanvasLayer" parent="." unique_id=1337054168]
+
+[node name="StatsPanel" type="PanelContainer" parent="LessonHUD" unique_id=1584730958]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -206.0
+offset_bottom = 50.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud_pill")
+
+[node name="VBox" type="VBoxContainer" parent="LessonHUD/StatsPanel" unique_id=1000000050]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="AccLabel" type="Label" parent="LessonHUD/StatsPanel/VBox" unique_id=687902363]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.78, 0.22, 1)
+theme_override_font_sizes/font_size = 14
+text = "ТОЧНОСТЬ: --%"
+horizontal_alignment = 3
+vertical_alignment = 1
+
+[node name="WpmLabel" type="Label" parent="LessonHUD/StatsPanel/VBox" unique_id=1482746702]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.6, 0.12, 1)
+theme_override_font_sizes/font_size = 14
+text = "WPM: 0"
+horizontal_alignment = 3
+vertical_alignment = 1
+
+[node name="LessonPanel" type="PanelContainer" parent="LessonHUD" unique_id=848440568]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -220.0
+offset_top = -120.0
+offset_right = 220.00024
+offset_bottom = -70.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud_pill")
+
+[node name="LessonLabel" type="Label" parent="LessonHUD/LessonPanel" unique_id=967199100]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeysPanel" type="PanelContainer" parent="LessonHUD" unique_id=1055280138]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -206.0
+offset_bottom = 50.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud_pill")
+
+[node name="KeysLabel" type="Label" parent="LessonHUD/KeysPanel" unique_id=242198947]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.65, 0.15, 1)
+theme_override_font_sizes/font_size = 13
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LessonResultScreen" type="CanvasLayer" parent="." unique_id=1178881705]
+
+[node name="BGDimmer" type="ColorRect" parent="LessonResultScreen" unique_id=1000000060]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.05, 0.02, 0, 0.96)
+
+[node name="Panel" type="Panel" parent="LessonResultScreen" unique_id=55479668]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -250.0
+offset_right = 300.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel_dark")
+
+[node name="VBox" type="VBoxContainer" parent="LessonResultScreen/Panel" unique_id=297699515]
+clip_children = 1
+custom_minimum_size = Vector2(560, 460)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="LessonResultScreen/Panel/VBox" unique_id=286608048]
+clip_contents = true
+custom_minimum_size = Vector2(560, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.78, 0.12, 1)
+theme_override_font_sizes/font_size = 30
+text = "УРОК"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HSep2" type="HSeparator" parent="LessonResultScreen/Panel/VBox" unique_id=2000914996]
+layout_mode = 2
+
+[node name="ResultLabel" type="Label" parent="LessonResultScreen/Panel/VBox" unique_id=1443791926]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0.9, 0.72, 0.38, 1)
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+
+[node name="KeyboardDiagram" type="Control" parent="LessonResultScreen/Panel/VBox" unique_id=341398214]
+layout_mode = 2
+script = ExtResource("15_3p2gp")
+
+[node name="HSep" type="HSeparator" parent="LessonResultScreen/Panel/VBox" unique_id=1000000061]
+layout_mode = 2
+
+[node name="BtnRow" type="HBoxContainer" parent="LessonResultScreen/Panel/VBox" unique_id=1000000062]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="RetryBtn" type="Button" parent="LessonResultScreen/Panel/VBox/BtnRow" unique_id=828589491]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "ПОВТОРИТЬ"
+
+[node name="NextBtn" type="Button" parent="LessonResultScreen/Panel/VBox/BtnRow" unique_id=1828105952]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.78, 0.12, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "СЛЕДУЮЩИЙ"
+
+[node name="MenuBtn" type="Button" parent="LessonResultScreen/Panel/VBox/BtnRow" unique_id=1121086394]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.6, 0.12, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "МЕНЮ"
+
+[node name="MetaShop" type="CanvasLayer" parent="." unique_id=1000000080]
+layer = 35
+script = ExtResource("16_shop")
+
+[node name="Dimmer" type="ColorRect" parent="MetaShop" unique_id=1000000081]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.02, 0.01, 0.06, 0.88)
+
+[node name="Panel" type="Panel" parent="MetaShop" unique_id=1000000082]
+custom_minimum_size = Vector2(740, 520)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_shop_panel")
+
+[node name="VBox" type="VBoxContainer" parent="MetaShop/Panel" unique_id=1000000083]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="TopRow" type="HBoxContainer" parent="MetaShop/Panel/VBox" unique_id=1000000084]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ShopTitle" type="Label" parent="MetaShop/Panel/VBox/TopRow" unique_id=1000000085]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.75, 0.55, 1, 1)
+theme_override_font_sizes/font_size = 26
+text = " МАГАЗИН УЛУЧШЕНИЙ"
+vertical_alignment = 1
+
+[node name="CurrencyLabel" type="Label" parent="MetaShop/Panel/VBox/TopRow" unique_id=1000000086]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.3, 1)
+theme_override_font_sizes/font_size = 20
+text = "0 монет"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HSep" type="HSeparator" parent="MetaShop/Panel/VBox" unique_id=1000000087]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MetaShop/Panel/VBox" unique_id=1000000088]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Grid" type="GridContainer" parent="MetaShop/Panel/VBox/ScrollContainer" unique_id=1000000089]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 4
+
+[node name="HSep2" type="HSeparator" parent="MetaShop/Panel/VBox" unique_id=1000000101]
+layout_mode = 2
+
+[node name="CloseBtn" type="Button" parent="MetaShop/Panel/VBox" unique_id=1000000102]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0.5, 0.45, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_close_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_close_btn_hover")
+text = "ЗАКРЫТЬ"

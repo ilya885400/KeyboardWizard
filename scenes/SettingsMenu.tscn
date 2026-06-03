@@ -1,0 +1,247 @@
+[gd_scene format=3 uid="uid://drw1g8wdby1ut"]
+
+[ext_resource type="Script" uid="uid://03upd0ywwg23" path="res://scripts/settings_menu.gd" id="1_yelko"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+content_margin_left = 40.0
+content_margin_top = 36.0
+content_margin_right = 40.0
+content_margin_bottom = 36.0
+bg_color = Color(0.1, 0.06, 0.02, 0.98)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.92, 0.52, 0.05, 1)
+shadow_color = Color(0, 0, 0, 0.88)
+shadow_size = 14
+shadow_offset = Vector2(6, 6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slider_bg"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.2, 0.12, 0.03, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.55, 0.3, 0.04, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slider_fill"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.92, 0.52, 0.05, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.16, 0.09, 0.02, 0.97)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7, 0.38, 0.04, 1)
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 3
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_pressed"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.38, 0.22, 0.04, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.85, 0.3, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.28, 0.16, 0.03, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.65, 0.1, 1)
+shadow_color = Color(0.9, 0.5, 0.05, 0.45)
+shadow_size = 7
+shadow_offset = Vector2(2, 2)
+
+[node name="SettingsMenu" type="CanvasLayer" unique_id=112664661]
+layer = 30
+script = ExtResource("1_yelko")
+
+[node name="Backdrop" type="ColorRect" parent="." unique_id=2104992803]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.65)
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=1575374304]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -240.0
+offset_right = 260.0
+offset_bottom = 240.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=1972474249]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="TitleLabel" type="Label" parent="Panel/VBox" unique_id=537050938]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.75, 0.2, 1)
+theme_override_font_sizes/font_size = 22
+text = "НАСТРОЙКИ"
+horizontal_alignment = 1
+
+[node name="Sep0" type="HSeparator" parent="Panel/VBox" unique_id=77554986]
+layout_mode = 2
+
+[node name="VolTitle" type="Label" parent="Panel/VBox" unique_id=1820018345]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.6, 0.3, 1)
+theme_override_font_sizes/font_size = 13
+text = "— Громкость —"
+horizontal_alignment = 1
+
+[node name="MasterRow" type="HBoxContainer" parent="Panel/VBox" unique_id=1001181806]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MasterIcon" type="Label" parent="Panel/VBox/MasterRow" unique_id=431371328]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.9, 0.85, 0.7, 1)
+theme_override_font_sizes/font_size = 14
+text = "🔊  Мастер"
+
+[node name="MasterSlider" type="HSlider" parent="Panel/VBox/MasterRow" unique_id=28528460]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/slider = SubResource("StyleBoxFlat_slider_bg")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_slider_fill")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_slider_fill")
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="MasterValueLabel" type="Label" parent="Panel/VBox/MasterRow" unique_id=189887328]
+custom_minimum_size = Vector2(46, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.5, 1)
+theme_override_font_sizes/font_size = 13
+text = "100%"
+horizontal_alignment = 1
+
+[node name="MusicRow" type="HBoxContainer" parent="Panel/VBox" unique_id=1685234]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MusicIcon" type="Label" parent="Panel/VBox/MusicRow" unique_id=127949048]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.9, 0.85, 0.7, 1)
+theme_override_font_sizes/font_size = 14
+text = "♪  Музыка"
+
+[node name="MusicSlider" type="HSlider" parent="Panel/VBox/MusicRow" unique_id=233601891]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/slider = SubResource("StyleBoxFlat_slider_bg")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_slider_fill")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_slider_fill")
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="MusicValueLabel" type="Label" parent="Panel/VBox/MusicRow" unique_id=574378068]
+custom_minimum_size = Vector2(46, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.5, 1)
+theme_override_font_sizes/font_size = 13
+text = "100%"
+horizontal_alignment = 1
+
+[node name="SfxRow" type="HBoxContainer" parent="Panel/VBox" unique_id=460721988]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SfxIcon" type="Label" parent="Panel/VBox/SfxRow" unique_id=630787206]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.9, 0.85, 0.7, 1)
+theme_override_font_sizes/font_size = 14
+text = "💥  Звуки"
+
+[node name="SfxSlider" type="HSlider" parent="Panel/VBox/SfxRow" unique_id=1769861609]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/slider = SubResource("StyleBoxFlat_slider_bg")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_slider_fill")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_slider_fill")
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="SfxValueLabel" type="Label" parent="Panel/VBox/SfxRow" unique_id=31393170]
+custom_minimum_size = Vector2(46, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.5, 1)
+theme_override_font_sizes/font_size = 13
+text = "100%"
+horizontal_alignment = 1
+
+[node name="Sep1" type="HSeparator" parent="Panel/VBox" unique_id=2115099848]
+layout_mode = 2
+
+[node name="ScreenRow" type="HBoxContainer" parent="Panel/VBox" unique_id=169586646]
+layout_mode = 2
+alignment = 1
+
+[node name="FullscreenBtn" type="Button" parent="Panel/VBox/ScreenRow" unique_id=566761275]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.9, 0.85, 0.7, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.9, 0.3, 1)
+theme_override_colors/font_hover_color = Color(1, 0.75, 0.2, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_btn_normal")
+text = "ОКОННЫЙ РЕЖИМ"
+
+[node name="Sep2" type="HSeparator" parent="Panel/VBox" unique_id=1451792965]
+layout_mode = 2
+
+[node name="BackBtn" type="Button" parent="Panel/VBox" unique_id=237692522]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.75, 0.2, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.9, 0.3, 1)
+theme_override_colors/font_hover_color = Color(1, 0.9, 0.4, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_btn_normal")
+text = "◄  НАЗАД"

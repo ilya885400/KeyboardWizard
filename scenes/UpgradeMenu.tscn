@@ -1,0 +1,314 @@
+[gd_scene format=3 uid="uid://dmnfm8ig8kjqr"]
+
+[ext_resource type="Script" uid="uid://d1mudryeevi7d" path="res://scripts/upgrade_menu.gd" id="1_menu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_main_panel"]
+content_margin_left = 28.0
+content_margin_top = 24.0
+content_margin_right = 28.0
+content_margin_bottom = 24.0
+bg_color = Color(0.06, 0.04, 0.1, 0.98)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.85, 0.65, 0.15, 1)
+shadow_color = Color(0, 0, 0, 0.8)
+shadow_size = 8
+shadow_offset = Vector2(4, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card_normal"]
+content_margin_left = 14.0
+content_margin_top = 12.0
+content_margin_right = 14.0
+content_margin_bottom = 12.0
+bg_color = Color(0.08, 0.06, 0.14, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45, 0.35, 0.6, 0.85)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input_row"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.02, 0.06, 0.04, 0.97)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.25, 0.78, 0.4, 0.9)
+
+[node name="UpgradeMenu" type="CanvasLayer" unique_id=298315664]
+layer = 20
+script = ExtResource("1_menu")
+
+[node name="Dimmer" type="ColorRect" parent="." unique_id=2024893296]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="Panel" type="Panel" parent="." unique_id=509690009]
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -270.0
+offset_right = 230.0
+offset_bottom = 265.69995
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_main_panel")
+
+[node name="LevelLabel" type="Label" parent="Panel" unique_id=1778345838]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 452.0
+offset_bottom = 87.0
+theme_override_colors/font_color = Color(1, 0.92, 0.6, 1)
+theme_override_font_sizes/font_size = 20
+text = "★ УРОВЕНЬ 2!  ВЫБЕРИ УЛУЧШЕНИЕ: ★"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=34555605]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -183.0
+offset_right = -11.0
+offset_bottom = 237.15002
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="TitleRow" type="HBoxContainer" parent="Panel/VBox" unique_id=975736520]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="HSep" type="HSeparator" parent="Panel/VBox" unique_id=1932256702]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="SpeedCard" type="PanelContainer" parent="Panel/VBox" unique_id=681042462]
+process_mode = 3
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card_normal")
+
+[node name="VBox" type="VBoxContainer" parent="Panel/VBox/SpeedCard" unique_id=176723955]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="HBox" type="HBoxContainer" parent="Panel/VBox/SpeedCard/VBox" unique_id=954614082]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="IconBG" type="Panel" parent="Panel/VBox/SpeedCard/VBox/HBox" unique_id=2021625884]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Panel/VBox/SpeedCard/VBox/HBox/IconBG" unique_id=1589610064]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextVBox" type="VBoxContainer" parent="Panel/VBox/SpeedCard/VBox/HBox" unique_id=215798044]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 3
+
+[node name="Title" type="Label" parent="Panel/VBox/SpeedCard/VBox/HBox/TextVBox" unique_id=355795175]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.3, 1)
+theme_override_font_sizes/font_size = 15
+text = "СКОРОСТЬ БЕГА"
+
+[node name="Desc" type="Label" parent="Panel/VBox/SpeedCard/VBox/HBox/TextVBox" unique_id=2076369188]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.68, 0.62, 0.5, 1)
+theme_override_font_sizes/font_size = 12
+text = "+40 к скорости перемещения"
+autowrap_mode = 3
+
+[node name="WordRow" type="HBoxContainer" parent="Panel/VBox/SpeedCard/VBox" unique_id=818008069]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="KeyHint" type="Label" parent="Panel/VBox/SpeedCard/VBox/WordRow" unique_id=1928637238]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.5, 0.38, 1)
+theme_override_font_sizes/font_size = 11
+text = "введи:"
+vertical_alignment = 1
+
+[node name="WordLabel" type="Label" parent="Panel/VBox/SpeedCard/VBox/WordRow" unique_id=365297575]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.95, 0.45, 1)
+theme_override_font_sizes/font_size = 20
+text = "fire"
+horizontal_alignment = 1
+
+[node name="WordsCard" type="PanelContainer" parent="Panel/VBox" unique_id=1806078275]
+process_mode = 3
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card_normal")
+
+[node name="VBox" type="VBoxContainer" parent="Panel/VBox/WordsCard" unique_id=994803254]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="HBox" type="HBoxContainer" parent="Panel/VBox/WordsCard/VBox" unique_id=1004151078]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="IconBG" type="Panel" parent="Panel/VBox/WordsCard/VBox/HBox" unique_id=2061351782]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Panel/VBox/WordsCard/VBox/HBox/IconBG" unique_id=1717579731]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextVBox" type="VBoxContainer" parent="Panel/VBox/WordsCard/VBox/HBox" unique_id=1884872703]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 3
+
+[node name="Title" type="Label" parent="Panel/VBox/WordsCard/VBox/HBox/TextVBox" unique_id=1320218315]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.95, 0.65, 1)
+theme_override_font_sizes/font_size = 15
+text = "КОРОЧЕ СЛОВА"
+
+[node name="Desc" type="Label" parent="Panel/VBox/WordsCard/VBox/HBox/TextVBox" unique_id=1792972993]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.68, 0.62, 0.5, 1)
+theme_override_font_sizes/font_size = 12
+text = "−1 буква к длине слов врагов"
+autowrap_mode = 3
+
+[node name="WordRow" type="HBoxContainer" parent="Panel/VBox/WordsCard/VBox" unique_id=1230214465]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="KeyHint" type="Label" parent="Panel/VBox/WordsCard/VBox/WordRow" unique_id=977301577]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.5, 0.38, 1)
+theme_override_font_sizes/font_size = 11
+text = "введи:"
+vertical_alignment = 1
+
+[node name="WordLabel" type="Label" parent="Panel/VBox/WordsCard/VBox/WordRow" unique_id=955387347]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.95, 0.45, 1)
+theme_override_font_sizes/font_size = 20
+text = "rune"
+horizontal_alignment = 1
+
+[node name="HPCard" type="PanelContainer" parent="Panel/VBox" unique_id=309014708]
+process_mode = 3
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card_normal")
+
+[node name="VBox" type="VBoxContainer" parent="Panel/VBox/HPCard" unique_id=1373825979]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="HBox" type="HBoxContainer" parent="Panel/VBox/HPCard/VBox" unique_id=87559011]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="IconBG" type="Panel" parent="Panel/VBox/HPCard/VBox/HBox" unique_id=996776762]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Panel/VBox/HPCard/VBox/HBox/IconBG" unique_id=1956737754]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextVBox" type="VBoxContainer" parent="Panel/VBox/HPCard/VBox/HBox" unique_id=1875481478]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 3
+
+[node name="Title" type="Label" parent="Panel/VBox/HPCard/VBox/HBox/TextVBox" unique_id=847096925]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+theme_override_font_sizes/font_size = 15
+text = "ЖИЗНЕННАЯ СИЛА"
+
+[node name="Desc" type="Label" parent="Panel/VBox/HPCard/VBox/HBox/TextVBox" unique_id=1955959011]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.68, 0.62, 0.5, 1)
+theme_override_font_sizes/font_size = 12
+text = "+30 к макс. HP и восстановление"
+autowrap_mode = 3
+
+[node name="WordRow" type="HBoxContainer" parent="Panel/VBox/HPCard/VBox" unique_id=110314939]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="KeyHint" type="Label" parent="Panel/VBox/HPCard/VBox/WordRow" unique_id=1572842945]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.5, 0.38, 1)
+theme_override_font_sizes/font_size = 11
+text = "введи:"
+vertical_alignment = 1
+
+[node name="WordLabel" type="Label" parent="Panel/VBox/HPCard/VBox/WordRow" unique_id=559180164]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.95, 0.45, 1)
+theme_override_font_sizes/font_size = 20
+text = "soul"
+horizontal_alignment = 1
+
+[node name="HSep2" type="HSeparator" parent="Panel/VBox" unique_id=411050330]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="InputContainer" type="PanelContainer" parent="Panel/VBox" unique_id=1048209431]
+process_mode = 3
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_input_row")
+
+[node name="InputRow" type="HBoxContainer" parent="Panel/VBox/InputContainer" unique_id=1857637782]
+process_mode = 3
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Cursor" type="Label" parent="Panel/VBox/InputContainer/InputRow" unique_id=1140452046]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.95, 0.5, 1)
+theme_override_font_sizes/font_size = 22
+text = ">"
+vertical_alignment = 1
+
+[node name="InputLabel" type="Label" parent="Panel/VBox/InputContainer/InputRow" unique_id=1373100767]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.4, 0.95, 0.45, 1)
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+vertical_alignment = 1

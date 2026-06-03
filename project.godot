@@ -1,0 +1,57 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
+[application]
+
+config/name="Spell Typer"
+config/description="Vampire Survivors-like где враги уничтожаются вводом слов"
+run/main_scene="res://scenes/MainMenu.tscn"
+config/features=PackedStringArray("4.6", "Forward Plus")
+config/icon="res://assets/xp_orb.svg"
+
+[autoload]
+
+TypingLessonManager="*uid://swtwe8jgb1ed"
+GameEvents="*uid://dii3bwgqbr0gr"
+MusicPlayer="*uid://b8p4bwyarsrgb"
+DifficultyAi="*uid://byr75bsvs2tku"
+MetaProgress="*uid://c7m54yu32o23h"
+SettingsManager="*res://scripts/settings_manager.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/mode=3
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[gui]
+
+theme/custom="uid://cft347aamo5tt"
+
+[layer_names]
+
+2d_physics/layer_1="world"
+2d_physics/layer_2="enemies"
+2d_physics/layer_3="player"
+2d_physics/layer_4="projectiles"
+
+[physics]
+
+2d/default_gravity=0
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

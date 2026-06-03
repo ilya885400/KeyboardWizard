@@ -1,0 +1,127 @@
+[gd_scene format=3 uid="uid://cli2oxpshd1p5"]
+
+[ext_resource type="Script" uid="uid://rr5r13ragfs1" path="res://scripts/snake_boss.gd" id="1_boss"]
+[ext_resource type="Texture2D" uid="uid://dhyfg3tr03mqf" path="res://pixel_assets/pixel_enemies/snake_boss/snake_head.png" id="2_nd8if"]
+[ext_resource type="PackedScene" uid="uid://ccnealjihvuar" path="res://scenes/SnakeEgg.tscn" id="2_x62jp"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_boss"]
+radius = 20.0
+height = 60.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x62jp"]
+atlas = ExtResource("2_nd8if")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ekqyp"]
+atlas = ExtResource("2_nd8if")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slf8k"]
+atlas = ExtResource("2_nd8if")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_67ng0"]
+atlas = ExtResource("2_nd8if")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1x3my"]
+atlas = ExtResource("2_nd8if")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_head"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x62jp")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ekqyp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_slf8k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_67ng0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1x3my")
+}],
+"loop": false,
+"name": &"mouth_open",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_bg"]
+bg_color = Color(0.05, 0.1, 0.03, 0.9)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_fill"]
+bg_color = Color(0.2, 0.8, 0.1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="SnakeBoss" type="Node2D" unique_id=755224488]
+script = ExtResource("1_boss")
+egg_scene = ExtResource("2_x62jp")
+hp = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1604225683]
+shape = SubResource("CapsuleShape2D_boss")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1535064585]
+visible = false
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_head")
+animation = &"mouth_open"
+autoplay = "idle"
+
+[node name="WordLabel" type="RichTextLabel" parent="." unique_id=1625363685]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_top = -110.0
+offset_right = 60.0
+offset_bottom = -80.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.8, 1, 0.4, 1)
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "[center][color=#aaff55]BOSS[/color][/center]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="HPBar" type="ProgressBar" parent="." unique_id=1645343767]
+offset_left = -50.0
+offset_top = -140.0
+offset_right = 50.0
+offset_bottom = -128.0
+theme_override_colors/font_color = Color(0, 0, 0, 0)
+theme_override_styles/background = SubResource("StyleBoxFlat_hp_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hp_fill")
+max_value = 80.0
+value = 80.0
+show_percentage = false
+
+[node name="BossLabel" type="Label" parent="." unique_id=1389910857]
+visible = false
+offset_left = -60.0
+offset_top = -165.0
+offset_right = 60.0
+offset_bottom = -148.0
+theme_override_colors/font_color = Color(0.4, 1, 0.2, 1)
+theme_override_font_sizes/font_size = 13
+text = "⚠ БОСС-ЗМЕЯ ⚠"
+horizontal_alignment = 1

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b8p4bwyarsrgb"]
+
+[ext_resource type="AudioStream" uid="uid://bf3i582reacki" path="res://sounds/music/2026-05-20T07_05_20.581Z.wav" id="1_yvkaf"]
+[ext_resource type="Script" uid="uid://d3lw34d8o3an6" path="res://scenes/music_player.gd" id="2_k52d1"]
+
+[node name="MusicPlayer" type="AudioStreamPlayer" unique_id=182088843]
+process_mode = 3
+stream = ExtResource("1_yvkaf")
+volume_db = -4.0
+script = ExtResource("2_k52d1")
